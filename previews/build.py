@@ -94,6 +94,56 @@ THEMES = {
 THEMES["tree service"] = THEMES["landscaping"]
 THEMES["fence"] = THEMES["gates"]
 
+def _t(base, **kw):
+    d = dict(THEMES[base]); d.update(kw); return d
+
+THEMES.update({
+    "pool": _t("pressure washing", accent="#0284C7", headline="A pool you want to jump in, every week.",
+        sub="Pool service in {city}. Weekly cleaning, balanced water and repairs, with a photo after every visit.",
+        services=["Weekly pool service", "Green-to-clean", "Filter cleaning", "Pump and motor repair", "Acid washes", "Equipment upgrades"], cta="Get a service quote"),
+    "plumbing": _t("pressure washing", accent="#1D4ED8", headline="Leak today. Fixed today.",
+        sub="Plumbing in {city}. Upfront prices, clean work, and a plumber who shows up when we say.",
+        services=["Leak repair", "Water heaters", "Drain cleaning", "Repiping", "Fixtures and faucets", "Emergency service"], cta="Call a plumber"),
+    "electrical": _t("hvac", accent="#CA8A04", headline="Power you don’t have to think about.",
+        sub="Electrical work in {city}. Licensed, upfront pricing, and done to code the first time.",
+        services=["Panel upgrades", "Lighting", "Outlets and switches", "Ceiling fans", "EV chargers", "Troubleshooting"], cta="Get a quote"),
+    "flooring": _t("painting", accent="#92400E", idea="shingles", headline="Floors you notice every time you walk in.",
+        sub="Flooring in {city}. Tile, wood and vinyl, measured, installed and cleaned up by our own crew.",
+        services=["Tile", "Hardwood", "Luxury vinyl", "Carpet", "Floor removal", "Free measure"], cta="Book a free measure"),
+    "remodeling": _t("painting", accent="#9A3412", idea="bars", headline="The kitchen you keep showing people.",
+        sub="Remodeling in {city}. Kitchens, baths and more, on schedule and on budget.",
+        services=["Kitchen remodels", "Bathroom remodels", "Cabinets and counters", "Flooring", "Room additions", "Design help"], cta="Book a consultation"),
+    "handyman": _t("gates", accent="#B45309", headline="That list on your fridge? Done this week.",
+        sub="Handyman service in {city}. Repairs, installs and odd jobs, big or small.",
+        services=["Repairs", "Drywall patches", "Installs and mounting", "Doors and trim", "Fixtures", "Honey-do lists"], cta="Send me your list"),
+    "auto detailing": _t("pressure washing", accent="#111827", headline="Like the day you drove it home.",
+        sub="Auto detailing in {city}. Inside and out, down to the cup holders.",
+        services=["Full detail", "Interior deep clean", "Wash and wax", "Paint correction", "Ceramic coating", "Headlight restore"], cta="Book a detail"),
+    "auto repair": _t("hvac", accent="#DC2626", idea="bars", headline="Straight answers about your car.",
+        sub="Auto repair in {city}. We show you what’s wrong before we fix it, and we call before any extra work.",
+        services=["Brakes", "Engine diagnostics", "A/C repair", "Oil changes", "Suspension", "Inspections"], cta="Book a repair"),
+    "garage doors": _t("gates", accent="#475569", idea="shingles", headline="Stuck garage door? Same-day fix.",
+        sub="Garage door repair in {city}. Springs, openers and new doors, installed right.",
+        services=["Spring repair", "Openers", "New doors", "Off-track doors", "Tune-ups", "Emergency service"], cta="Call for same-day service"),
+    "pest control": _t("landscaping", accent="#15803D", idea="paws", headline="Scorpions out. Family in.",
+        sub="Pest control in {city}. Safe for kids and pets, with a guarantee between visits.",
+        services=["Scorpions", "Termites", "Ants and roaches", "Rodents", "Bees", "Monthly plans"], cta="Get a free inspection"),
+    "appliance repair": _t("hvac", accent="#0F766E", idea="bars", headline="Fixed, not replaced.",
+        sub="Appliance repair in {city}. Washers, dryers, fridges and ovens, usually in one visit.",
+        services=["Refrigerators", "Washers", "Dryers", "Ovens and ranges", "Dishwashers", "Ice makers"], cta="Book a repair"),
+    "cabinets": _t("painting", accent="#78350F", idea="bars", headline="Cabinets built for your kitchen, not a catalog.",
+        sub="Custom cabinets in {city}. Designed, built and installed by our shop.",
+        services=["Kitchen cabinets", "Bathroom vanities", "Built-ins", "Closets", "Refacing", "Installation"], cta="Book a measure"),
+})
+TRADE_THEME = {"roofing": "roofing", "landscaping": "landscaping", "painting contractors": "painting",
+    "house cleaning": "cleaning", "carpet cleaning": "cleaning", "pool service": "pool",
+    "pressure washing": "pressure washing", "handyman": "handyman", "flooring": "flooring",
+    "remodeling contractors": "remodeling", "plumbers": "plumbing", "electricians": "electrical",
+    "garage doors": "garage doors", "pest control": "pest control", "auto repair": "auto repair",
+    "auto detailing": "auto detailing", "tree service": "landscaping", "concrete contractors": "stone",
+    "fence contractors": "gates", "cabinet makers": "cabinets", "glass repair": "glass", "hvac": "hvac",
+    "dog grooming": "grooming", "appliance repair": "appliance repair"}
+
 
 def e(s):
     return html.escape(str(s), quote=True)
@@ -254,7 +304,7 @@ def page(lead):
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?{fonts}&display=swap">
 <style>{CSS % t}</style>
 </head><body>
-<div class="preview-bar">A homepage preview made for {e(name)} by Stand Out Studios. <a href="{CLAIM}">Make it yours →</a></div>
+<div class="preview-bar">A free homepage mockup made for {e(name)} by Stand Out Studios. Words and photos are placeholders until you send yours. <a href="{CLAIM}">Make it yours →</a></div>
 <header><div class="logo">{e(name)}</div><a class="call" href="tel:{tel}">Call {e(phone)}</a></header>
 <main>
 <div class="hero">
@@ -281,13 +331,14 @@ def page(lead):
   <textarea placeholder="What do you need done?" aria-label="What do you need done?"></textarea>
   <button>Send</button></form></section>
 </main>
-<footer><span>© {e(name)} · {e(city)}, AZ</span><span>Preview by <a href="{CLAIM}">Stand Out Studios</a></span></footer>
+<footer><span>© {e(name)} · {e(city)}, {e(lead.get('state', 'AZ'))}</span><span>Preview by <a href="{CLAIM}">Stand Out Studios</a></span></footer>
 <a class="btn primary sticky-call" href="tel:{tel}">Call {e(phone)}</a>
 </body></html>"""
 
 
 def main():
-    leads = json.loads((ROOT / "leads.json").read_text())
+    import os
+    leads = json.loads((ROOT / os.environ.get("LEADS", "leads.json")).read_text())
     OUT.mkdir(exist_ok=True)
     rows = []
     for lead in leads:
