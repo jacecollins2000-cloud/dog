@@ -5,6 +5,8 @@ Writes outreach/queue.json (form + email targets) and mockups into $SITE_DIR.
 import csv, json, os, pathlib, re, sys, urllib.parse
 sys.path.insert(0, str(pathlib.Path(__file__).parent.parent / "previews"))
 import build  # noqa: E402
+sys.path.insert(0, str(pathlib.Path(__file__).parent))
+import emailcopy  # noqa: E402
 
 ROOT = pathlib.Path(__file__).parent
 SITE_DIR = pathlib.Path(os.environ["SITE_DIR"])
@@ -138,9 +140,10 @@ def main():
         email_body = (f"{hi}\n\n{why}\n\n{where}, and I made {short} a free mockup of a phone-friendly "
                       "homepage, with your services up top and a one-tap call button.\n\nWant me to send you the link?\n\n"
                       + SIG + '\nReply "no" and I won\'t email again.')
+        subj, body = emailcopy.compose(dict(lead, domain=domain, reasons=r["reasons"]), first_name(email) if email else "")
         queue.append(dict(lead, channel=channel, domain=domain, website=r["final_url"], contact_url=r["contact_url"],
                           email=email, reasons=r["reasons"], preview_url=url, form_message=form_msg,
-                          email_subject=f"{short} on phones", email_body=email_body))
+                          email_subject=subj, email_body=body))
     (ROOT / os.environ.get("QUEUE_OUT", "queue.json")).write_text(json.dumps(queue, indent=1))
     print(f"queued {forms} forms, {emails} emails")
 
