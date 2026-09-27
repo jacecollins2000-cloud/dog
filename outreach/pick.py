@@ -35,6 +35,26 @@ def best_email(emails, domain):
     free = [e for e in ok if e.split("@")[1] in FREEMAIL]
     return (own or free or [""])[0]
 
+NAMES = set("""aaron adam adrian al alan albert alex alexander allen amanda amber amy andrea andrew andy angel angela anita ann anna
+anne anthony antonio april art arthur ashley barbara barry ben benjamin beth betty bill billy bob bobby bonnie brad bradley
+brandon brenda brent brett brian bruce bryan carl carla carlos carol carolyn casey cathy chad charles charlie cheryl chris
+christina christine christopher chuck cindy clay clint cody colleen connie craig crystal curt curtis dale dan dana daniel danny
+darin darrell darren dave david dawn dean debbie deborah debra denise dennis derek diana diane don donald donna doug douglas
+duane dustin dwayne earl ed eddie edward eric erica erik erin frank fred gail gary gene george gerald glen glenn greg gregory
+hank harold harry heather heidi helen henry holly howard jack jackie jacob jaime james jamie jan jane janet janice jared jason
+jay jean jeff jeffrey jen jennifer jenny jeremy jerry jesse jessica jim jimmy joan joe joel joey john johnny jon jonathan jorge
+jose joseph josh joshua joy juan judy julie justin karen kathy katie keith kelly ken kenneth kevin kim kimberly kirk kris kristen
+kurt kyle larry laura lauren leo leon leslie linda lisa lori louis luis lynn marc marcus maria marie mario mark martin marty
+mary matt matthew melissa michael michelle mike miguel mitch monica nancy nathan neil nick nicole norm norman pam pamela pat
+patricia patrick paul peggy pete peter phil phillip rachel ralph randy ray raymond rebecca rich richard rick ricky rob robert
+robin rod rodney roger ron ronald ross roy russ russell ruth ryan sally sam samantha sandra sandy sara sarah scott sean shane
+shannon sharon shawn sheila shelly stacy stan stephanie stephen steve steven sue susan tammy ted teresa terri terry thomas tim
+timothy tina todd tom tommy tony tracy travis troy tyler valerie vicki victor vince wade walter wayne wendy will william zach""".split())
+
+def first_name(email):
+    tok = re.split(r"[._\-0-9]", email.split("@")[0].lower())[0]
+    return tok.capitalize() if tok in NAMES else ""
+
 def reason_line(reasons, domain):
     r = reasons.lower()
     year = re.search(r"copyright (\d{4})", r)
@@ -113,7 +133,9 @@ def main():
                     "If you like it, I can turn it into your real site. Prices start at $399 and it's live in 7 days. "
                     "If not, no worries at all. Just reply to jace.standoutstudios@gmail.com.\n\n" + SIG)
         short = re.sub(r"\b(llc|inc|co|corp|company)\b\.?", "", r["name"], flags=re.I).strip(" ,.-")
-        email_body = (f"Hi,\n\n{why}\n\nI'm a web designer in Henderson, and I made {short} a free mockup of a phone-friendly "
+        hi = f"Hi {first_name(email)}," if email and first_name(email) else "Hi,"
+        where = "I'm a web designer in Henderson" if state == "NV" else "I'm a web designer"
+        email_body = (f"{hi}\n\n{why}\n\n{where}, and I made {short} a free mockup of a phone-friendly "
                       "homepage, with your services up top and a one-tap call button.\n\nWant me to send you the link?\n\n"
                       + SIG + '\nReply "no" and I won\'t email again.')
         queue.append(dict(lead, channel=channel, domain=domain, website=r["final_url"], contact_url=r["contact_url"],
