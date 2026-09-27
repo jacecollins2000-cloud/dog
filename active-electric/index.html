@@ -41,6 +41,7 @@ blockquote cite{display:block;margin-top:12px;font-style:normal;font-size:14px;o
 .quote input,.quote textarea{font:inherit;padding:14px;border-radius:10px;border:0;background:rgba(255,255,255,.1);color:inherit}
 .quote textarea{grid-column:1/-1;min-height:110px}
 .quote button{grid-column:1/-1;font:inherit;font-weight:700;padding:16px;border-radius:999px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+.claim{background:var(--soft);text-align:center}.claim h2{margin:0 auto}.claim p{max-width:36em;margin:16px auto}.claim .btn{margin-top:8px}.claim .fine{font-size:14px;opacity:.75}
 footer{padding:28px clamp(16px,4vw,48px);font-size:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;opacity:.8}
 .sticky-call{display:none}
 @media (max-width:760px){
@@ -86,7 +87,7 @@ footer{padding:28px clamp(16px,4vw,48px);font-size:14px;display:flex;justify-con
 @media (prefers-reduced-motion:reduce){*{animation-duration:0s!important;animation-delay:0s!important}}
 </style>
 </head><body>
-<div class="preview-bar">A free homepage mockup made for Active Electric by Stand Out Studios. Words and photos are placeholders until you send yours. <a href="https://stand-out-studios.pages.dev/start/">Make it yours →</a></div>
+<div class="preview-bar">A free homepage mockup made for Active Electric by Stand Out Studios. Words and photos are placeholders until you send yours. <a href="#claim">Make it yours →</a></div>
 <header><div class="logo">Active Electric</div><a class="call" href="tel:9372991885">Call (937) 299-1885</a></header>
 <main>
 <div class="hero">
@@ -112,6 +113,11 @@ footer{padding:28px clamp(16px,4vw,48px);font-size:14px;display:flex;justify-con
   <input placeholder="Name" aria-label="Name"><input placeholder="Phone" aria-label="Phone">
   <textarea placeholder="What do you need done?" aria-label="What do you need done?"></textarea>
   <button>Send</button></form></section>
+<section class="claim" id="claim"><h2>Want this to be your website?</h2>
+ <p>Stand Out Studios builds it with your own photos and words. One page from $399, up to 5 pages for $799. Live in 7 days.</p>
+ <a class="btn primary" href="https://buy.stripe.com/eVq3cudQMf6A9L7axGcAo00">Start with a $100 refundable deposit</a>
+ <p class="fine">The $100 counts toward your price. If you don't love the finished preview, you get it back. Questions? Email jace.standoutstudios@gmail.com</p>
+</section>
 </main>
 <footer><span>© Active Electric · Dayton, AZ</span><span>Preview by <a href="https://stand-out-studios.pages.dev/start/">Stand Out Studios</a></span></footer>
 <a class="btn primary sticky-call" href="tel:9372991885">Call (937) 299-1885</a>
