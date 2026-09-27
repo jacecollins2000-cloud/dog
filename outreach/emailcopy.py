@@ -14,7 +14,9 @@ PLURAL = {
     "salon": "salons", "nails": "nail salons", "spa": "spas", "restaurant": "restaurants", "cafe": "coffee shops",
     "bakery": "bakeries", "florist": "florists", "tattoo": "tattoo studios", "boutique": "boutiques",
 }
-NAME_HINTS = [(r"plumb|drain|rooter", "plumbers"), (r"carpet|steam|upholster", "carpet cleaners"), (r"electric", "electricians"), (r"roof", "roofers"), (r"paint", "painters"),
+# First match wins: carpet and window cleaners before flooring and glass, generic cleaning last.
+NAME_HINTS = [(r"plumb|drain|rooter", "plumbers"), (r"carpet|steam|upholster", "carpet cleaners"), (r"window.*clean", "window cleaners"),
+              (r"electric", "electricians"), (r"roof", "roofers"), (r"paint", "painters"),
               (r"landscap|lawn|yard", "landscapers"), (r"tree", "tree services"), (r"pool|spa\b", "pool services"),
               (r"fenc", "fence companies"), (r"concrete|cement|masonry", "concrete contractors"),
               (r"garage door", "garage door companies"), (r"pest|termite", "pest control companies"),
