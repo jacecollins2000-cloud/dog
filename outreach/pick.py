@@ -21,7 +21,7 @@ SIG = ("Jace, Stand Out Studios\njace.standoutstudios@gmail.com\n"
        "1000 North Green Valley Parkway, Henderson, NV 89074")
 
 FONT_CREDITS = re.compile(r"impallari|anapbm|eyebytes|sansoxygen|typefoundry|sorkin|fuenzalida|cyreal|tipo|fontdiner|"
-    r"typemade|huertatipografica|latinotype|sil\.org|googlefonts|fonts?@|type@|@typeco|kimberlygeswein|vernon", re.I)
+    r"typemade|huertatipografica|latinotype|sil\.org|googlefonts|fonts?@|type@|@typeco|kimberlygeswein|vernon|milenabbrandao", re.I)
 FREEMAIL = ("gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "aol.com", "icloud.com", "cox.net", "msn.com",
             "live.com", "me.com", "att.net", "sbcglobal.net", "comcast.net")
 
@@ -71,7 +71,7 @@ def main():
     if dnc.exists():
         done |= set(dnc.read_text().split())
     rows = []
-    for f in ["bad_sites_vegas.csv", "bad_sites.csv", "bad_sites_more.csv", "bad_sites_more2.csv", "bad_sites_more3.csv"]:  # Vegas first: local to Henderson
+    for f in ["bad_sites_vegas.csv", "bad_sites.csv", "bad_sites_more.csv", "bad_sites_more2.csv", "bad_sites_more3.csv", "bad_sites_vegas_retail.csv"]:  # Vegas first: local to Henderson
         p = ROOT.parent / "leads" / f
         if p.exists():
             rows += list(csv.DictReader(open(p)))

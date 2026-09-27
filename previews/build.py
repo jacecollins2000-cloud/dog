@@ -145,6 +145,44 @@ TRADE_THEME = {"roofing": "roofing", "landscaping": "landscaping", "painting con
     "fence contractors": "gates", "cabinet makers": "cabinets", "glass repair": "glass", "hvac": "hvac",
     "dog grooming": "grooming", "appliance repair": "appliance repair"}
 
+THEMES.update({
+    "barber": _t("grooming", bg="#F3F0EA", ink="#15130F", accent="#B91C1C", soft="#E3DDD2", display="Archivo", idea="bars",
+        headline="Walk in sharp. Walk out sharper.", sub="Barbershop in {city}. Clean fades, hot towel shaves and a chair that's ready when you are.",
+        services=["Haircuts", "Fades", "Beard trims", "Hot towel shaves", "Kids' cuts", "Line-ups"], cta="Book a cut"),
+    "salon": _t("grooming", bg="#FBF3F1", ink="#2A1A1A", accent="#BE185D", soft="#F3DEDB", idea="paws",
+        headline="The appointment you look forward to all week.", sub="Salon in {city}. Color, cuts and care from stylists who listen first.",
+        services=["Cuts and styling", "Color", "Highlights", "Blowouts", "Treatments", "Bridal"], cta="Book an appointment"),
+    "nails": _t("grooming", bg="#FDF4F7", ink="#2B1620", accent="#DB2777", soft="#F6DDE7", idea="paws",
+        headline="Nails you'll keep looking at.", sub="Nail salon in {city}. Clean tools, relaxed chairs and designs made for you.",
+        services=["Manicures", "Pedicures", "Gel", "Acrylics", "Nail art", "Dip powder"], cta="Book your nails"),
+    "spa": _t("cleaning", bg="#F2F5F1", ink="#18221B", accent="#4D7C5A", soft="#DDE7DE",
+        headline="An hour that's only about you.", sub="Spa in {city}. Massage, facials and quiet rooms to reset.",
+        services=["Massage", "Facials", "Body treatments", "Couples sessions", "Waxing", "Gift cards"], cta="Book a treatment"),
+    "restaurant": _t("painting", bg="#FBF5EC", ink="#23180E", accent="#C2410C", soft="#F0E1CB", idea="stroke",
+        headline="Tonight's table is waiting.", sub="Restaurant in {city}. Made-from-scratch food, a menu you can see before you come, and a table in one tap.",
+        services=["See the menu", "Reserve a table", "Order pickup", "Catering", "Private events", "Gift cards"], cta="Reserve a table"),
+    "cafe": _t("painting", bg="#F7F1EA", ink="#2A1D14", accent="#92400E", soft="#EADCCB", idea="stroke",
+        headline="Your morning starts here.", sub="Coffee in {city}. Fresh roasts, baked goods and a seat by the window.",
+        services=["Espresso drinks", "Drip and pour-over", "Pastries", "Breakfast", "Order ahead", "Catering"], cta="See the menu"),
+    "bakery": _t("painting", bg="#FDF6EE", ink="#2B1D12", accent="#D97706", soft="#F4E4CF", idea="stroke",
+        headline="Baked this morning. Gone by this afternoon.", sub="Bakery in {city}. Breads, pastries and custom cakes made by hand every day.",
+        services=["Custom cakes", "Pastries", "Breads", "Cookies", "Order ahead", "Catering"], cta="Order a cake"),
+    "florist": _t("landscaping", bg="#FBF5F6", ink="#23161A", accent="#BE123C", soft="#F2DEE2", idea="plan",
+        headline="Flowers that say it for you.", sub="Florist in {city}. Same-day arrangements, weddings and events, delivered with care.",
+        services=["Same-day delivery", "Weddings", "Sympathy", "Birthdays", "Events", "Subscriptions"], cta="Send flowers"),
+    "tattoo": _t("gates", bg="#121212", ink="#F2F2F2", accent="#E11D48", soft="#262626", idea="bars",
+        headline="Art you'll wear for life.", sub="Tattoo studio in {city}. Custom designs, clean studio and artists who take their time.",
+        services=["Custom tattoos", "Cover-ups", "Fine line", "Color work", "Black and grey", "Piercing"], cta="Book a consult"),
+    "boutique": _t("painting", bg="#F7F4F0", ink="#1C1A17", accent="#7C3AED", soft="#E7E0D6", idea="stroke",
+        headline="Pieces you won't see on everyone else.", sub="Boutique in {city}. New arrivals every week, styled by people who love it.",
+        services=["New arrivals", "Dresses", "Tops", "Accessories", "Gift cards", "Shop online"], cta="Shop new arrivals"),
+})
+TRADE_THEME.update({"barbers": "barber", "beauty salons": "salon", "nail salons": "nails", "day spas": "spa",
+    "massage therapists": "spa", "restaurants": "restaurant", "mexican restaurants": "restaurant", "coffee shops": "cafe",
+    "bakeries": "bakery", "florists": "florist", "car wash": "auto detailing", "tattoos": "tattoo",
+    "food trucks": "restaurant", "pet grooming": "grooming", "boutiques": "boutique"})
+
+
 
 def e(s):
     return html.escape(str(s), quote=True)
