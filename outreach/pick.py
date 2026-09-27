@@ -71,7 +71,7 @@ def main():
     if dnc.exists():
         done |= set(dnc.read_text().split())
     rows = []
-    for f in ["bad_sites_vegas.csv", "bad_sites.csv", "bad_sites_more.csv"]:  # Vegas first: local to Henderson
+    for f in ["bad_sites_vegas.csv", "bad_sites.csv", "bad_sites_more.csv", "bad_sites_more2.csv"]:  # Vegas first: local to Henderson
         p = ROOT.parent / "leads" / f
         if p.exists():
             rows += list(csv.DictReader(open(p)))
