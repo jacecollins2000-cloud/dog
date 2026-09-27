@@ -8,7 +8,7 @@ Check for payment: Gmail search `from:stripe.com newer_than:7d`.
 ## "Yes / sure / send it / how much?"
 > Here it is: {mockup_url}
 >
-> It's a first pass with placeholder words and photos. Your real site would use your photos, your services and your reviews.
+> It's a first pass with placeholder words and photos. Your real site would use your photos, your services and your reviews. You can see other sites I've designed, and how the process works, here: https://stand-out-studios.pages.dev/
 >
 > A one-page site like this is $399, or $799 for up to 5 pages. To start, there's a $100 deposit that counts toward the price. If you don't love the full preview, you get it back:
 > https://buy.stripe.com/eVq3cudQMf6A9L7axGcAo00
