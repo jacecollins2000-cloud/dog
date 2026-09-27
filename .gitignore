@@ -7,3 +7,4 @@ outreach/queue*.json
 outreach/do_not_contact.txt
 previews/site/
 __pycache__/
+outreach/videos/
