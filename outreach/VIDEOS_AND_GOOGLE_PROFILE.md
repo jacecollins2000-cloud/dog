@@ -34,3 +34,25 @@ Reply to every comment within an hour: "Love it! DM me your business name and I'
 - **First post:** "Free homepage mockup for 5 Henderson businesses this month. Message us your business name."
 
 Verification is by video or phone from Google; after that, ask your first client for a review.
+
+# Days 4–7
+
+## Day 4: clearline.mp4
+Hook: **A glass shop website where the broken glass heals itself**
+Caption:
+> Clearline's homepage starts cracked and fixes itself as you watch, then puts "call the shop" one tap away. Comment your trade and I'll mock up your homepage free. #webdesign #glass #smallbusiness #lasvegas
+
+## Day 5: mare.mp4
+Hook: **A restaurant menu painted with a big blue brush**
+Caption:
+> Tonight's menu with prices, then a table booked in one tap. Your restaurant's site should taste like the food. Comment your restaurant and I'll design your homepage free. #restaurant #webdesign #lasvegasfood #smallbusiness
+
+## Day 6: saguaro.mp4
+Hook: **A landscaper site that draws every plant before digging**
+Caption:
+> Every plant has its own card: how big it gets and how much water it drinks. Customers book a site visit right from the plan. Comment your trade for a free mockup. #landscaping #desertlandscaping #webdesign #henderson
+
+## Day 7: brightwick.mp4
+Hook: **Wipe the room clean on a cleaning company's website**
+Caption:
+> Customers price their clean on the page, then book it. No phone tag. Own a cleaning business? Comment "mine" for a free homepage mockup. #cleaningbusiness #webdesign #smallbusiness #lasvegas
