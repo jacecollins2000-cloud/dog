@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Santa Maria Valley Fume · Homepage preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Castoro:wght@400;700&family=Inter:wght@400;600;700&display=swap">
+<style>
+*{box-sizing:border-box;margin:0}
+:root{--bg:#F4F1E8;--ink:#1C1E19;--accent:#15803D;--soft:#E4DECB;--display:'Castoro',Georgia,serif}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:17px/1.55 'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.preview-bar{background:var(--ink);color:var(--bg);font-size:14px;padding:10px 16px;text-align:center}
+.preview-bar a{color:var(--bg);font-weight:700}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px clamp(16px,4vw,48px);gap:12px}
+.logo{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.01em}
+.call{background:var(--accent);color:#fff;text-decoration:none;padding:12px 18px;border-radius:999px;font-weight:700;white-space:nowrap;font-size:15px}
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(24px,5vw,64px);align-items:center;padding:clamp(24px,6vw,72px) clamp(16px,4vw,48px) clamp(40px,7vw,96px)}
+h1{font-family:var(--display);font-size:clamp(38px,6vw,74px);line-height:1.02;letter-spacing:-.02em;font-weight:700}
+.sub{font-size:clamp(17px,1.6vw,20px);margin-top:20px;max-width:34em;opacity:.85}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-block;padding:15px 22px;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid var(--ink)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.trust{display:flex;gap:22px;flex-wrap:wrap;margin-top:26px;font-size:14px;opacity:.75}
+.art{width:100%;height:auto;aspect-ratio:600/420;display:block}
+section{padding:clamp(48px,7vw,96px) clamp(16px,4vw,48px)}
+h2{font-family:var(--display);font-size:clamp(30px,4vw,48px);line-height:1.08;letter-spacing:-.015em;max-width:18em}
+.services{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:32px}
+.services div{background:var(--soft);padding:22px;border-radius:14px;font-weight:600;font-size:18px}
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px}
+.photos div{aspect-ratio:4/3;border-radius:14px;background:repeating-linear-gradient(135deg,var(--soft) 0 14px,transparent 14px 28px);display:grid;place-items:center;font-size:14px;opacity:.8;text-align:center;padding:12px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px;counter-reset:s}
+.steps div{border-top:3px solid var(--accent);padding-top:16px}
+.steps div::before{counter-increment:s;content:counter(s);font-family:var(--display);font-size:40px;font-weight:700;color:var(--accent);display:block}
+.reviews{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:32px}
+blockquote{background:#fff;padding:24px;border-radius:14px;font-size:18px}
+blockquote cite{display:block;margin-top:12px;font-style:normal;font-size:14px;opacity:.65}
+.quote{background:var(--ink);color:var(--bg)}
+.quote form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;max-width:720px}
+.quote input,.quote textarea{font:inherit;padding:14px;border-radius:10px;border:0;background:rgba(255,255,255,.1);color:inherit}
+.quote textarea{grid-column:1/-1;min-height:110px}
+.quote button{grid-column:1/-1;font:inherit;font-weight:700;padding:16px;border-radius:999px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+.claim{background:var(--soft);text-align:center}.claim h2{margin:0 auto}.claim p{max-width:36em;margin:16px auto}.claim .btn{margin-top:8px}.claim .fine{font-size:14px;opacity:.75}
+footer{padding:28px clamp(16px,4vw,48px);font-size:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;opacity:.8}
+.sticky-call{display:none}
+@media (max-width:760px){
+ .hero{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.photos{grid-template-columns:1fr 1fr}
+ .quote form{grid-template-columns:1fr}
+ .sticky-call{display:block;position:fixed;left:16px;right:16px;bottom:16px;text-align:center;z-index:5;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+ body{padding-bottom:84px}
+}
+/* hero ideas */
+.draw{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 1.6s cubic-bezier(.6,0,.2,1) forwards}
+.d2{animation-delay:.5s}.d3{animation-delay:1s}
+@keyframes draw{to{stroke-dashoffset:0}}
+.pop circle{transform-box:fill-box;transform-origin:center;transform:scale(0);animation:pop .6s ease forwards}
+.pop circle:nth-child(n){animation-delay:calc(var(--i,0)*1s)}
+.pop circle:nth-child(2){animation-delay:.2s}.pop circle:nth-child(3){animation-delay:.4s}.pop circle:nth-child(4){animation-delay:.6s}.pop circle:nth-child(5){animation-delay:.8s}.pop circle:nth-child(6){animation-delay:1s}.pop circle:nth-child(7){animation-delay:1.2s}.pop circle:nth-child(8){animation-delay:1.4s}
+@keyframes pop{to{transform:scale(1)}}
+.wipe{position:relative;background:var(--soft);border-radius:18px;overflow:hidden}
+.wipe .room{position:absolute;inset:0;display:grid;align-content:center;gap:10px;padding:32px;font-weight:700;font-size:clamp(18px,2.4vw,26px)}
+.wipe .room span::before{content:'✓ ';color:var(--accent)}
+.wipe .grime{position:absolute;inset:0;background:repeating-radial-gradient(circle at 30% 40%,#b8ad97 0 3px,#a89c84 3px 9px);animation:wipe 2.4s .4s cubic-bezier(.6,0,.2,1) forwards;clip-path:inset(0 0 0 0)}
+@keyframes wipe{to{clip-path:inset(0 0 0 100%)}}
+.shingles{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;transform:perspective(700px) rotateX(28deg);border-radius:10px;overflow:hidden}
+.shingles i{aspect-ratio:1.4;background:var(--accent);opacity:0;border-radius:0 0 10px 10px;animation:tile .4s var(--d) forwards}
+.shingles i:nth-child(3n){filter:brightness(.85)}.shingles i:nth-child(5n){filter:brightness(1.12)}
+@keyframes tile{to{opacity:1}}
+.heal path{stroke-dasharray:400;stroke-dashoffset:0;animation:heal 1.8s 1s ease forwards}
+@keyframes heal{to{stroke-dashoffset:400}}
+.paws{position:relative;background:var(--soft);border-radius:18px}
+.paws svg{position:absolute;width:13%;fill:var(--accent);opacity:0;animation:tile .3s var(--d) forwards}
+.wash{position:relative;border-radius:18px;overflow:hidden}
+.wash .pavers{position:absolute;inset:0;background:conic-gradient(from 90deg at 2px 2px,#0000 90deg,#cfc7ba 0) 0 0/60px 40px,#ebe5da}
+.wash .dirt{position:absolute;inset:0;background:linear-gradient(#5f574bdd,#4c463cdd);animation:wipe 2.6s .4s cubic-bezier(.6,0,.2,1) forwards}
+.temp{display:grid;align-content:center;gap:18px;background:var(--soft);border-radius:18px;padding:32px}
+.temp .num{position:relative;height:1.1em;font:700 clamp(64px,10vw,130px)/1 var(--display)}
+.temp .num span{position:absolute}
+.temp .hot{color:var(--accent);animation:out .6s 1.4s forwards}
+.temp .cool{color:#1B6FA8;opacity:0;animation:in .6s 1.6s forwards}
+.temp .bar{height:14px;background:#fff;border-radius:99px;overflow:hidden}
+.temp .fill{height:100%;width:95%;background:var(--accent);animation:cool 2s .4s ease forwards}
+@keyframes cool{to{width:35%;background:#1B6FA8}}
+@keyframes out{to{opacity:0;transform:translateY(-20px)}}
+@keyframes in{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:0s!important;animation-delay:0s!important}}
+</style>
+</head><body>
+<div class="preview-bar">A free homepage mockup made for Santa Maria Valley Fume by Stand Out Studios. Words and photos are placeholders until you send yours. <a href="#claim">Make it yours →</a></div>
+<header><div class="logo">Santa Maria Valley Fume</div><a class="call" href="tel:8053492771">Call (805) 349-2771</a></header>
+<main>
+<div class="hero">
+ <div>
+  <h1>Scorpions out. Family in.</h1>
+  <p class="sub">Pest control in Santa Maria. Safe for kids and pets, with a guarantee between visits.</p>
+  <div class="ctas"><a class="btn primary" href="#quote">Get a free inspection</a><a class="btn" href="tel:8053492771">Call (805) 349-2771</a></div>
+  <div class="trust"><span>Serving Santa Maria and nearby</span></div>
+ </div>
+ <div class="art paws" aria-hidden="true"><svg style="left:10%;top:75%;--d:0.00s;transform:rotate(-20deg)" viewBox="0 0 40 40"><ellipse cx="20" cy="27" rx="10" ry="8"/><circle cx="9" cy="15" r="4"/><circle cx="16" cy="9" r="4"/><circle cx="24" cy="9" r="4"/><circle cx="31" cy="15" r="4"/></svg><svg style="left:25%;top:58%;--d:0.35s;transform:rotate(10deg)" viewBox="0 0 40 40"><ellipse cx="20" cy="27" rx="10" ry="8"/><circle cx="9" cy="15" r="4"/><circle cx="16" cy="9" r="4"/><circle cx="24" cy="9" r="4"/><circle cx="31" cy="15" r="4"/></svg><svg style="left:38%;top:70%;--d:0.70s;transform:rotate(-15deg)" viewBox="0 0 40 40"><ellipse cx="20" cy="27" rx="10" ry="8"/><circle cx="9" cy="15" r="4"/><circle cx="16" cy="9" r="4"/><circle cx="24" cy="9" r="4"/><circle cx="31" cy="15" r="4"/></svg><svg style="left:52%;top:48%;--d:1.05s;transform:rotate(15deg)" viewBox="0 0 40 40"><ellipse cx="20" cy="27" rx="10" ry="8"/><circle cx="9" cy="15" r="4"/><circle cx="16" cy="9" r="4"/><circle cx="24" cy="9" r="4"/><circle cx="31" cy="15" r="4"/></svg><svg style="left:64%;top:58%;--d:1.40s;transform:rotate(-10deg)" viewBox="0 0 40 40"><ellipse cx="20" cy="27" rx="10" ry="8"/><circle cx="9" cy="15" r="4"/><circle cx="16" cy="9" r="4"/><circle cx="24" cy="9" r="4"/><circle cx="31" cy="15" r="4"/></svg><svg style="left:78%;top:34%;--d:1.75s;transform:rotate(20deg)" viewBox="0 0 40 40"><ellipse cx="20" cy="27" rx="10" ry="8"/><circle cx="9" cy="15" r="4"/><circle cx="16" cy="9" r="4"/><circle cx="24" cy="9" r="4"/><circle cx="31" cy="15" r="4"/></svg><svg style="left:86%;top:14%;--d:2.10s;transform:rotate(5deg)" viewBox="0 0 40 40"><ellipse cx="20" cy="27" rx="10" ry="8"/><circle cx="9" cy="15" r="4"/><circle cx="16" cy="9" r="4"/><circle cx="24" cy="9" r="4"/><circle cx="31" cy="15" r="4"/></svg></div>
+</div>
+<section><h2>What we do.</h2><div class="services"><div>Scorpions</div><div>Termites</div><div>Ants and roaches</div><div>Rodents</div><div>Bees</div><div>Monthly plans</div></div></section>
+<section style="padding-top:0"><h2>Your work goes here.</h2>
+ <div class="photos"><div>Your job photos</div><div>Before and after</div><div>Your crew</div><div>Your best job</div><div>Your truck or shop</div><div>A happy customer</div></div></section>
+
+<section><h2>How it works.</h2><div class="steps">
+ <div><strong>Tell us about the job.</strong><p>Call or send the form. A short note is plenty.</p></div>
+ <div><strong>Get a clear price.</strong><p>In writing, before any work starts.</p></div>
+ <div><strong>We do the work.</strong><p>On time, cleaned up, and checked with you at the end.</p></div>
+</div></section>
+<section class="quote" id="quote"><h2>Get a free inspection.</h2>
+ <form onsubmit="event.preventDefault();this.querySelector('button').textContent='This is a preview. The live form sends straight to you.'">
+  <input placeholder="Name" aria-label="Name"><input placeholder="Phone" aria-label="Phone">
+  <textarea placeholder="What do you need done?" aria-label="What do you need done?"></textarea>
+  <button>Send</button></form></section>
+<section class="claim" id="claim"><h2>Want this to be your website?</h2>
+ <p>Stand Out Studios builds it with your own photos and words. One page from $399, up to 5 pages for $799. Live in 7 days.</p>
+ <a class="btn primary" href="https://buy.stripe.com/eVq3cudQMf6A9L7axGcAo00">Start with a $100 refundable deposit</a>
+ <p class="fine">The $100 counts toward your price. If you don't love the finished preview, you get it back. Questions? Email jace.standoutstudios@gmail.com</p>
+</section>
+</main>
+<footer><span>© Santa Maria Valley Fume · Santa Maria, AZ</span><span>Preview by <a href="https://stand-out-studios.pages.dev/start/">Stand Out Studios</a></span></footer>
+<a class="btn primary sticky-call" href="tel:8053492771">Call (805) 349-2771</a>
+</body></html>
