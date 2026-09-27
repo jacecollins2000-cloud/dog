@@ -17,6 +17,7 @@ import html, json, pathlib, re
 ROOT = pathlib.Path(__file__).parent
 OUT = ROOT / "site"
 CLAIM = "https://stand-out-studios.pages.dev/start/"
+DEPOSIT = "https://buy.stripe.com/eVq3cudQMf6A9L7axGcAo00"
 
 # One big idea per trade, in the Stand Out Studios spirit.
 THEMES = {
@@ -228,6 +229,7 @@ blockquote cite{display:block;margin-top:12px;font-style:normal;font-size:14px;o
 .quote input,.quote textarea{font:inherit;padding:14px;border-radius:10px;border:0;background:rgba(255,255,255,.1);color:inherit}
 .quote textarea{grid-column:1/-1;min-height:110px}
 .quote button{grid-column:1/-1;font:inherit;font-weight:700;padding:16px;border-radius:999px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+.claim{background:var(--soft);text-align:center}.claim h2{margin:0 auto}.claim p{max-width:36em;margin:16px auto}.claim .btn{margin-top:8px}.claim .fine{font-size:14px;opacity:.75}
 footer{padding:28px clamp(16px,4vw,48px);font-size:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;opacity:.8}
 .sticky-call{display:none}
 @media (max-width:760px){
@@ -304,7 +306,7 @@ def page(lead):
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?{fonts}&display=swap">
 <style>{CSS % t}</style>
 </head><body>
-<div class="preview-bar">A free homepage mockup made for {e(name)} by Stand Out Studios. Words and photos are placeholders until you send yours. <a href="{CLAIM}">Make it yours →</a></div>
+<div class="preview-bar">A free homepage mockup made for {e(name)} by Stand Out Studios. Words and photos are placeholders until you send yours. <a href="#claim">Make it yours →</a></div>
 <header><div class="logo">{e(name)}</div><a class="call" href="tel:{tel}">Call {e(phone)}</a></header>
 <main>
 <div class="hero">
@@ -330,6 +332,11 @@ def page(lead):
   <input placeholder="Name" aria-label="Name"><input placeholder="Phone" aria-label="Phone">
   <textarea placeholder="What do you need done?" aria-label="What do you need done?"></textarea>
   <button>Send</button></form></section>
+<section class="claim" id="claim"><h2>Want this to be your website?</h2>
+ <p>Stand Out Studios builds it with your own photos and words. One page from $399, up to 5 pages for $799. Live in 7 days.</p>
+ <a class="btn primary" href="{DEPOSIT}">Start with a $100 refundable deposit</a>
+ <p class="fine">The $100 counts toward your price. If you don't love the finished preview, you get it back. Questions? Email jace.standoutstudios@gmail.com</p>
+</section>
 </main>
 <footer><span>© {e(name)} · {e(city)}, {e(lead.get('state', 'AZ'))}</span><span>Preview by <a href="{CLAIM}">Stand Out Studios</a></span></footer>
 <a class="btn primary sticky-call" href="tel:{tel}">Call {e(phone)}</a>
