@@ -14,15 +14,15 @@ PLURAL = {
     "salon": "salons", "nails": "nail salons", "spa": "spas", "restaurant": "restaurants", "cafe": "coffee shops",
     "bakery": "bakeries", "florist": "florists", "tattoo": "tattoo studios", "boutique": "boutiques",
 }
-NAME_HINTS = [(r"carpet|steam|upholster", "carpet cleaners"), (r"clean|maid|janitor", "cleaning companies"),
-              (r"plumb", "plumbers"), (r"electric", "electricians"), (r"roof", "roofers"), (r"paint", "painters"),
+NAME_HINTS = [(r"plumb|drain|rooter", "plumbers"), (r"carpet|steam|upholster", "carpet cleaners"), (r"electric", "electricians"), (r"roof", "roofers"), (r"paint", "painters"),
               (r"landscap|lawn|yard", "landscapers"), (r"tree", "tree services"), (r"pool|spa\b", "pool services"),
               (r"fenc", "fence companies"), (r"concrete|cement|masonry", "concrete contractors"),
               (r"garage door", "garage door companies"), (r"pest|termite", "pest control companies"),
               (r"glass|window|mirror", "glass shops"), (r"floor|tile|carpet", "flooring companies"),
               (r"hvac|heating|cooling|air cond", "HVAC companies"), (r"handyman", "handymen"),
               (r"remodel|construct|builder|renovat", "contractors"), (r"auto|car |cars|collision|mechanic", "auto shops"),
-              (r"cabinet", "cabinet makers"), (r"appliance", "appliance repair shops"), (r"pressure|power wash", "pressure washing companies")]
+              (r"cabinet", "cabinet makers"), (r"appliance", "appliance repair shops"), (r"pressure|power wash", "pressure washing companies"),
+              (r"clean|maid|janitor", "cleaning companies")]
 FOOTER = ("Jace\nStand Out Studios, Henderson NV\n\n"
           "1000 North Green Valley Parkway, Henderson, NV 89074. "
           'Not interested? Reply "no" and I won\'t email again.')
