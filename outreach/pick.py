@@ -93,7 +93,7 @@ def main():
     if dnc.exists():
         done |= set(dnc.read_text().split())
     rows = []
-    for f in ["bad_sites_vegas.csv", "bad_sites.csv", "bad_sites_more.csv", "bad_sites_more2.csv", "bad_sites_more3.csv", "bad_sites_vegas_retail.csv", "bad_sites_more4.csv"]:  # Vegas first: local to Henderson
+    for f in ["bad_sites_vegas.csv", "bad_sites.csv", "bad_sites_more.csv", "bad_sites_more2.csv", "bad_sites_more3.csv", "bad_sites_vegas_retail.csv", "bad_sites_more4.csv", "bad_sites_more5.csv", "bad_sites_more6.csv", "bad_sites_more7.csv", "bad_sites_more8.csv"]:  # Vegas first: local to Henderson
         p = ROOT.parent / "leads" / f
         if p.exists():
             rows += list(csv.DictReader(open(p)))
@@ -140,10 +140,11 @@ def main():
         email_body = (f"{hi}\n\n{why}\n\n{where}, and I made {short} a free mockup of a phone-friendly "
                       "homepage, with your services up top and a one-tap call button.\n\nWant me to send you the link?\n\n"
                       + SIG + '\nReply "no" and I won\'t email again.')
-        subj, body = emailcopy.compose(dict(lead, domain=domain, reasons=r["reasons"]), first_name(email) if email else "")
+        variant = "B" if len(queue) % 2 else "A"
+        subj, body = emailcopy.compose(dict(lead, domain=domain, reasons=r["reasons"]), first_name(email) if email else "", variant)
         queue.append(dict(lead, channel=channel, domain=domain, website=r["final_url"], contact_url=r["contact_url"],
                           email=email, reasons=r["reasons"], preview_url=url, form_message=form_msg,
-                          email_subject=subj, email_body=body))
+                          email_subject=subj, email_body=body, variant=variant))
     (ROOT / os.environ.get("QUEUE_OUT", "queue.json")).write_text(json.dumps(queue, indent=1))
     print(f"queued {forms} forms, {emails} emails")
 

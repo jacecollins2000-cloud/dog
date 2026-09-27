@@ -24,7 +24,7 @@ def short_name(name):
     return re.sub(r"\s+", " ", s).strip(" ,.-&")
 
 
-def compose(lead, first_name=""):
+def compose(lead, first_name="", variant="A"):
     """lead needs: name, domain, reasons, city, trade (theme key). Returns (subject, body)."""
     biz = short_name(lead["name"])
     domain, r = lead["domain"], lead["reasons"].lower()
@@ -53,7 +53,9 @@ def compose(lead, first_name=""):
         problem = (f"{domain} is built on an older layout that's hard to use on a phone, and most people look you up on "
                    "their phone first.")
         fix = "So I made you a new homepage that works on phones, with your number one tap away."
-    body = f"{hi}\n\n{intro} {problem}\n\n{fix} No charge.\n\nWant me to send you the link?\n\n{FOOTER}"
+    proof = ("\n\nYou can see the kind of sites I design here: stand-out-studios.pages.dev" if variant == "B" else "")
+    ask = "Want me to send you yours?" if variant == "B" else "Want me to send you the link?"
+    body = f"{hi}\n\n{intro} {problem}\n\n{fix} No charge.{proof}\n\n{ask}\n\n{FOOTER}"
     subject = f"I made {biz} a new homepage"
     if len(subject) > 60:
         subject = "I made you a new homepage"
