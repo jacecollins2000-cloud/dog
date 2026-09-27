@@ -5,6 +5,8 @@ Writes outreach/queue.json (form + email targets) and mockups into $SITE_DIR.
 import csv, json, os, pathlib, re, sys, urllib.parse
 sys.path.insert(0, str(pathlib.Path(__file__).parent.parent / "previews"))
 import build  # noqa: E402
+sys.path.insert(0, str(pathlib.Path(__file__).parent.parent / "leads"))
+import find_bad_sites  # noqa: E402
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 import emailcopy  # noqa: E402
 
@@ -24,18 +26,11 @@ SIG = ("Jace, Stand Out Studios\njace.standoutstudios@gmail.com\n"
 
 FONT_CREDITS = re.compile(r"impallari|anapbm|eyebytes|sansoxygen|typefoundry|sorkin|fuenzalida|cyreal|tipo|fontdiner|"
     r"typemade|huertatipografica|latinotype|sil\.org|googlefonts|fonts?@|type@|@typeco|kimberlygeswein|vernon|milenabbrandao", re.I)
-FREEMAIL = ("gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "aol.com", "icloud.com", "cox.net", "msn.com",
-            "live.com", "me.com", "att.net", "sbcglobal.net", "comcast.net")
 
-def best_email(emails, domain):
-    """Business's own-domain address first, then a free mailbox; never font credits or bogus TLDs."""
-    base = ".".join(domain.split(".")[-2:])
-    ok = [e for e in emails if not FONT_CREDITS.search(e)
-          and re.fullmatch(r"[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|net|org|us|biz|info|co|io|me|pro|services|build|design)", e)]
-    own = [e for e in ok if e.split("@")[1].endswith(base)]
-    own.sort(key=lambda e: (not re.match(r"(info|contact|office|hello|sales|service|admin)@", e), e))
-    free = [e for e in ok if e.split("@")[1] in FREEMAIL]
-    return (own or free or [""])[0]
+def best_email(emails, domain, mailto=()):
+    """Business's own-domain address first, then one its site links with mailto: (even on another domain),
+    then a free mailbox; never font credits or bogus TLDs. Scans older than the mailto column skip that tier."""
+    return next((e for e in find_bad_sites.own_emails(emails, domain, mailto) if not FONT_CREDITS.search(e)), "")
 
 NAMES = set("""aaron adam adrian al alan albert alex alexander allen amanda amber amy andrea andrew andy angel angela anita ann anna
 anne anthony antonio april art arthur ashley barbara barry ben benjamin beth betty bill billy bob bobby bonnie brad bradley
@@ -105,7 +100,7 @@ def main():
         domain = urllib.parse.urlparse(r["final_url"]).netloc.lower().removeprefix("www.")
         if not domain or domain in done:
             continue
-        email = best_email(r["emails"].split(), urllib.parse.urlparse(r["final_url"]).netloc.lower().removeprefix("www."))
+        email = best_email(r["emails"].split(), domain, (r.get("mailto") or "").split())
         if "free subdomain" not in r["reasons"] and any(domain.endswith(h) for h in FREE_HOSTS):
             r["reasons"] = (r["reasons"] + "; " if r["reasons"] else "") + f"free subdomain ({domain})"
         # try the site's form whenever there's no CAPTCHA; the browser finds JS-rendered forms too

@@ -61,16 +61,41 @@ def yp_listings():
 
 FREE = ("gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "aol.com", "icloud.com", "cox.net", "msn.com",
         "live.com", "me.com", "att.net", "sbcglobal.net", "comcast.net", "centurylink.net", "earthlink.net")
+# Font designers credited in the Google Fonts licenses that site builders (GoDaddy's especially) inline
+FONT_CREDIT_EMAILS = {"impallari@gmail.com", "anapbm@gmail.com", "team@latofonts.com", "eben@eyebytes.com",
+                      "contact@sansoxygen.com", "julieta.ulanovsky@gmail.com"}
+FONT_LICENSE = re.compile(r"copyright\b[^<>]{0,300}?(?:project authors\s*\([^()<>]*\)|reserved font names?\b|"
+                          r"sorkin type[^()<>]*\([^()<>]*\))", re.I)
+with open(os.path.join(os.path.dirname(__file__), "tlds.txt")) as f:  # data.iana.org/TLD/tlds-alpha-by-domain.txt
+    TLDS = {t.strip().lower() for t in f if not t.startswith("#")} - {""}
+ROLE = re.compile(r"(info|contact|office|hello|sales|service|admin)@")
 
-def own_emails(emails, site):
-    host = urllib.parse.urlparse(site).netloc.lower().removeprefix("www.")
+def valid_email(e):
+    """Sane syntax and a real TLD (w@yjx.ko isn't), and not an image name or a font designer's credit."""
+    m = re.fullmatch(r"[a-z0-9._%+-]+@(?:[a-z0-9-]+\.)+([a-z]{2,})", e)
+    return bool(m) and m.group(1) in TLDS and e not in FONT_CREDIT_EMAILS and not BAD_EMAIL.search(e)
+
+def own_emails(emails, site, mailto=()):
+    """The business's addresses, best first: its own domain, then any it links with mailto: (even on
+    another domain, like a short one it uses for mail), then free mailboxes."""
+    host = (urllib.parse.urlparse(site).netloc or site).lower().removeprefix("www.")
     base = ".".join(host.split(".")[-2:])
-    return [e for e in emails if e.split("@")[-1] in FREE or e.split("@")[-1].endswith(base)]
+    def tier(e):
+        dom = e.split("@")[-1]
+        return 0 if dom == base or dom.endswith("." + base) else 1 if e in mailto else 2 if dom in FREE else 3
+    keep = {e for e in emails if tier(e) < 3 and valid_email(e)}
+    return sorted(keep, key=lambda e: (tier(e), not ROLE.match(e), e))
 
-def emails_in(s):
-    found = set(re.findall(r"mailto:([^\"'?>\s]+)", s, re.I))
-    found |= set(re.findall(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", s))
-    return sorted({html.unescape(e).strip().lower() for e in found if not BAD_EMAIL.search(e)})
+def emails_in(s, mailto_only=False):
+    """Addresses on the page, lowercased: all of them, or only those in mailto: links.
+    <style> blocks, @font-face rules and font licenses go first: their designer credits
+    ("Copyright 2016 The Cabin Project Authors (impallari@gmail.com)") aren't contact addresses."""
+    s = re.sub(r"<style\b.*?</style\s*>", " ", s, flags=re.I | re.S)
+    s = FONT_LICENSE.sub(" ", re.sub(r"@font-face\s*\{[^}]*\}", " ", s, flags=re.I))
+    found = re.findall(r"mailto:([^\"'?>\s]+)", s, re.I)
+    if not mailto_only:
+        found += re.findall(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", s)
+    return sorted({e for e in (html.unescape(x).strip().lower() for x in found) if valid_email(e)})
 
 def has_form(s):
     return bool(re.search(r"<form", s, re.I) and re.search(r"<textarea", s, re.I))
@@ -79,7 +104,7 @@ def captcha(s):
     return bool(re.search(r"recaptcha|hcaptcha|turnstile|captcha", s, re.I))
 
 def check(lead):
-    r = dict(lead, final_url="", status="", score=0, reasons="", emails="", contact_url="", form="", captcha="")
+    r = dict(lead, final_url="", status="", score=0, reasons="", emails="", mailto="", contact_url="", form="", captcha="")
     url = re.sub(r"^http://", "https://", lead["website"])
     try:
         final, s = get(url)
@@ -108,7 +133,7 @@ def check(lead):
         score += 2; reasons.append(f"built with {gen.group(1)[:30]}")
     if low.count("<table") >= 5 or "<frameset" in low or ".swf" in low:
         score += 1; reasons.append("tables/flash layout")
-    emails = emails_in(s)
+    emails, mailto = emails_in(s), set(emails_in(s, mailto_only=True))
     form, cap, contact_url = has_form(s), captcha(s), ""
     if not form or not emails:
         m = re.search(r'href="([^"]*contact[^"]*)"', s, re.I)
@@ -117,12 +142,14 @@ def check(lead):
             try:
                 _, c = get(contact_url)
                 emails = sorted(set(emails) | set(emails_in(c)))
+                mailto |= set(emails_in(c, mailto_only=True))
                 if has_form(c):
                     form, cap = True, captcha(c)
             except Exception:
                 pass
-    emails = own_emails(emails, final)
-    r.update(score=score, reasons="; ".join(reasons), emails=" ".join(emails[:3]),
+    emails = own_emails(emails, final, mailto)[:3]
+    r.update(score=score, reasons="; ".join(reasons), emails=" ".join(emails),
+             mailto=" ".join(e for e in emails if e in mailto),
              contact_url=contact_url or (final if form else ""), form="yes" if form else "",
              captcha="yes" if cap else "")
     return r
