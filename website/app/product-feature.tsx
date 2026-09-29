@@ -7,7 +7,7 @@ import { ArrowLeft, ArrowRight, Check, CreditCard, Info, Ruler, ShoppingBag } fr
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import './product-feature.css';
-import { TornEdge } from './v2/paper';
+import { TornEdge } from './v3/paper';
 
 const gallery = [
   ['/assets/hoodie-clean-v2.webp', 'Charcoal GC Hoodie, front view, with the white gorilla and red GC chest mark', 'The hoodie'],
@@ -111,7 +111,7 @@ export function ProductFeature({ onBuy, onViewBag, bagSize = '' }: { onBuy: (siz
 
       <div className="pdp-info">
         <div className="pdp-info-inner">
-          <p className="pdp-kicker"><span className="v2-num">01</span> / The piece <span className="pdp-code">GC—001</span></p>
+          <p className="pdp-kicker"><span className="gc-num">01</span> The piece <span className="pdp-code">GC—001</span></p>
           <div className="pdp-title-row">
             <h2 id="collection-title">The GC Hoodie</h2>
             <p className="pdp-price">$78 <span>USD · example price</span></p>
@@ -145,7 +145,6 @@ export function ProductFeature({ onBuy, onViewBag, bagSize = '' }: { onBuy: (siz
         </div>
       </div>
     </section>
-    <TornEdge edge="bottom" variant={3} />
 
     <div ref={dockRef} className="pdp-dock" inert aria-hidden="true">
       <div className="pdp-dock-name"><strong>The GC Hoodie</strong><span>{size ? `${size} · $78 example price · concept` : '$78 example price · concept'}</span></div>

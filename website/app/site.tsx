@@ -1,6 +1,8 @@
 'use client';
 /* Images are pre-optimized WebP assets; plain img keeps the static export independent of an image server. */
 /* oxlint-disable next/no-img-element */
+/* Native anchors keep page and section navigation compatible with static hosting. */
+/* oxlint-disable next/no-html-link-for-pages */
 
 import {
   ArrowUpRight,
@@ -9,14 +11,13 @@ import {
   Plus,
   Check,
   Copy,
-  ShoppingBag,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { CampaignHero } from './campaign-hero';
 import { ProductFeature } from './product-feature';
-import { ClosingChapter, LightsOnChapter, OneCampChapter, PosterWall, TapeMarquee, V2Header, WorldChapter } from './v2/home-v2';
+import { CampaignWall, Manifesto, OneCampChapter, SignOff, SiteBar, TroopChapter, ValuesChapter } from './v3/home-v3';
 import './shared-chrome.css';
-import './v2/v2.css';
+import './v3/v3.css';
 import { ShoppingBagPanel } from './shopping-bag';
 import { useEditorialMotion } from './use-editorial-motion';
 import { TeamEditorial } from './team-editorial';
@@ -41,84 +42,6 @@ import {
   AccordionContent,
 } from '@/components/ui/accordion';
 
-export function SiteHeader({ teams = false, onBag, bagCount = 0 }: { teams?: boolean; onBag?: () => void; bagCount?: number }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  return (
-    <>
-      <a className="skip-link" href="#main">
-        Skip to content
-      </a>
-      <header className={`site-header ${teams ? 'on-light' : 'over-film scroll-header'} controls-visible`}>
-        <a
-          href="/"
-          className="brand-lockup"
-          aria-label="Guerrilla Camp home"
-        >
-          <img
-            src="/assets/gc-mark.svg"
-            alt=""
-            className="brand-symbol"
-            width="48"
-            height="50"
-          />
-          <img src="/assets/gc-wordmark.svg" alt="" className="brand-wordmark" width="200" height="59" />
-        </a>
-        <nav className="desktop-nav" aria-label="Main navigation">
-          <a href="/#collection" className={!teams ? 'current' : ''}>
-            Collection
-          </a>
-          <a href="/#about">Behind GC</a>
-          <a className={teams ? 'current' : ''} href="/teams">
-            For teams <ArrowUpRight size={15} />
-          </a>
-        </nav>
-        {onBag ? <button className="header-cta header-bag" onClick={onBag} aria-label={`Open bag, ${bagCount} ${bagCount === 1 ? 'item' : 'items'}`}><ShoppingBag size={17}/><span className="header-bag-label">Bag</span><span className="header-bag-count">{bagCount}</span></button> : <a className="header-cta header-program" href={teams ? '#program' : '#collection'} aria-label={teams ? 'Explore the team program' : 'Shop the GC Hoodie'}>{teams ? 'The program' : 'Shop'}<ArrowUpRight size={17}/></a>}
-        <button
-          className="mobile-menu-button"
-          aria-label="Open navigation"
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen(true)}
-        >
-          <span className="menu-strokes" aria-hidden="true"><i /><i /></span>
-        </button>
-      </header>
-      <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
-        <SheetContent className="nav-sheet dark" showCloseButton={false}>
-          <div className="sheet-top">
-            <SheetTitle><img className="menu-wordmark" src="/assets/gc-wordmark.svg" alt="Guerrilla Camp" width="200" height="59" /></SheetTitle>
-            <button
-              className="icon-button"
-              onClick={() => setMenuOpen(false)}
-              aria-label="Close navigation"
-            >
-              <X />
-            </button>
-          </div>
-          <SheetDescription className="sr-only">
-            Explore the collection, brand and team program.
-          </SheetDescription>
-          <nav className="mobile-nav" aria-label="Mobile navigation">
-            <a href="/#collection" onClick={() => setMenuOpen(false)}>
-              <span className="menu-index" aria-hidden="true">01</span><span>Collection</span><ArrowUpRight />
-            </a>
-            <a href="/#about" onClick={() => setMenuOpen(false)}>
-              <span className="menu-index" aria-hidden="true">02</span><span>Behind GC</span><ArrowUpRight />
-            </a>
-            <a href="/teams" onClick={() => setMenuOpen(false)}>
-              <span className="menu-index" aria-hidden="true">03</span><span>For teams</span><ArrowUpRight />
-            </a>
-          </nav>
-          <div className="menu-editorial" aria-hidden="true">
-            <figure><img src="/assets/athlete-after-training-v1.webp" alt="" width="1122" height="1402" /><figcaption>THE PIECE</figcaption></figure>
-            <figure><img src="/assets/community-gc-v2.webp" alt="" width="1536" height="1024" /><figcaption>THE PEOPLE</figcaption></figure>
-          </div>
-          <div className="menu-signoff"><span>GUERRILLA CAMP</span><span>LIVE DIFFERENT!!</span></div>
-        </SheetContent>
-      </Sheet>
-    </>
-  );
-}
-
 export function FashionPage() {
   const [productOpen, setProductOpen] = useState(false);
   const [chosenSize, setChosenSize] = useState('');
@@ -127,20 +50,19 @@ export function FashionPage() {
   const [bagSize, setBagSize] = useState('');
   const mainRef = useEditorialMotion();
   return (
-    <div className="v2">
-      <V2Header onBag={()=>setBagOpen(true)} bagCount={bagSize ? 1 : 0} />
+    <div className="gc gc-home">
+      <SiteBar onBag={()=>setBagOpen(true)} bagCount={bagSize ? 1 : 0} />
       <main id="main" ref={mainRef}>
         <CampaignHero />
-        <TapeMarquee />
         <ProductFeature bagSize={bagSize} onViewBag={() => setBagOpen(true)} onBuy={(size) => { setBagSize(size); setBagOpen(true); }} />
-        <LightsOnChapter />
-        <PosterWall />
-        <WorldChapter />
+        <Manifesto />
+        <ValuesChapter />
+        <CampaignWall />
+        <TroopChapter />
         <OneCampChapter />
-        <ClosingChapter />
+        <SignOff />
       </main>
-      <SiteFooter v2 />
-      <div className="v2-grain" aria-hidden="true" />
+      <SiteFooter />
       <ShoppingBagPanel open={bagOpen} onOpenChange={setBagOpen} size={bagSize} onRemove={()=>setBagSize('')} onCheckout={()=>{setChosenSize(bagSize);setDirectCheckout(true);setBagOpen(false);setProductOpen(true);}} />
       <ProductPreview open={productOpen} onOpenChange={setProductOpen} initialSize={chosenSize} startAtCheckout={directCheckout}
         onChangeSize={() => requestAnimationFrame(() => {
@@ -424,19 +346,17 @@ const programFaqs = [
 export function TeamsPage() {
   const [briefOpen, setBriefOpen] = useState(false);
   return (
-    <>
-      <SiteHeader teams />
-      <main id="main" className="teams-page">
+    <div className="gc gc-teams">
+      <SiteBar home={false} />
+      <main id="main">
         <TeamEditorial onBrief={() => setBriefOpen(true)} />
-        <section id="program" className="program-section">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">THE PROPOSED PROGRAM</p>
-              <h2>Plan the collection.</h2>
-            </div>
-            <p>Three conversations to have before a collection goes on sale.</p>
-          </div>
-          <div className="program-steps">
+        <section id="program" className="gc-program" data-tone="light" aria-labelledby="gc-program-title">
+          <header className="gc-section-head">
+            <p className="gc-label"><span className="gc-num">01</span> The proposed program</p>
+            <h2 id="gc-program-title">Plan the collection.</h2>
+            <p className="gc-section-aside">Three conversations to have before a collection goes on sale.</p>
+          </header>
+          <ol className="gc-steps">
             {[
               [
                 '01',
@@ -454,27 +374,25 @@ export function TeamsPage() {
                 'Confirm the fundraising calculation, deductions, payment timing and fulfillment in writing before any launch.',
               ],
             ].map(([number, title, copy]) => (
-              <article key={number}>
-                <span className="step-number">{number}</span>
+              <li key={number}>
+                <span className="gc-step-num" aria-hidden="true">{number}</span>
                 <h3>{title}</h3>
                 <p>{copy}</p>
-              </article>
+              </li>
             ))}
-          </div>
+          </ol>
         </section>
-        <section className="giveback-section">
-          <div>
-            <p className="eyebrow">YOUTH FUNDRAISING / FOUNDER’S PROPOSAL</p>
-            <div className="percentage">
-              25<span>%</span>
-            </div>
-            <p className="percentage-label">
-              of applicable <strong>net fundraising sales</strong>
+        <section className="gc-giveback" data-tone="dark" aria-labelledby="gc-giveback-title">
+          <div className="gc-giveback-figure">
+            <p className="gc-label"><span className="gc-num">02</span> Youth fundraising / Founder’s proposal</p>
+            <p className="gc-percentage" aria-hidden="true">25<span>%</span></p>
+            <p className="gc-percentage-label">
+              <span className="sr-only">25% </span>of applicable <strong>net fundraising sales</strong>
               <br /> to participating youth teams.
             </p>
           </div>
-          <div className="giveback-copy">
-            <h2>
+          <div className="gc-giveback-copy">
+            <h2 id="gc-giveback-title">
               Support the next
               <br />
               competition.
@@ -483,27 +401,27 @@ export function TeamsPage() {
               Supporters would buy from a team collection, helping fund the
               team’s competition goals.
             </p>
-            <p className="terms-note">
+            <p className="gc-terms">
               This proposed contribution applies to participating youth
               fundraising campaigns. Eligibility, the definition of net sales,
               deductions and payment terms still need agreement. It is not a
               donation promise on every GC purchase.
             </p>
-            <a href="#questions" className="text-link">
-              Understand the proposal <ArrowRight size={19} />
+            <a href="#questions" className="gc-link is-light">
+              Understand the proposal <ArrowRight size={16} aria-hidden="true" />
             </a>
           </div>
         </section>
-        <section id="questions" className="questions-section">
-          <div>
-            <p className="eyebrow">BEFORE YOU GET STARTED</p>
-            <h2>Team questions.</h2>
+        <section id="questions" className="gc-questions" data-tone="light" aria-labelledby="gc-questions-title">
+          <header>
+            <p className="gc-label"><span className="gc-num">03</span> Before you get started</p>
+            <h2 id="gc-questions-title">Team questions.</h2>
             <p>
               The program is taking shape. Here’s what the brief establishes,
               and what a team would still need to confirm.
             </p>
-          </div>
-          <Accordion className="site-accordion">
+          </header>
+          <Accordion className="site-accordion gc-accordion">
             {programFaqs.map(([question, answer], i) => (
               <AccordionItem value={String(i)} key={question}>
                 <AccordionTrigger>{question}</AccordionTrigger>
@@ -514,27 +432,24 @@ export function TeamsPage() {
             ))}
           </Accordion>
         </section>
-        <section className="team-close">
+        <section className="gc-team-close" data-tone="light" aria-labelledby="gc-team-close-title">
           <img
-            src="/assets/gc-mark.svg"
-            alt=""
-            width="140"
-            height="160"
+            src="/assets/gc-mark-ink.svg"
+            alt="The Guerrilla Camp gorilla mark"
+            width="1165"
+            height="1313"
             loading="lazy"
           />
           <div>
-            <p className="eyebrow">START WITH YOUR PEOPLE</p>
-            <h2>Start with your team.</h2>
+            <p className="gc-label">Start with your people</p>
+            <h2 id="gc-team-close-title">Start with your team.</h2>
             <p>
               Put the essentials in one place before a conversation with GC.
             </p>
-            <button
-              className="button button-white"
-              onClick={() => setBriefOpen(true)}
-            >
-              Build a team brief <ArrowUpRight size={20} />
+            <button className="gc-btn" onClick={() => setBriefOpen(true)}>
+              Build a team brief <ArrowUpRight size={18} aria-hidden="true" />
             </button>
-            <span className="reference-note">
+            <span className="gc-note">
               A local planning tool. Nothing is sent to GC.
             </span>
           </div>
@@ -542,7 +457,7 @@ export function TeamsPage() {
       </main>
       <SiteFooter />
       <TeamBrief open={briefOpen} onOpenChange={setBriefOpen} />
-    </>
+    </div>
   );
 }
 
@@ -663,50 +578,26 @@ function TeamBrief({
   );
 }
 
-export function SiteFooter({ v2 = false }: { v2?: boolean }) {
+export function SiteFooter() {
   const [aboutOpen, setAboutOpen] = useState(false);
   return (
     <>
-      {v2 ? <footer className="v2-footer" data-tone="dark">
-        <a href="/" className="v2-footer-mark" aria-label="Guerrilla Camp home"><img src="/assets/gc-wordmark.svg" alt="" width="1200" height="355" loading="lazy" /></a>
-        <div className="v2-footer-row">
+      <footer className="gc-footer" data-tone="dark">
+        <a href="/" className="gc-footer-mark" aria-label="Guerrilla Camp home"><img src="/assets/gc-wordmark.svg" alt="" width="1200" height="355" loading="lazy" /></a>
+        <div className="gc-footer-row">
           <nav aria-label="Footer navigation">
-            <a href="#collection">The hoodie</a>
-            <a href="#about">Behind GC</a>
-            <a href="/teams">GC Partnership Program</a>
-            <a href="https://www.instagram.com/guerrilla_camp/" target="_blank" rel="noreferrer">Instagram <ArrowUpRight size={14} /></a>
-          </nav>
-          <div className="v2-footer-meta">
-            <span>Live Different!!</span>
-            <span>Nevada · Est. 2023</span>
-            <button className="footer-concept" onClick={() => setAboutOpen(true)}>About this concept <Plus size={14} /></button>
-          </div>
-        </div>
-      </footer> : <footer className="site-footer">
-        <div className="footer-top">
-          <a href="/" className="footer-name" aria-label="Guerrilla Camp home">
-            <img src="/assets/gc-wordmark.svg" alt="" width="280" height="83" /><span>LIVE DIFFERENT!!</span>
-          </a>
-          <nav aria-label="Footer navigation">
-            <a href="/#collection">Collection</a>
+            <a href="/#collection">The hoodie</a>
             <a href="/#about">Behind GC</a>
             <a href="/teams">GC Partnership Program</a>
-            <a
-              href="https://www.instagram.com/guerrilla_camp/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Instagram <ArrowUpRight size={15} />
-            </a>
+            <a href="https://www.instagram.com/guerrilla_camp/" target="_blank" rel="noreferrer">Instagram <ArrowUpRight size={14} aria-hidden="true" /></a>
           </nav>
+          <div className="gc-footer-meta">
+            <span>Live Different!!</span>
+            <span>Nevada · Est. 2023</span>
+            <button className="footer-concept" onClick={() => setAboutOpen(true)}>About this concept <Plus size={14} aria-hidden="true" /></button>
+          </div>
         </div>
-        <div className="footer-bottom">
-          <span>NEVADA · EST. 2023</span>
-          <button className="footer-concept" onClick={() => setAboutOpen(true)}>
-            About this concept <Plus size={14} />
-          </button>
-        </div>
-      </footer>}
+      </footer>
       <Dialog open={aboutOpen} onOpenChange={setAboutOpen}>
         <DialogContent className="concept-dialog">
           <DialogTitle>A first look at what GC could become.</DialogTitle>

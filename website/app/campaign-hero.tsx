@@ -104,6 +104,18 @@ export function CampaignHero() {
     return () => { cancelAnimationFrame(frame); removeEventListener('scroll', request); removeEventListener('resize', request); };
   }, []);
 
+  // Source errors never reach the <video> itself. When the last source fails, no format was playable:
+  // show the campaign image and light the page now instead of holding it dark until the safety timeout.
+  useEffect(() => {
+    const player = video.current;
+    const last = player?.querySelector('source:last-of-type');
+    if (!player || !last) return;
+    const unplayable = () => { setFailed(true); finishArrival('error'); };
+    last.addEventListener('error', unplayable);
+    if (player.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) unplayable();
+    return () => last.removeEventListener('error', unplayable);
+  }, []);
+
   // Off screen the film pauses (battery on phones) and resumes on return, unless the visitor paused it themselves.
   useEffect(() => {
     const hero = stage.current, player = video.current;
@@ -138,8 +150,11 @@ export function CampaignHero() {
       <img className="campaign-poster" src="/assets/gc-campaign-film-poster-v5.webp" alt="GC campaign concept: an adult dancer in a charcoal gorilla-mark hoodie lighting an empty studio" width="1280" height="720" fetchPriority="high" />
     </picture>
     <video ref={video} className={`campaign-film ${started && !failed ? 'is-playing' : ''}`} muted loop playsInline preload="auto" onPlay={() => setPlaying(true)} onPlaying={revealFirstFrame} onWaiting={() => { /* Keep the last decoded frame while mobile playback buffers. */ }} onPause={() => { setPlaying(false); const player = video.current; if (player && (player.currentTime < SWITCH_LIGHT + .75 || (Number.isFinite(player.duration) && player.currentTime > player.duration - .55))) setStarted(false); }} onCanPlay={() => { if (!video.current?.error) setFailed(false); }} onError={event => { if (event.currentTarget.error) { setFailed(true); finishArrival('error'); } }} aria-label="Guerrilla Camp campaign film">
-      <source media="(max-width:760px)" src="/assets/gc-campaign-mobile-v8.mp4" type="video/mp4" />
-      <source src="/assets/gc-campaign-film-v8.mp4" type="video/mp4" />
+      {/* MP4 first keeps Safari on the tuned file; browsers without H.264 fall through to the VP9 copy of the same edit. */}
+      <source media="(max-width:760px)" src="/assets/gc-campaign-mobile-v8.mp4" type='video/mp4; codecs="avc1.640028"' />
+      <source media="(max-width:760px)" src="/assets/gc-campaign-mobile-v8.webm" type='video/webm; codecs="vp9"' />
+      <source src="/assets/gc-campaign-film-v8.mp4" type='video/mp4; codecs="avc1.640028"' />
+      <source src="/assets/gc-campaign-film-v8.webm" type='video/webm; codecs="vp9"' />
     </video>
     <div className="campaign-blackout" aria-hidden="true" />
     <picture>
@@ -149,9 +164,9 @@ export function CampaignHero() {
     <div className="campaign-shade" />
     <div className="campaign-dim" aria-hidden="true" />
     <div className="campaign-copy">
-      <div className="v2-hero-row">
-        <p className="v2-hero-meta"><span>(Collection concept)</span><span>GC—001 · The hoodie</span></p>
-        <a className="v2-brush is-light campaign-discover" href="#collection">Shop the hoodie <ArrowDown size={17} aria-hidden="true" /></a>
+      <div className="gc-hero-row">
+        <p className="gc-hero-meta"><span>(Collection concept)</span><span>GC—001 · The hoodie</span></p>
+        <a className="gc-btn is-light campaign-discover" href="#collection">Shop the hoodie <ArrowDown size={17} aria-hidden="true" /></a>
       </div>
       <h1 aria-label="Live Different!!"><span className="campaign-word word-live" aria-hidden="true">Live</span>{' '}<span className="campaign-word word-different" aria-hidden="true">Different<em>!!</em></span></h1>
     </div>

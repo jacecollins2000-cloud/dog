@@ -8,7 +8,6 @@ import './globals.css';
 import './redesign.css';
 import './refinement.css';
 import './arrival-frame.css';
-import './team-editorial.css';
 
 const bodyFont = Manrope({
   variable: '--font-body',
