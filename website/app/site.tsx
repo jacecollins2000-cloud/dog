@@ -12,7 +12,7 @@ import {
   Check,
   Copy,
 } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { CampaignHero } from './campaign-hero';
 import { ProductFeature } from './product-feature';
 import { CampaignWall, Manifesto, OneCampChapter, SignOff, SiteBar, TroopChapter, ValuesChapter } from './v3/home-v3';
@@ -108,6 +108,13 @@ function ProductPreview({
       setSizeError(false);
     } else setCheckout(false);
   }, [open, initialSize, startAtCheckout]);
+  // The finish button is replaced by the confirmation; keep keyboard focus on its next action.
+  const continueRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!complete) return;
+    const timer = setTimeout(() => continueRef.current?.focus(), 0);
+    return () => clearTimeout(timer);
+  }, [complete]);
   function buy() {
     if (!size) {
       setSizeError(true);
@@ -270,6 +277,7 @@ function ProductPreview({
               <p>The GC Hoodie · Charcoal · {size}</p>
               <a className="small-link complete-follow" href="https://www.instagram.com/guerrilla_camp/" target="_blank" rel="noreferrer">Follow @guerrilla_camp <ArrowUpRight size={15} /></a>
               <button
+                ref={continueRef}
                 className="button button-dark"
                 onClick={() => {
                   setCheckout(false);
