@@ -60,7 +60,7 @@ export function SiteBar({ bagCount = 0, onBag, home = true }: { bagCount?: numbe
         <button className="gc-bar-link gc-bar-menu" onClick={() => setMenuOpen(true)} aria-expanded={menuOpen} aria-haspopup="dialog">Menu <Plus size={14} aria-hidden="true" /></button>
         <a className="gc-bar-link gc-wide" href={`${base}#collection`}>Shop</a>
         <a className="gc-bar-link gc-wide" href={`${base}#about`}>Behind GC</a>
-        <a className="gc-bar-link gc-wide" href="/teams" aria-current={home ? undefined : 'page'}>Teams</a>
+        <a className="gc-bar-link gc-wide" href="/teams" aria-current={home ? undefined : 'page'}>For teams</a>
       </nav>
       <a href="/" className="gc-bar-brand" aria-label="Guerrilla Camp home">
         <img src="/assets/gc-wordmark.svg" alt="" width="200" height="59" />
@@ -82,8 +82,8 @@ export function SiteBar({ bagCount = 0, onBag, home = true }: { bagCount?: numbe
         <nav className="gc-sheet-nav" aria-label="Mobile navigation">
           <a href={`${base}#collection`} onClick={close}><span aria-hidden="true">01</span>The hoodie</a>
           <a href={`${base}#about`} onClick={close}><span aria-hidden="true">02</span>Behind GC</a>
-          <a href={`${base}#campaign`} onClick={close}><span aria-hidden="true">03</span>Campaign</a>
-          <a href="/teams" onClick={close} aria-current={home ? undefined : 'page'}><span aria-hidden="true">04</span>For teams</a>
+          <a href={`${base}#campaign`} onClick={close}><span aria-hidden="true">04</span>Campaign</a>
+          <a href="/teams" onClick={close} aria-current={home ? undefined : 'page'}><span aria-hidden="true">06</span>For teams</a>
         </nav>
         <div className="gc-sheet-foot">
           <img src="/assets/gc-mark.svg" alt="" width="140" height="160" />
@@ -234,7 +234,7 @@ export function OneCampChapter() {
     <div className="gc-camp-copy">
       <p className="gc-label"><span className="gc-num">06</span> For teams &amp; supporters</p>
       <p className="gc-camp-line">For the team — and everyone behind it. Explore GC’s developing youth fundraising program.</p>
-      <a className="gc-btn is-light" href="/teams">GC for teams <ArrowRight size={17} aria-hidden="true" /></a>
+      <a className="gc-btn is-light" href="/teams">Explore the program <ArrowRight size={17} aria-hidden="true" /></a>
       <small className="gc-note">Program in development · Illustrative campaign</small>
     </div>
   </section>;

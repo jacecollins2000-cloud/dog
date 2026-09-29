@@ -33,7 +33,7 @@ const displayFont = Barlow_Condensed({
 });
 
 export const metadata: Metadata = {
-  title: 'Guerrilla Camp — Live Different',
+  title: 'Guerrilla Camp — Live Different!!',
   description:
     'Guerrilla Camp. Athletic roots, individual expression, and the people who stand with you. A private brand and collection concept.',
   robots: { index: false, follow: false },

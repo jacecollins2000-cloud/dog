@@ -144,7 +144,7 @@ export function CampaignHero() {
     else try { manualChoice.current = 'play'; savePlayback('play'); setAnimate(true); await player.play(); } catch { setFailed(true); }
   }
   const sequencing = started && animate && !failed;
-  return <section ref={stage} className={`campaign-hero cinematic-opening ${sequencing ? 'is-sequenced' : ''}`} data-tone="dark" aria-label="Live Different campaign">
+  return <section ref={stage} className={`campaign-hero cinematic-opening ${sequencing ? 'is-sequenced' : ''}`} data-tone="dark" aria-label="Live Different!! campaign">
     <picture>
       <source media="(max-width:760px)" srcSet="/assets/gc-campaign-mobile-poster-v5.webp" />
       <img className="campaign-poster" src="/assets/gc-campaign-film-poster-v5.webp" alt="GC campaign concept: an adult dancer in a charcoal gorilla-mark hoodie lighting an empty studio" width="1280" height="720" fetchPriority="high" />

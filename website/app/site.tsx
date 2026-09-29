@@ -588,7 +588,7 @@ export function SiteFooter() {
           <nav aria-label="Footer navigation">
             <a href="/#collection">The hoodie</a>
             <a href="/#about">Behind GC</a>
-            <a href="/teams">GC Partnership Program</a>
+            <a href="/teams">For teams</a>
             <a href="https://www.instagram.com/guerrilla_camp/" target="_blank" rel="noreferrer">Instagram <ArrowUpRight size={14} aria-hidden="true" /></a>
           </nav>
           <div className="gc-footer-meta">
@@ -600,6 +600,7 @@ export function SiteFooter() {
       </footer>
       <Dialog open={aboutOpen} onOpenChange={setAboutOpen}>
         <DialogContent className="concept-dialog">
+          <p className="eyebrow">Guerrilla Camp / About this concept</p>
           <DialogTitle>A first look at what GC could become.</DialogTitle>
           <DialogDescription>
             This website is a design and messaging proposal for
@@ -614,8 +615,8 @@ export function SiteFooter() {
               loading="lazy"
             />
             <figcaption>
-              Supplied studio reference. The palette starts here; this is not a
-              GC product listing.
+              Supplied studio garment reference. It is not a GC product
+              listing.
             </figcaption>
           </figure>
           <p>
