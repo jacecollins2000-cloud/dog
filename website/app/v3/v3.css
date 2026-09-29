@@ -107,13 +107,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .gc .cinematic-opening .campaign-copy h1 { display: flex; justify-content: space-between; margin: 0; font-family: var(--gc-poster); font-weight: 400; font-size: 13.4vw; line-height: .8; letter-spacing: -.004em; text-transform: uppercase; white-space: nowrap; }
 .gc .campaign-copy h1 em { font-style: normal; color: var(--gc-red); }
 .gc .campaign-discover:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
-.gc .ambient-control { z-index: 4; bottom: auto; top: 88px; right: calc(var(--gc-g) - 12px); }
+.gc .ambient-control { z-index: 4; bottom: auto; top: 88px; right: var(--gc-g); border: 1px solid rgb(255 255 255 / .45); background: rgb(11 11 10 / .35); opacity: .9; }
+.gc .ambient-control:hover, .gc .ambient-control:focus-visible { border-color: #fff; opacity: 1; }
 /* Film fallback note sits beside the control, clear of the headline and the paper edge. */
-.gc .film-status { z-index: 4; top: 96px; bottom: auto; left: auto; right: calc(var(--gc-g) + 40px); transform: none; font: 400 12px/1.3 var(--gc-mono); letter-spacing: .02em; }
-/* When the film loops (lights off, lights on) the label and action return with the headline, never before it. */
-.gc .is-sequenced .gc-hero-meta, .gc .is-sequenced .campaign-discover { opacity: var(--different-reveal); }
-.gc .is-sequenced[data-copy-dark] .campaign-discover { visibility: hidden; }
+.gc .film-status { z-index: 4; top: 96px; bottom: auto; left: auto; right: calc(var(--gc-g) + 56px); transform: none; font: 400 12px/1.3 var(--gc-mono); letter-spacing: .02em; }
+/* On arrival the label and action come in with the headline, never before it. */
+html[data-gc-arrival=dark] .gc .is-sequenced :is(.gc-hero-meta, .campaign-discover) { opacity: var(--different-reveal); }
+html[data-gc-arrival=dark] .gc .is-sequenced[data-copy-dark] .campaign-discover { visibility: hidden; }
 html[data-gc-arrival=dark] .gc .campaign-hero:not(.is-sequenced) .campaign-discover { visibility: hidden; }
+/* Once the page is lit, the label and the action stay put through every loop of the film; only the headline replays its lights-on reveal. */
+html:not([data-gc-arrival=dark]) .gc .is-sequenced .campaign-copy { opacity: 1; }
 html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-light, 0); }
 
 /* ---------- 01 The piece: product on GC White ---------- */
@@ -211,7 +214,8 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-poster:nth-child(1) { --rot: -1.6deg; --lift: 60px; margin-top: 2vw; }
 .gc-poster:nth-child(2) { --rot: 1.1deg; --lift: 140px; margin-top: 7vw; }
 .gc-poster:nth-child(3) { --rot: -.8deg; --lift: 90px; }
-.gc-poster-sheet { position: relative; }
+/* Blank paper holds each print's place while it loads. */
+.gc-poster-sheet { position: relative; background: #d9d5ca; }
 .gc-poster-sheet img { display: block; width: 100%; height: auto; }
 .gc-poster-sheet::after { content: ''; position: absolute; inset: 0; background: linear-gradient(103deg, rgb(255 255 255 / 0) 38%, rgb(255 255 255 / .16) 47%, rgb(0 0 0 / .1) 52%, rgb(255 255 255 / 0) 60%), url(/assets/gc-grain.png); opacity: .5; mix-blend-mode: multiply; pointer-events: none; }
 .gc-tape-bit { position: absolute; z-index: 1; top: -13px; width: 30%; height: 28px; background: rgb(232 226 210 / .82); box-shadow: 0 1px 2px rgb(0 0 0 / .25); clip-path: polygon(0 8%, 4% 0, 9% 12%, 13% 2%, 100% 0, 97% 30%, 100% 55%, 96% 78%, 100% 100%, 6% 100%, 2% 86%, 5% 62%, 0 40%); }

@@ -22,7 +22,13 @@ export function SiteBar({ bagCount = 0, onBag, home = true }: { bagCount?: numbe
   useEffect(() => {
     const header = ref.current;
     if (!header) return;
-    let last = scrollY, frame = 0;
+    let last = scrollY, frame = 0, hold = 0;
+    // After a jump to a section the bar stays put, so it covers the scroll padding instead of leaving a strip of the previous section.
+    const holdOpen = () => { hold = performance.now() + 1600; header.classList.remove('is-hidden'); };
+    const onClick = (event: MouseEvent) => {
+      const href = (event.target as Element | null)?.closest?.('a[href]')?.getAttribute('href') ?? '';
+      if (href.startsWith('#') || (href.startsWith('/#') && location.pathname === '/')) holdOpen();
+    };
     const update = () => {
       frame = 0;
       const y = scrollY, delta = y - last;
@@ -37,15 +43,17 @@ export function SiteBar({ bagCount = 0, onBag, home = true }: { bagCount?: numbe
       header.classList.toggle('is-scrolled', y > 40);
       if (y < 90 || delta < -3) header.classList.remove('is-hidden');
       // Keyboard focus inside the header keeps it on screen.
-      else if (delta > 5 && !header.querySelector(':focus-visible')) header.classList.add('is-hidden');
+      else if (delta > 5 && performance.now() > hold && !header.querySelector(':focus-visible')) header.classList.add('is-hidden');
     };
     const request = () => { if (!frame) frame = requestAnimationFrame(update); };
     update();
     addEventListener('scroll', request, { passive: true });
     addEventListener('resize', request);
+    addEventListener('hashchange', holdOpen);
+    document.addEventListener('click', onClick);
     const reveal = () => header.classList.remove('is-hidden');
     header.addEventListener('focusin', reveal);
-    return () => { cancelAnimationFrame(frame); removeEventListener('scroll', request); removeEventListener('resize', request); header.removeEventListener('focusin', reveal); };
+    return () => { cancelAnimationFrame(frame); removeEventListener('scroll', request); removeEventListener('resize', request); removeEventListener('hashchange', holdOpen); document.removeEventListener('click', onClick); header.removeEventListener('focusin', reveal); };
   }, []);
 
   // Adding to the bag always brings the bag back into view.

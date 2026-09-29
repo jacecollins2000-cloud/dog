@@ -57,6 +57,42 @@ Evidence:
 - `npm run build` ok; `tsc` clean; arrival tests 30/30.
 - `oxlint app`: 2 errors, both pre-existing (baseline had 17).
 
+**C1 source commit:** `a28ddc4`.
+
+**C1 verdicts — round 1 (three fresh critics, same frozen build):**
+- **Brief: FAIL.**
+  - Material: the hero "Shop the hoodie" action goes hidden and unclickable for ~2.4s of every 11.75s film loop, and keyboard focus drops to `<body>` at the loop restart. The rule was carried over from the baseline.
+  - Everything else was verified independently: the 54/54 suite, anchors under 3s-delayed images, keyboard, reduced motion, overflow at four widths, disclosure accuracy, and posters requested at 32–44ms.
+- **System: FAIL.**
+  - Material: the motto lost its "!!" in `<title>` and in the hero region `aria-label`.
+  - Material: the menu-foot gorilla mark was squeezed to 17×20px at 320px.
+  - Minor: a leftover Barlow in checkout, generic greys in dialogs, old focus reds, the concept dialog's chrome and palette caption, and label drift.
+- **Craft: FAIL.**
+  - Bar 2 failed: the wall and troop headings were typeset identically, and the hero and manifesto each had two labels.
+  - Bar 7 failed: the footer wordmark out-scaled the sign-off slogan.
+  - Material: the wall comma collided with the next line; the wall and troop were interchangeable and repeated individuality/belonging; the page ended twice; the /teams H1 lines fused (a regression); the /teams bar link wrapped.
+
+### C2 — frozen 2026-09-29 (static build copy `scratchpad/frozen/C2`, served on :5176)
+Changes from C1:
+- **Hero:** the label and action stay visible and usable through every film loop once the page is lit; only the headline replays. The pause control now has a visible frame.
+- **Motto:** "Live Different!!" keeps both marks in the title and the region label.
+- **Menu:** the mark is fixed at 44px; menu numbers match the chapter numbers; nav labels are one "For teams".
+- **System:** legacy red and ring tokens point to GC Red and ink, with one 2px focus ring. Dialogs use GC greys, product names are in Manrope, prices in mono. The concept dialog gets the eyebrow and bordered close, and its palette caption was corrected.
+- **Campaign wall:** the heading is now a caption, "Three prints, pasted up.", with its disclosure beside it. The prints carry the chapter, and the empty foot is gone.
+- **One label per chapter opening** (hero, manifesto).
+- **Values:** the words are 11vw, lights-off opacity rises from .65 to .84, and the tear starts fully off-screen.
+- **Ending:** the sign-off is full-screen and the largest brand moment; the footer is a compact colophon.
+- **/teams:** the H1 leading is .9; the bar link is a short "Shop".
+- **Phone:** One Camp is recropped so the copy reads over sky; the troop echo is balanced; the sign-off fits at 320px.
+- **Anchor jumps:** the bar holds after a jump, so no strip of the previous section shows; posters show blank paper while loading.
+
+Evidence:
+- `shots/C2/` at 1440, 768, 390 and 320.
+- Interaction suite 54/54 on the frozen build.
+- No playable film: lit at 385ms (1440) and 342ms (390).
+- Hero action across a full loop (140 samples at 100ms): hidden 0, focus lost 0. Frozen C1 on the same test: 22 hidden, 50 focus lost.
+- Build ok; `tsc` clean; arrival tests 30/30; `oxlint` 2 errors, both pre-existing.
+
 ## Imagery audit and generation briefs
 The asset library covers every chapter; no new imagery was required to ship.
 No ChatGPT or image-generation tool was callable in this environment, so nothing was generated.
