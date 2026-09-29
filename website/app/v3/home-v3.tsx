@@ -88,10 +88,10 @@ export function SiteBar({ bagCount = 0, onBag, home = true }: { bagCount?: numbe
         </div>
         <SheetDescription className="sr-only">Explore the collection, brand and team program.</SheetDescription>
         <nav className="gc-sheet-nav" aria-label="Mobile navigation">
-          <a href={`${base}#collection`} onClick={close}><span aria-hidden="true">01</span>The hoodie</a>
-          <a href={`${base}#about`} onClick={close}><span aria-hidden="true">02</span>Behind GC</a>
-          <a href={`${base}#campaign`} onClick={close}><span aria-hidden="true">04</span>Campaign</a>
-          <a href="/teams" onClick={close} aria-current={home ? undefined : 'page'}><span aria-hidden="true">06</span>For teams</a>
+          <a href={`${base}#collection`} onClick={close}>The hoodie</a>
+          <a href={`${base}#about`} onClick={close}>Behind GC</a>
+          <a href={`${base}#campaign`} onClick={close}>Campaign</a>
+          <a href="/teams" onClick={close} aria-current={home ? undefined : 'page'}>For teams</a>
         </nav>
         <div className="gc-sheet-foot">
           <img src="/assets/gc-mark.svg" alt="" width="140" height="160" />
@@ -215,8 +215,8 @@ export function CampaignWall() {
 /* ---------- 05 The troop: the individual beside the people in their corner ---------- */
 
 const halves = [
-  ['/assets/lookbook-court-dawn-v1.webp', '01 — The individual', 'A mind of your own.', 'Illustrative campaign: an adult athlete in the charcoal GC Hoodie resting alone courtside at dusk', 'center 22%'],
-  ['/assets/closing-huddle-portrait-v1.webp', '02 — The troop', 'People in your corner.', 'Illustrative campaign: four adult friends in GC clothing huddled together at night, looking down into the camera', 'center 30%'],
+  ['/assets/lookbook-court-dawn-v1.webp', '01 / The individual', 'A mind of your own.', 'Illustrative campaign: an adult athlete in the charcoal GC Hoodie resting alone courtside at dusk', 'center 22%'],
+  ['/assets/closing-huddle-portrait-v1.webp', '02 / The troop', 'People in your corner.', 'Illustrative campaign: four adult friends in GC clothing huddled together at night, looking down into the camera', 'center 30%'],
 ] as const;
 
 export function TroopChapter() {

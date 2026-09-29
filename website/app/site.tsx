@@ -441,7 +441,7 @@ export function TeamsPage() {
             loading="lazy"
           />
           <div>
-            <p className="gc-label">Start with your people</p>
+            <p className="gc-label"><span className="gc-num">04</span> Start with your people</p>
             <h2 id="gc-team-close-title">Start with your team.</h2>
             <p>
               Put the essentials in one place before a conversation with GC.
@@ -494,7 +494,7 @@ function TeamBrief({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="brief-dialog" showCloseButton={false}>
         <div className="sheet-top">
-          <p className="eyebrow">GC / TEAM PLANNING</p>
+          <p className="eyebrow">GUERRILLA CAMP / TEAM PLANNING</p>
           <button
             className="icon-button"
             onClick={() => onOpenChange(false)}

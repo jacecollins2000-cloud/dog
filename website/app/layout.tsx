@@ -37,7 +37,8 @@ export const metadata: Metadata = {
   description:
     'Guerrilla Camp. Athletic roots, individual expression, and the people who stand with you. A private brand and collection concept.',
   robots: { index: false, follow: false },
-  icons: { icon: '/assets/gc-mark.svg' },
+  // The full-colour mark carries its own black oval and white keyline, so it reads on light and dark browser tabs.
+  icons: { icon: '/assets/gc-mark-ink.svg' },
 };
 
 export default function RootLayout({

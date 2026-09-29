@@ -19,7 +19,7 @@ export function TeamEditorial({ onBrief }: { onBrief: () => void }) {
     </div>
     <figure className="gc-team-people">
       <img src="/assets/gc-team-cutout-v1.webp" alt="Illustrative GC campaign: four adult friends wearing black, cream and sand gorilla-mark sweatshirts" width="1371" height="1148" loading="eager" fetchPriority="high" />
-      <figcaption className="gc-note"><span>[ Individual spirit. Shared ambition. ]</span><span>(GC Partnership Program) · Program in development · Illustrative campaign</span></figcaption>
+      <figcaption className="gc-note">Program in development · Illustrative campaign</figcaption>
     </figure>
   </section>;
 }
