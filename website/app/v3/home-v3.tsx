@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, ArrowUp, ArrowUpRight, Plus, X } from 'lucide-react';
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from '@/components/ui/sheet';
 import { stableHeight, useScrollProgress } from '../use-scroll-progress';
+import { useInertPage } from '../use-inert-page';
 
 const clamp = (value: number) => Math.min(1, Math.max(0, value));
 const ease = (value: number) => value * value * (3 - 2 * value);
@@ -16,6 +17,7 @@ const INSTAGRAM = 'https://www.instagram.com/guerrilla_camp/';
 export function SiteBar({ bagCount = 0, onBag, home = true }: { bagCount?: number; onBag?: () => void; home?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const ref = useRef<HTMLElement>(null);
+  useInertPage(menuOpen);
   // On /teams the homepage chapters are one page away.
   const base = home ? '' : '/';
 
@@ -62,6 +64,17 @@ export function SiteBar({ bagCount = 0, onBag, home = true }: { bagCount?: numbe
   useEffect(() => { if (bagCount) ref.current?.classList.remove('is-hidden'); }, [bagCount]);
 
   const close = () => setMenuOpen(false);
+  // A section chosen from the menu takes keyboard focus once the sheet closes, so the next Tab continues there, not at the top.
+  const jumpTo = useRef<string | null>(null);
+  const go = (event: { currentTarget: HTMLAnchorElement }) => { if (home) jumpTo.current = event.currentTarget.hash.slice(1) || null; close(); };
+  const finalFocus = () => {
+    const target = jumpTo.current ? document.getElementById(jumpTo.current) : null;
+    jumpTo.current = null;
+    if (!target) return true;
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    setTimeout(() => target.focus({ preventScroll: true }), 0);
+    return false;
+  };
   const tone = home ? 'dark' : 'light';
   return <>
     <a className="skip-link" href="#main">Skip to content</a>
@@ -83,16 +96,16 @@ export function SiteBar({ bagCount = 0, onBag, home = true }: { bagCount?: numbe
       </div>
     </header>
     <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
-      <SheetContent className="nav-sheet dark gc-sheet" showCloseButton={false}>
+      <SheetContent className="nav-sheet dark gc-sheet" showCloseButton={false} finalFocus={finalFocus}>
         <div className="gc-sheet-top">
           <SheetTitle><img className="gc-sheet-wordmark" src="/assets/gc-wordmark.svg" alt="Guerrilla Camp" width="200" height="59" /></SheetTitle>
           <button className="gc-icon-button" onClick={close} aria-label="Close navigation"><X /></button>
         </div>
         <SheetDescription className="sr-only">Explore the collection, brand and team program.</SheetDescription>
         <nav className="gc-sheet-nav" aria-label="Mobile navigation">
-          <a href={`${base}#collection`} onClick={close}>The hoodie</a>
-          <a href={`${base}#about`} onClick={close}>Behind GC</a>
-          <a href={`${base}#campaign`} onClick={close}>Campaign</a>
+          <a href={`${base}#collection`} onClick={go}>The hoodie</a>
+          <a href={`${base}#about`} onClick={go}>Behind GC</a>
+          <a href={`${base}#campaign`} onClick={go}>Campaign</a>
           <a href="/teams" onClick={close} aria-current={home ? undefined : 'page'}>For teams</a>
         </nav>
         <div className="gc-sheet-foot">
@@ -182,9 +195,9 @@ export function ValuesChapter() {
 /* ---------- 04 The campaign: three prints wheat-pasted on a concrete wall ---------- */
 
 const posters = [
-  ['/assets/gc-print-own-v2.webp', 'Own it.', 'Individuality', 'Illustrative campaign artwork: a seated adult in the GC Hoodie framed by an oversized hood, with red halftone Own it typography'],
-  ['/assets/gc-print-move-v3.webp', 'Move.', 'Action', 'Illustrative campaign artwork: an adult dancer in the GC Hoodie with vertical red Move typography'],
-  ['/assets/gc-print-together-v3.webp', 'Together.', 'Loyalty', 'Illustrative campaign artwork: three adult friends in GC clothing with red Together typography'],
+  ['/assets/gc-print-own-v3.webp', 'Own it.', 'Individuality', 'Illustrative campaign artwork: a seated adult in the GC Hoodie framed by an oversized hood, with red halftone Own it typography'],
+  ['/assets/gc-print-move-v4.webp', 'Move.', 'Action', 'Illustrative campaign artwork: an adult dancer in the GC Hoodie with vertical red Move typography'],
+  ['/assets/gc-print-together-v4.webp', 'Together.', 'Loyalty', 'Illustrative campaign artwork: three adult friends in GC clothing with red Together typography'],
 ] as const;
 
 export function CampaignWall() {
@@ -216,8 +229,8 @@ export function CampaignWall() {
 /* ---------- 05 The troop: the individual beside the people in their corner ---------- */
 
 const halves = [
-  ['/assets/lookbook-court-dawn-v1.webp', '01 / The individual', 'A mind of your own.', 'Illustrative campaign: an adult athlete in the charcoal GC Hoodie resting alone courtside at dusk', 'center 22%'],
-  ['/assets/closing-huddle-portrait-v1.webp', '02 / The troop', 'People in your corner.', 'Illustrative campaign: four adult friends in GC clothing huddled together at night, looking down into the camera', 'center 30%'],
+  ['/assets/lookbook-court-dawn-v2.webp', '01 / The individual', 'A mind of your own.', 'Illustrative campaign: an adult athlete in the charcoal GC Hoodie resting alone courtside at dusk', 'center 22%'],
+  ['/assets/closing-huddle-portrait-v2.webp', '02 / The troop', 'People in your corner.', 'Illustrative campaign: four adult friends in GC clothing huddled together at night, looking down into the camera', 'center 30%'],
 ] as const;
 
 export function TroopChapter() {

@@ -32,11 +32,12 @@ export const metadata: Metadata = {
   description:
     'Guerrilla Camp. Athletic roots, individual expression, and the people who stand with you. A private brand and collection concept.',
   robots: { index: false, follow: false },
-  // The full-colour mark carries its own black oval and white keyline, so it reads on light and dark browser tabs.
+  // Tab icons use the founder's no-GC variant of the mark: at 16px the red GC would blur, the face alone stays legible.
+  // Its black oval and white keyline read on light and dark browser tabs.
   icons: {
     icon: [
-      { url: '/assets/gc-mark-ink.svg', type: 'image/svg+xml' },
       { url: '/assets/gc-favicon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/assets/gc-favicon-16.png', sizes: '16x16', type: 'image/png' },
     ],
     apple: '/assets/gc-apple-touch-180.png',
   },

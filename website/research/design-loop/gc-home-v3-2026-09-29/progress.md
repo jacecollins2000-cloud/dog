@@ -214,9 +214,68 @@ Evidence:
 - Seam flush at four widths.
 - Build ok; `tsc` clean; arrival tests 30/30; `oxlint` 2 errors, both pre-existing.
 
+**C5 verdicts — round 5 (three new critics):**
+- **Brief: PASS.** Minors:
+  - Choosing a section from the menu sent focus back to the Menu button.
+  - "Continue exploring" missed focus in 2 of 3 runs at 1440; the brief's Create/Edit had the same weakness.
+  - The phone dock could cover focused gallery dots at 320×640.
+  - A stalled film holds the dark intro up to 4s.
+  - The film button changed both its label and its pressed state.
+  - The image strip had a label but no role.
+  - Main content stayed exposed to screen readers behind the menu.
+- **System: FAIL.**
+  - Material: photographs and film C5 had not retouched still showed the generator's own round badges — the film, the troop halves, the three prints (plus a generic pen-script slogan) and the /teams cutout.
+  - Minors:
+    - The chest mark was cut at 1280×800 and 768.
+    - The 16px favicon's GC blurred.
+    - The menu links showed focus as an underline.
+    - Stray legacy greys remained in the dialogs.
+    - Manhattan-style skylines.
+    - "Own it." reads as fitness-ad copy.
+- **Craft: FAIL** (6 of 7 bar criteria).
+  - Material: bar 3 failed on phone — the values words were 15vw, and they sat on a black band below the photo instead of touching it.
+  - Material: the hero's action and pause control landed on faces in the group shot, and the header wordmark ran through a head.
+  - Minors:
+    - An empty right half beside the Belonging headline.
+    - The group-embrace idea recurs.
+    - The 1920 values crop runs through the nose.
+    - The phone sign-off reads quieter than "CAMP.".
+
+### C6 — frozen 2026-09-29 (static build copy `scratchpad/frozen/C6`, served on :5180)
+Changes from C5:
+- **The approved mark everywhere, generator marks gone.** The supplied vector mark (`gc-mark-ink.svg`) was composited over every remaining AI badge:
+  - the troop halves (`lookbook-court-dawn-v2`, `closing-huddle-portrait-v2`) and the /teams cutout (`gc-team-cutout-v2`);
+  - the three prints (`gc-print-own-v3`, `gc-print-move-v4`, `gc-print-together-v4`), with the generic pen-script slogan erased;
+  - both films (`gc-campaign-film-v9`, `gc-campaign-mobile-v9`, MP4 + VP9), their posters (`…-poster-v6`), the dim arrival stills (`…-v9`) and the inline first-frame bridges.
+  - **Film method:** the badge is template-tracked with a rotated-ellipse fit, smoothed, composited per frame and weighted through the dissolves; red is keyed by chroma so the edges carry no fringe.
+  - The concept dialog now says the supplied mark was placed wherever a mark appears, replacing the generator's version.
+- **Hero off the faces.**
+  - The film starts below a black masthead band the height of the bar, so no head passes under the wordmark or menu.
+  - The slogan strip is smaller (56vw, max 860px) and sits at the foot, with the label above it. "Shop the hoodie" and the pause control share the strip's foot line on the right (desktop), or sit left/right under it (tablet, phone).
+  - On short landscape screens (≤520px high), the copy stands on black beside the film.
+  - Checked at 1440×900, 1280×720, 1920×1080, 1024×768, 768×1024, 390×844, 320×568, 844×390 and 1440×500, at film times 3.5 / 7.2 / 8.2 / 9.5 / 10.6s: no face under type or controls.
+- **Values on upright screens (bar 3).** The photograph fills the stage and rises out of the room's dark. The words (17.5vw, ≥17vw at 390) stand in that dark and cross onto the hood above the face; the line sits at the foot beside the chest mark.
+  - The photo's top edge follows the width, so the words always end at the hood's crown.
+  - Checked at 320×568, 320×640, 360×780, 390×844, 412×915 and 768×1024.
+  - Desktop words are now 11.6vw (max 224px), so 1920 also clears 11vw; the per-line slide was removed.
+- **Belonging header (desktop):** the statement holds the top left and its echo answers from the right, filling the empty half.
+- **Focus and accessibility:**
+  - A section chosen from the menu takes focus once the sheet closes.
+  - "Continue exploring", the brief's "Copy your brief" (after Create) and "Team or club name" (after Edit) take focus deterministically once the dialog's focus trap settles.
+  - The menu links use the 2px outline.
+  - `main` is inert while any overlay is open. Base UI leaves live regions exposed, which this closes.
+  - The image strip is a labelled `section` carousel (this also cleared a pre-existing lint error).
+  - The film button keeps one changing label, without `aria-pressed`.
+  - The phone dock steps aside while focus is in the gallery.
+- **System minors:**
+  - Dialog greys mapped to GC tokens (a rendered-colour audit of menu, bag, checkout, confirmation, concept, brief and result finds 0 off-token colours).
+  - Tab icons from the founder's no-GC mark (16/32 PNG + `favicon.ico`; apple-touch on GC White).
+  - The mark slide in the gallery loses its grain.
+  - "Finish demo checkout" stays on one line at 320.
+
 ## Imagery audit and generation briefs
 The asset library covers every chapter; no new imagery was generated (no ChatGPT or image-generation tool is callable here).
-Existing stills were retouched for brand accuracy (approved mark composited over the AI badge; values halftone regenerated), and are documented in C5 above.
+Existing stills and the film were retouched for brand accuracy: the approved mark was composited over every AI badge and the values halftone was regenerated. The C5 and C6 entries above document this.
 One gap would clearly strengthen the work; its brief is below for a future session.
 
 **G1 — Matched diptych for "The individual / The troop" (replaces the two current halves).**

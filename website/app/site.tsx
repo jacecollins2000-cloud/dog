@@ -12,7 +12,7 @@ import {
   Check,
   Copy,
 } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, type RefObject } from 'react';
 import { CampaignHero } from './campaign-hero';
 import { ProductFeature } from './product-feature';
 import { CampaignWall, Manifesto, OneCampChapter, SignOff, SiteBar, TroopChapter, ValuesChapter } from './v3/home-v3';
@@ -20,6 +20,7 @@ import './shared-chrome.css';
 import './v3/v3.css';
 import { ShoppingBagPanel } from './shopping-bag';
 import { useEditorialMotion } from './use-editorial-motion';
+import { useInertPage } from './use-inert-page';
 import { TeamEditorial } from './team-editorial';
 // Native anchors keep page and section navigation compatible with static hosting.
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -49,6 +50,7 @@ export function FashionPage() {
   const [bagOpen, setBagOpen] = useState(false);
   const [bagSize, setBagSize] = useState('');
   const mainRef = useEditorialMotion();
+  useInertPage(productOpen || bagOpen);
   return (
     <div className="gc gc-home">
       <SiteBar onBag={()=>setBagOpen(true)} bagCount={bagSize ? 1 : 0} />
@@ -110,11 +112,7 @@ function ProductPreview({
   }, [open, initialSize, startAtCheckout]);
   // The finish button is replaced by the confirmation; keep keyboard focus on its next action.
   const continueRef = useRef<HTMLButtonElement>(null);
-  useEffect(() => {
-    if (!complete) return;
-    const timer = setTimeout(() => continueRef.current?.focus(), 0);
-    return () => clearTimeout(timer);
-  }, [complete]);
+  useFocusOnSwap(continueRef, complete, complete);
   function buy() {
     if (!size) {
       setSizeError(true);
@@ -358,6 +356,7 @@ const programFaqs = [
 
 export function TeamsPage() {
   const [briefOpen, setBriefOpen] = useState(false);
+  useInertPage(briefOpen);
   return (
     <div className="gc gc-teams">
       <SiteBar home={false} />
@@ -474,6 +473,23 @@ export function TeamsPage() {
   );
 }
 
+/* When a dialog swaps its content, the focused control disappears with it. Hand focus to the next action rather than
+   leaving it on the dialog frame; re-check after the focus trap has settled, but never take focus back from a control. */
+function useFocusOnSwap(target: RefObject<HTMLElement | null>, key: unknown, active: boolean) {
+  useLayoutEffect(() => {
+    if (!active) return;
+    const place = () => {
+      const element = target.current, current = document.activeElement;
+      if (!element?.isConnected || current === element) return;
+      if (!current || current === document.body || current.matches('[role="dialog"], [role="alertdialog"]')) element.focus();
+    };
+    place();
+    const frame = requestAnimationFrame(place);
+    const timer = setTimeout(place, 150);
+    return () => { cancelAnimationFrame(frame); clearTimeout(timer); };
+  }, [target, key, active]);
+}
+
 function TeamBrief({
   open,
   onOpenChange,
@@ -487,10 +503,16 @@ function TeamBrief({
   const [ready, setReady] = useState(false);
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
+  // Create and Edit swap the form for the result and back; focus follows to the copy action or the first field.
+  const [swaps, setSwaps] = useState(0);
+  const copyRef = useRef<HTMLButtonElement>(null);
+  const teamRef = useRef<HTMLInputElement>(null);
+  useFocusOnSwap(ready ? copyRef : teamRef, swaps, open && swaps > 0);
   const summary = `GC partnership conversation\n\nTeam: ${team}\nActivity: ${activity}\nWhat we’re working toward: ${goal}\n\nTo discuss: collection design, garments, pricing, quantities, fundraising calculation, payment timing and fulfillment.\n\nPlanning note only. No application has been submitted.`;
   function createBrief(event: { preventDefault: () => void }) {
     event.preventDefault();
     setReady(true);
+    setSwaps(count => count + 1);
     setCopied(false);
     setCopyError(false);
   }
@@ -529,11 +551,11 @@ function TeamBrief({
             <label htmlFor="team-summary">Your team brief</label>
             <textarea id="team-summary" readOnly value={summary} rows={11} />
             <div className="brief-actions">
-              <button className="button button-dark" onClick={copyBrief}>
+              <button ref={copyRef} className="button button-dark" onClick={copyBrief}>
                 {copied ? 'Copied' : 'Copy your brief'}
                 {copied ? <Check size={19} /> : <Copy size={19} />}
               </button>
-              <button className="small-link" onClick={() => setReady(false)}>
+              <button className="small-link" onClick={() => { setReady(false); setSwaps(count => count + 1); }}>
                 Edit details
               </button>
             </div>
@@ -550,6 +572,7 @@ function TeamBrief({
             <label htmlFor="team-name">
               Team or club name
               <input
+                ref={teamRef}
                 id="team-name"
                 value={team}
                 onChange={(e) => setTeam(e.target.value)}
@@ -593,6 +616,7 @@ function TeamBrief({
 
 export function SiteFooter() {
   const [aboutOpen, setAboutOpen] = useState(false);
+  useInertPage(aboutOpen);
   return (
     <>
       <footer className="gc-footer" data-tone="dark">
@@ -639,10 +663,10 @@ export function SiteFooter() {
             merchandise or existing team partnerships.
           </p>
           <p>
-            The approved gorilla mark has been placed on the hoodie in the
-            product photographs and the lights-on portrait. In the opening film,
-            the campaign prints and the other photographs, the chest print was
-            drawn by the image generator and only approximates the approved mark.
+            Wherever the gorilla mark appears on a garment, in the
+            photographs, the campaign prints and the opening film, it is the
+            supplied artwork placed onto the AI-generated image; the image
+            generator’s own version of the mark has been removed.
           </p>
           <p>
             The $78 hoodie price and sizes are illustrative examples requested

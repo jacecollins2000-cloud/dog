@@ -150,33 +150,31 @@ export function CampaignHero() {
   const sequencing = started && animate && !failed;
   return <section ref={stage} className={`campaign-hero cinematic-opening ${sequencing ? 'is-sequenced' : ''}`} data-tone="dark" aria-label="Live Different!! campaign">
     <picture>
-      <source media="(max-width:760px)" srcSet="/assets/gc-campaign-mobile-poster-v5.webp" />
-      <img className="campaign-poster" src="/assets/gc-campaign-film-poster-v5.webp" alt="GC campaign concept: an adult dancer in a charcoal gorilla-mark hoodie lighting an empty studio" width="1280" height="720" fetchPriority="high" />
+      <source media="(max-width:760px)" srcSet="/assets/gc-campaign-mobile-poster-v6.webp" />
+      <img className="campaign-poster" src="/assets/gc-campaign-film-poster-v6.webp" alt="GC campaign concept: an adult dancer in a charcoal gorilla-mark hoodie lighting an empty studio" width="1280" height="720" fetchPriority="high" />
     </picture>
     <video ref={video} className={`campaign-film ${started && !failed ? 'is-playing' : ''}`} muted loop playsInline preload="auto" onPlay={() => setPlaying(true)} onPlaying={revealFirstFrame} onWaiting={() => { /* Keep the last decoded frame while mobile playback buffers. */ }} onPause={() => { setPlaying(false); const player = video.current; if (player && (player.currentTime < SWITCH_LIGHT + .75 || (Number.isFinite(player.duration) && player.currentTime > player.duration - .55))) setStarted(false); }} onCanPlay={() => { if (!video.current?.error) setFailed(false); }} onError={event => { if (event.currentTarget.error) { setFailed(true); finishArrival('error'); } }} aria-label="Guerrilla Camp campaign film">
       {/* MP4 first keeps Safari on the tuned file; browsers without H.264 fall through to the VP9 copy of the same edit. */}
-      <source media="(max-width:760px)" src="/assets/gc-campaign-mobile-v8.mp4" type='video/mp4; codecs="avc1.640028"' />
-      <source media="(max-width:760px)" src="/assets/gc-campaign-mobile-v8.webm" type='video/webm; codecs="vp9"' />
-      <source src="/assets/gc-campaign-film-v8.mp4" type='video/mp4; codecs="avc1.640028"' />
-      <source src="/assets/gc-campaign-film-v8.webm" type='video/webm; codecs="vp9"' />
+      <source media="(max-width:760px)" src="/assets/gc-campaign-mobile-v9.mp4" type='video/mp4; codecs="avc1.640028"' />
+      <source media="(max-width:760px)" src="/assets/gc-campaign-mobile-v9.webm" type='video/webm; codecs="vp9"' />
+      <source src="/assets/gc-campaign-film-v9.mp4" type='video/mp4; codecs="avc1.640028"' />
+      <source src="/assets/gc-campaign-film-v9.webm" type='video/webm; codecs="vp9"' />
     </video>
     <div className="campaign-blackout" aria-hidden="true" />
     <picture>
-      <source media="(max-width:760px)" srcSet="/assets/gc-arrival-dim-mobile-v8.webp" />
-      <img className="arrival-establishing-frame" src="/assets/gc-arrival-dim-desktop-v8.webp" alt="" width="1280" height="720" fetchPriority="high" loading="eager" />
+      <source media="(max-width:760px)" srcSet="/assets/gc-arrival-dim-mobile-v9.webp" />
+      <img className="arrival-establishing-frame" src="/assets/gc-arrival-dim-desktop-v9.webp" alt="" width="1280" height="720" fetchPriority="high" loading="eager" />
     </picture>
     <div className="campaign-shade" />
     <div className="campaign-dim" aria-hidden="true" />
-    {/* First in tab order, matching its place at the top of the film. */}
-    {!failed && <button className="ambient-control" onClick={toggle} aria-label={playing ? 'Pause campaign film' : 'Play campaign film'} aria-pressed={playing}>{playing ? <Pause size={14} /> : <Play size={14} />}</button>}
     <div className="campaign-copy">
-      <div className="gc-hero-row">
-        <p className="gc-hero-meta"><span><span className="gc-nowrap">(Collection concept)</span> <span className="gc-nowrap">GC—001 · The hoodie</span></span><span>Illustrative AI film</span></p>
-        <a className="gc-btn is-light campaign-discover" href="#collection">Shop the hoodie <ArrowDown size={17} aria-hidden="true" /></a>
-      </div>
+      <p className="gc-hero-meta"><span><span className="gc-nowrap">(Collection concept)</span> <span className="gc-nowrap">GC—001 · The hoodie</span></span><span>Illustrative AI film</span></p>
       {/* The founder's hand-painted slogan, pasted over the film on a strip of GC White paper. */}
       <h1 className="gc-hero-slogan"><span className="sr-only">Live Different!!</span><img src="/assets/gc-slogan-red.webp" alt="" width="1800" height="336" fetchPriority="high" /></h1>
+      <a className="gc-btn is-light campaign-discover" href="#collection">Shop the hoodie <ArrowDown size={17} aria-hidden="true" /></a>
     </div>
+    {/* Beside the action at the foot of the film, clear of the faces; outside the copy so it stays usable while the room is dark. */}
+    {!failed && <button className="ambient-control" onClick={toggle} aria-label={playing ? 'Pause campaign film' : 'Play campaign film'}>{playing ? <Pause size={14} /> : <Play size={14} />}</button>}
     {failed && <output className="film-status">Film unavailable. Campaign image shown.</output>}
   </section>;
 }

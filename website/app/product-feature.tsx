@@ -24,7 +24,7 @@ export function ProductFeature({ onBuy, onViewBag, bagSize = '' }: { onBuy: (siz
   const [added, setAdded] = useState(false);
   const [slide, setSlide] = useState(0);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const rail = useRef<HTMLDivElement>(null);
+  const rail = useRef<HTMLElement>(null);
   const buyRef = useRef<HTMLButtonElement>(null);
   const zoneRef = useRef<HTMLDivElement>(null);
   const dockRef = useRef<HTMLDivElement>(null);
@@ -42,8 +42,10 @@ export function ProductFeature({ onBuy, onViewBag, bagSize = '' }: { onBuy: (siz
       const margin = 120;
       const zoneBehindDock = area.top < innerHeight - dockHeight - margin && area.bottom > innerHeight + margin;
       const buttonOnScreen = own.top < innerHeight - dockHeight && own.bottom > 0;
+      // It also steps aside while keyboard focus is in the gallery, so it never covers the focused dot or arrow.
+      const galleryFocused = Boolean(zone.querySelector('.pdp-gallery')?.contains(document.activeElement));
       // Toggled directly (not via React state) so it changes in the same frame as the scroll.
-      const show = zoneBehindDock && !buttonOnScreen;
+      const show = zoneBehindDock && !buttonOnScreen && !galleryFocused;
       dock.classList.toggle('is-visible', show);
       dock.inert = !show;
       dock.setAttribute('aria-hidden', String(!show));
@@ -51,7 +53,11 @@ export function ProductFeature({ onBuy, onViewBag, bagSize = '' }: { onBuy: (siz
     sync();
     addEventListener('scroll', sync, { passive: true });
     addEventListener('resize', sync);
-    return () => { removeEventListener('scroll', sync); removeEventListener('resize', sync); };
+    // Focus moving between two gallery controls passes through the body; decide once it has landed.
+    const afterBlur = () => setTimeout(sync, 0);
+    zone.addEventListener('focusin', sync);
+    zone.addEventListener('focusout', afterBlur);
+    return () => { removeEventListener('scroll', sync); removeEventListener('resize', sync); zone.removeEventListener('focusin', sync); zone.removeEventListener('focusout', afterBlur); };
   }, []);
 
   // On the phone the gallery is a swipe rail, so its scroll position decides the current image.
@@ -87,18 +93,30 @@ export function ProductFeature({ onBuy, onViewBag, bagSize = '' }: { onBuy: (siz
     else setSlide(next);
   }
 
+  // Arrow keys step through the images while the strip has focus (it is a scroll region, so it takes focus itself).
+  const step = useRef((by: number) => { void by; });
+  useEffect(() => { step.current = by => goTo(slide + by); });
+  useEffect(() => {
+    const track = rail.current;
+    if (!track) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+      event.preventDefault();
+      step.current(event.key === 'ArrowRight' ? 1 : -1);
+    };
+    track.addEventListener('keydown', onKey);
+    return () => track.removeEventListener('keydown', onKey);
+  }, []);
+
   return <div className="pdp-zone" ref={zoneRef} data-tone="light">
     <TornEdge edge="top" variant={0} />
     <section id="collection" className="pdp" aria-labelledby="collection-title">
       <div className="pdp-gallery">
-        <div className="pdp-rail" ref={rail} tabIndex={0} aria-label="Product images" onKeyDown={event => {
-          if (event.key === 'ArrowRight') { event.preventDefault(); goTo(slide + 1); }
-          if (event.key === 'ArrowLeft') { event.preventDefault(); goTo(slide - 1); }
-        }}>
+        <section className="pdp-rail" ref={rail} aria-roledescription="carousel" tabIndex={0} aria-label="Product images">
           {gallery.map(([src, alt], index) => <figure key={src} className={`pdp-frame ${index === 0 ? 'is-product' : ''} ${src.endsWith('.svg') ? 'is-mark' : ''} ${index === slide ? 'is-current' : ''}`}>
             <img src={src} alt={alt} width="1122" height="1402" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
           </figure>)}
-        </div>
+        </section>
         <p className="pdp-position" aria-live="polite"><span>{slide + 1} / {gallery.length}</span><span>{gallery[slide][2]}</span></p>
         <div className="pdp-arrows">
           <button onClick={() => goTo(slide - 1)} aria-label="Previous product image"><ArrowLeft size={18} /></button>
