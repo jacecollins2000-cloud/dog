@@ -583,8 +583,8 @@ export function SiteFooter() {
   return (
     <>
       <footer className="gc-footer" data-tone="dark">
-        <a href="/" className="gc-footer-mark" aria-label="Guerrilla Camp home"><img src="/assets/gc-wordmark.svg" alt="" width="1200" height="355" loading="lazy" /></a>
         <div className="gc-footer-row">
+          <a href="/" className="gc-footer-mark" aria-label="Guerrilla Camp home"><img src="/assets/gc-wordmark.svg" alt="" width="1200" height="355" loading="lazy" /></a>
           <nav aria-label="Footer navigation">
             <a href="/#collection">The hoodie</a>
             <a href="/#about">Behind GC</a>

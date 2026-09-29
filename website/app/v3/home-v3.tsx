@@ -69,7 +69,7 @@ export function SiteBar({ bagCount = 0, onBag, home = true }: { bagCount?: numbe
         <span className="gc-bar-meta gc-wide">Nevada — Est. 2023</span>
         {onBag
           ? <button className="gc-bar-link" onClick={onBag} aria-label={`Open bag, ${bagCount} ${bagCount === 1 ? 'item' : 'items'}`}>Bag <span className="gc-bar-count">({bagCount})</span></button>
-          : <a className="gc-bar-link" href="/#collection">The hoodie <ArrowUpRight size={13} aria-hidden="true" /></a>}
+          : <a className="gc-bar-link" href="/#collection" aria-label="Shop the hoodie">Shop <ArrowUpRight size={13} aria-hidden="true" /></a>}
       </div>
     </header>
     <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
@@ -101,7 +101,6 @@ export function Manifesto() {
   return <section id="about" className="gc-manifesto" data-tone="dark" aria-labelledby="gc-manifesto-title">
     <div className="gc-manifesto-rail">
       <p className="gc-label"><span className="gc-num">02</span> Behind GC</p>
-      <p className="gc-label gc-quiet">Nevada — Est. 2023</p>
     </div>
     <h2 id="gc-manifesto-title" className="gc-manifesto-statement gc-reveal" data-reveal data-reveal-threshold=".2">
       <span style={{ '--i': 0 } as React.CSSProperties}>The world will try to put you in a box.</span>{' '}
@@ -120,8 +119,13 @@ export function ValuesChapter() {
     const stage = element.querySelector<HTMLElement>('.gc-values-stage');
     const place = (on: number) => {
       element.style.setProperty('--on', on.toFixed(4));
-      // The seam sits on whole device pixels, so its edges never render as a soft hairline.
-      if (stage) element.style.setProperty('--x-px', `${Math.round((on * 1.05 - .05) * stage.clientWidth * devicePixelRatio) / devicePixelRatio}px`);
+      // The seam travels from just off the left edge (lip included) to past the right edge.
+      // It sits on whole device pixels, so its edges never render as a soft hairline.
+      if (stage) {
+        const strip = stage.clientHeight * .156;
+        const x = on * (stage.clientWidth * 1.05 + strip) - strip;
+        element.style.setProperty('--x-px', `${Math.round(x * devicePixelRatio) / devicePixelRatio}px`);
+      }
     };
     if (element.dataset.still) { place(1); return; }
     // Starts as the stage settles at the top, finishes 75% through the pin, then holds fully lit.
@@ -184,7 +188,8 @@ export function CampaignWall() {
   return <section ref={ref} id="campaign" className="gc-wall" data-tone="dark" aria-labelledby="gc-wall-title">
     <header className="gc-wall-head">
       <p className="gc-label"><span className="gc-num">04</span> The campaign</p>
-      <h2 id="gc-wall-title">Individuality,<br />with a place to belong.</h2>
+      <h2 id="gc-wall-title">Three prints, pasted up.</h2>
+      <p className="gc-note">Illustrative campaign artwork, AI-generated for this concept.</p>
     </header>
     <div className="gc-wall-posters">
       {posters.map(([src, title, theme, alt], i) => <figure key={src} className="gc-poster" style={{ '--n': i } as React.CSSProperties}>
@@ -196,7 +201,6 @@ export function CampaignWall() {
         <figcaption><span>0{i + 1} / {theme}</span><span>{title}</span></figcaption>
       </figure>)}
     </div>
-    <p className="gc-note gc-wall-note">Illustrative campaign artwork, AI-generated for this concept.</p>
   </section>;
 }
 

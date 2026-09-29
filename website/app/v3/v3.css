@@ -39,7 +39,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .gc-num { display: inline-flex; align-items: center; gap: .55em; margin-right: .55em; }
 .gc-num::before { content: ''; width: .62em; height: .62em; background: var(--gc-red); }
 .gc-note { margin: 0; font: 400 12px/1.5 var(--gc-mono); letter-spacing: .02em; text-wrap: balance; }
-.gc-quiet, .gc-echo { color: var(--gc-dim); }
+.gc-echo { color: var(--gc-dim); }
 [data-tone=light] .gc-echo, .gc-teams [data-tone=light] .gc-echo { color: #86857e; }
 
 .gc-btn { display: inline-flex; align-items: center; justify-content: space-between; gap: 18px; min-height: 54px; padding: 0 22px; border: 1px solid var(--gc-ink); border-radius: 0; background: var(--gc-ink); color: #fff; font: 500 13px/1 var(--gc-mono); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; white-space: nowrap; cursor: pointer; transition: background-color .2s, border-color .2s, color .2s; }
@@ -168,7 +168,7 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-values { position: relative; height: 200svh; background: #050505; color: #fff; }
 .gc-values-stage { position: sticky; top: 0; height: 100vh; height: 100svh; height: 100lvh; overflow: hidden; isolation: isolate; container-type: size;
   /* The tear strip keeps the photographed edge's own proportions (240 x 1536). */
-  --strip: calc(100cqh * .156); --x: var(--x-px, calc(-5cqw + var(--on, 1) * 105cqw)); }
+  --strip: calc(100cqh * .156); --x: var(--x-px, calc(var(--on, 1) * (105cqw + var(--strip)) - var(--strip))); }
 .gc-values-off, .gc-values-on-photo { position: absolute; top: 0; left: -4px; width: calc(100cqw + 8px); height: 100%; }
 .gc-values-off img, .gc-values-on img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 28%; }
 /* Lights on: the colour print is torn along a photographed edge; transforms only, so the seam never forces layout. */
@@ -179,8 +179,8 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-values-lip { position: absolute; top: 0; bottom: 0; left: 0; width: var(--strip); background: url(/assets/gc-seam-lip.png) left top / 100% 100% no-repeat; transform: translateX(var(--x)); filter: drop-shadow(5px 0 6px rgb(0 0 0 / .55)); will-change: transform; }
 .gc-values-stage::after { content: ''; position: absolute; z-index: 1; inset: 0; background: linear-gradient(0deg, rgb(0 0 0 / .74) 0, rgb(0 0 0 / .42) 40%, rgb(0 0 0 / 0) 66%), linear-gradient(180deg, rgb(0 0 0 / .4) 0, rgb(0 0 0 / 0) 18%); pointer-events: none; }
 .gc-values-copy { position: absolute; z-index: 2; left: var(--gc-g); right: var(--gc-g); bottom: calc(clamp(36px, 7vh, 76px) + 100lvh - 100svh); }
-.gc-values-words { display: grid; margin: 14px 0 16px; font-family: var(--gc-poster); font-weight: 400; font-size: clamp(68px, 9.6vw, 156px); line-height: .9; letter-spacing: .002em; text-transform: uppercase; }
-.gc-values-words span { opacity: clamp(.65, calc((var(--on, 1) - var(--i) * .3) * 4.5 + .65), 1); text-shadow: 0 2px 8px rgb(0 0 0 / .55); transform: translateX(calc((1 - clamp(0, (var(--on, 1) - var(--i) * .3) * 4.5, 1)) * -1vw)); }
+.gc-values-words { display: grid; margin: 14px 0 16px; font-family: var(--gc-poster); font-weight: 400; font-size: clamp(68px, 11vw, 176px); line-height: .9; letter-spacing: .002em; text-transform: uppercase; }
+.gc-values-words span { opacity: clamp(.84, calc((var(--on, 1) - var(--i) * .3) * 4.5 + .84), 1); text-shadow: 0 2px 10px rgb(0 0 0 / .7); transform: translateX(calc((1 - clamp(0, (var(--on, 1) - var(--i) * .3) * 4.5, 1)) * -1vw)); }
 .gc-values-line { max-width: 30ch; margin: 0; font-size: clamp(17px, 1.5vw, 22px); font-weight: 500; line-height: 1.4; color: #eceae4; text-shadow: 0 1px 10px rgb(0 0 0 / .5); text-wrap: balance; }
 .gc-values-copy .gc-label, .gc-values-copy .gc-note { text-shadow: 0 1px 8px rgb(0 0 0 / .7); }
 .gc-values-copy .gc-note { display: block; margin-top: 12px; color: #d7d4cc; }
@@ -199,12 +199,13 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-values[data-still] .gc-values-stage { position: relative; }
 
 /* ---------- 04 The campaign: prints pasted on concrete ---------- */
-.gc-wall { position: relative; z-index: 2; overflow: clip visible; padding: clamp(104px, 14vh, 160px) var(--gc-g) clamp(72px, 10vh, 112px); background: #4b4c4a url(/assets/wall-concrete-v1.webp) center / cover; color: var(--gc-white); }
+.gc-wall { position: relative; z-index: 2; overflow: clip visible; padding: clamp(104px, 14vh, 160px) var(--gc-g) clamp(88px, 12vh, 136px); background: #4b4c4a url(/assets/wall-concrete-v1.webp) center / cover; color: var(--gc-white); }
 .gc-wall::before { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgb(10 10 10 / .44) 0, rgb(10 10 10 / 0) 320px), linear-gradient(180deg, rgb(10 10 10 / .56), rgb(10 10 10 / .22) 32%, rgb(10 10 10 / .34)); }
 .gc-wall > * { position: relative; }
-.gc-wall-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); gap: var(--gc-g); align-items: start; margin-bottom: clamp(56px, 9vh, 104px); }
-.gc-wall-head .gc-label { padding-top: .6em; }
-.gc-wall-head h2 { margin: 0; font-family: var(--gc-poster); font-weight: 400; font-size: clamp(46px, 5.6vw, 96px); line-height: .94; text-transform: uppercase; text-wrap: balance; text-shadow: 0 2px 18px rgb(0 0 0 / .3); }
+.gc-wall-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); gap: 10px var(--gc-g); align-items: baseline; margin-bottom: clamp(48px, 8vh, 88px); }
+/* A caption, not a headline: the prints are the loud part of this chapter. */
+.gc-wall-head h2 { grid-column: 2; margin: 0; font-family: var(--font-body), sans-serif; font-weight: 600; font-size: clamp(24px, 2.2vw, 34px); line-height: 1.1; letter-spacing: -.02em; text-shadow: 0 1px 12px rgb(0 0 0 / .35); }
+.gc-wall-head .gc-note { grid-column: 2; color: #e3e1da; text-shadow: 0 1px 6px rgb(0 0 0 / .6); }
 .gc-wall-posters { display: flex; align-items: flex-start; justify-content: space-between; gap: 2.4vw; }
 .gc-poster { flex: 1 1 0; max-width: 470px; margin: 0; transform: translateY(calc((.5 - var(--view, .5)) * var(--lift))) rotate(var(--rot)); filter: drop-shadow(0 1px 1px rgb(0 0 0 / .5)) drop-shadow(0 4px 6px rgb(0 0 0 / .28)); will-change: transform; }
 .gc-poster:nth-child(1) { --rot: -1.6deg; --lift: 60px; margin-top: 2vw; }
@@ -219,14 +220,14 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-poster:nth-child(2) .gc-tape-bit.is-a { left: 38%; width: 26%; transform: rotate(3deg); }
 .gc-poster:nth-child(2) .gc-tape-bit.is-b { display: none; }
 .gc-poster figcaption { display: flex; justify-content: space-between; gap: 12px; margin-top: 16px; font: 500 12px/1.3 var(--gc-mono); letter-spacing: .06em; text-transform: uppercase; color: #ebe9e2; text-shadow: 0 1px 6px rgb(0 0 0 / .6); }
-.gc-wall-note { margin-top: clamp(56px, 9vh, 104px); color: #e3e1da; text-shadow: 0 1px 6px rgb(0 0 0 / .6); }
 
 /* ---------- 05 The troop: the individual beside the people in their corner ---------- */
 .gc-troop { position: relative; z-index: 3; background: var(--gc-white); color: var(--gc-ink); }
 .gc-troop-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); gap: 20px var(--gc-g); padding: clamp(104px, 15vh, 170px) var(--gc-g) clamp(44px, 7vh, 72px); }
 .gc-troop-head .gc-label { padding-top: .6em; color: var(--gc-muted); }
 .gc-troop-head h2 { margin: 0; font-family: var(--gc-poster); font-weight: 400; font-size: clamp(46px, 5.6vw, 96px); line-height: .94; text-transform: uppercase; }
-.gc-troop-head h2 > span { display: block; }
+.gc-troop-head h2 > span { display: block; text-wrap: pretty; }
+.gc-troop-head h2 > .gc-echo { text-wrap: balance; }
 .gc-troop-head .gc-note { grid-column: 2; color: var(--gc-muted); }
 .gc-troop-split { position: relative; display: flex; height: 100svh; min-height: 560px; max-height: 1080px; background: var(--gc-black); }
 .gc-half { position: relative; flex: 1 1 0; min-width: 0; margin: 0; overflow: hidden; color: #fff; transition: flex-grow .8s var(--gc-ease); }
@@ -254,7 +255,7 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-camp-copy .gc-label, .gc-camp-copy .gc-note { color: #f2ede4; text-shadow: 0 1px 8px rgb(0 0 0 / .5); }
 
 /* ---------- Sign-off ---------- */
-.gc-signoff { position: relative; z-index: 3; display: grid; justify-items: center; padding: clamp(110px, 16vh, 180px) var(--gc-g) clamp(84px, 12vh, 132px); background: var(--gc-white); color: var(--gc-ink); text-align: center; }
+.gc-signoff { position: relative; z-index: 3; min-height: 100svh; box-sizing: border-box; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; justify-items: center; padding: clamp(96px, 13vh, 150px) var(--gc-g) clamp(72px, 10vh, 110px); background: var(--gc-white); color: var(--gc-ink); text-align: center; }
 .gc-signoff-mark { width: clamp(88px, 8vw, 128px); height: auto; }
 .gc-signoff-slogan { width: min(96vw, 1380px); max-width: none; margin: clamp(24px, 5vh, 56px) 0 0; transform: rotate(-3deg); }
 .gc-signoff-slogan img { display: block; width: 100%; height: auto; -webkit-mask-image: linear-gradient(100deg, #000 calc(var(--paint, 1) * 106% - 5%), transparent calc(var(--paint, 1) * 106%)); mask-image: linear-gradient(100deg, #000 calc(var(--paint, 1) * 106% - 5%), transparent calc(var(--paint, 1) * 106%)); }
@@ -262,10 +263,11 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-signoff > .gc-note { margin-top: 24px; color: var(--gc-muted); }
 
 /* ---------- Footer ---------- */
-.gc-footer { position: relative; padding: clamp(88px, 13vh, 150px) var(--gc-g) 26px; background: var(--gc-black); color: var(--gc-white); --focus: #fff; }
-.gc-footer-mark { display: block; }
-.gc-footer-mark img { display: block; width: 100%; height: auto; }
-.gc-footer-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; margin-top: clamp(34px, 6vh, 64px); padding-top: 14px; border-top: 1px solid rgb(255 255 255 / .15); font: 500 12px/1.3 var(--gc-mono); letter-spacing: .07em; text-transform: uppercase; }
+/* A quiet colophon: the sign-off above stays the last and largest brand moment. */
+.gc-footer { position: relative; padding: clamp(36px, 6vh, 56px) var(--gc-g) 22px; background: var(--gc-black); color: var(--gc-white); --focus: #fff; }
+.gc-footer-mark { display: block; flex: none; margin-right: auto; padding: 4px 0; }
+.gc-footer-mark img { display: block; width: clamp(150px, 13vw, 196px); height: auto; }
+.gc-footer-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; font: 500 12px/1.3 var(--gc-mono); letter-spacing: .07em; text-transform: uppercase; }
 .gc-footer-row nav { display: flex; flex-wrap: wrap; gap: 0 26px; }
 .gc-footer-row a, .gc-footer-row .footer-concept { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: inherit; text-decoration: none; }
 .gc-footer-row a:hover, .gc-footer-row .footer-concept:hover { text-decoration: underline; text-underline-offset: 4px; }
@@ -284,7 +286,7 @@ html[data-gc-motion=full] .gc-reveal:not(.has-entered) > * { opacity: 0; transfo
 .gc-team-hero { position: relative; display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); align-items: end; gap: var(--gc-g); min-height: 100svh; box-sizing: border-box; padding: 112px var(--gc-g) 34px; overflow: hidden; background: var(--gc-white); }
 .gc-team-hero-copy { align-self: center; padding-bottom: 24px; }
 .gc-team-hero-copy > .gc-label { color: var(--gc-muted); }
-.gc-team-title { margin: 22px 0 30px -.02em; font-family: var(--gc-poster); font-weight: 400; font-size: clamp(120px, 14.6vw, 250px); line-height: .8; text-transform: uppercase; }
+.gc-team-title { margin: 22px 0 30px -.02em; font-family: var(--gc-poster); font-weight: 400; font-size: clamp(120px, 14.6vw, 250px); line-height: .9; text-transform: uppercase; }
 .gc-team-title span { display: block; }
 .gc-team-statement { margin: 0 0 16px; font-family: var(--font-body), sans-serif; font-weight: 600; font-size: clamp(24px, 2.2vw, 34px); line-height: 1.06; letter-spacing: -.03em; }
 .gc-team-statement span { display: block; }
@@ -385,7 +387,7 @@ html[data-gc-motion=full] .gc-reveal:not(.has-entered) > * { opacity: 0; transfo
   .gc-manifesto-rail { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; padding-top: 0; }
   .gc-manifesto-statement { grid-column: 1; grid-row: 2; max-width: 15ch; font-size: clamp(40px, 8vw, 68px); }
   .gc-manifesto-mark { grid-row: 3; align-self: start; margin: 8px 0 0; }
-  .gc-troop-head .gc-note, .gc-section-aside { grid-column: 1; }
+  .gc-troop-head .gc-note, .gc-section-aside, .gc-wall-head h2, .gc-wall-head .gc-note { grid-column: 1; }
   .gc-wall-posters { flex-direction: column; align-items: stretch; gap: 0; }
   .gc-poster { flex: none; width: 80%; max-width: 480px; }
   .gc-poster:nth-child(1) { margin-top: 0; }
@@ -431,10 +433,14 @@ html[data-gc-motion=full] .gc-reveal:not(.has-entered) > * { opacity: 0; transfo
   .gc-camp { --camp-fs: min(33vw, 28svh); }
   .gc-camp-copy { right: var(--gc-g); max-width: none; }
   .gc-camp-line { max-width: 30ch; font-size: 16px; }
-  .gc-camp::after { background: linear-gradient(180deg, rgb(10 8 6 / .1) 0, rgb(10 8 6 / .6) 36%, rgb(10 8 6 / .6) 66%, rgb(10 8 6 / .15) 100%); }
-  .gc-signoff-slogan { width: 96vw; }
+  .gc-camp::after { background: linear-gradient(180deg, rgb(10 8 6 / .15) 0, rgb(10 8 6 / .5) 30%, rgb(10 8 6 / .35) 55%, rgb(10 8 6 / .1) 100%); }
+  .gc-signoff-slogan { width: 90vw; }
+  .gc-signoff-mark { width: 104px; }
+  /* One Camp: the photograph sits lower so the copy reads over sky, not over heads. */
+  .gc-camp-image { top: 0; bottom: auto; height: 124%; object-position: 42% 50%; }
   .gc-signoff-actions { flex-direction: column; gap: 8px; }
-  .gc-footer-row { flex-direction: column; }
+  .gc-footer-row { align-items: flex-start; }
+  .gc-footer-row nav, .gc-footer-meta { width: 100%; }
   .gc-team-title { font-size: clamp(104px, 33vw, 170px); }
   .gc-percentage { font-size: clamp(150px, 46vw, 240px); }
   .gc-team-close { grid-template-columns: 1fr; }

@@ -165,7 +165,7 @@ export function CampaignHero() {
     <div className="campaign-dim" aria-hidden="true" />
     <div className="campaign-copy">
       <div className="gc-hero-row">
-        <p className="gc-hero-meta"><span>(Collection concept)</span><span>GC—001 · The hoodie</span></p>
+        <p className="gc-hero-meta"><span>(Collection concept) GC—001 · The hoodie</span></p>
         <a className="gc-btn is-light campaign-discover" href="#collection">Shop the hoodie <ArrowDown size={17} aria-hidden="true" /></a>
       </div>
       <h1 aria-label="Live Different!!"><span className="campaign-word word-live" aria-hidden="true">Live</span>{' '}<span className="campaign-word word-different" aria-hidden="true">Different<em>!!</em></span></h1>
