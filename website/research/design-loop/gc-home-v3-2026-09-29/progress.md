@@ -56,3 +56,19 @@ Evidence:
 - No playable film: lit after 438ms (1440) and 318ms (390) with the fallback message, vs. ~5.1s black on the baseline.
 - `npm run build` ok; `tsc` clean; arrival tests 30/30.
 - `oxlint app`: 2 errors, both pre-existing (baseline had 17).
+
+## Imagery audit and generation briefs
+The asset library covers every chapter; no new imagery was required to ship.
+No ChatGPT or image-generation tool was callable in this environment, so nothing was generated.
+One gap would clearly strengthen the work; its brief is below for a future session.
+
+**G1 — Matched diptych for "The individual / The troop" (replaces the two current halves).**
+- **Why:** today's halves come from two shoots — a warm dusk courtside portrait beside a navy night huddle. The split reads as two photos, not one idea.
+- **Subject:** the same outdoor concrete court at blue hour, shot from one camera position, in two frames.
+  - Left: one adult athlete in the charcoal GC Hoodie, seated alone on the bleacher step, looking off-frame.
+  - Right: four adult teammates in GC charcoal, black and cream pieces, close together on the same step, one arm over a shoulder.
+- **Light and texture:** one practical court light, cool ambient sky, and a warm rim on the subjects. Natural skin, real fabric texture on the washed charcoal, no retouched gloss.
+- **Composition:** 4:5 portrait. Subjects in the lower 60%, with clean sky or concrete in the upper 40% for type.
+  The chest mark must be visible and unaltered: composite the supplied mark rather than letting a generator redraw it.
+- **Crops:** desktop half-screen 720×900 (centre 50%); phone 390×400 (lower 55%, faces clear of the bottom 120px caption zone).
+- **Deliverables:** WebP at 1122×1402 and 2244×2804, each under 180 KB at 1122w. Label them "Illustrative campaign" on the page.
