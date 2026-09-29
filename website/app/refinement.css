@@ -1,0 +1,225 @@
+/* Quiet commerce / expressive campaign. Reference-specific refinement. */
+:root { --gutter:clamp(22px,4.6vw,88px); --paper:#f9f9f6; --background:#f9f9f6; }
+.site-header { height:84px; gap:20px; background:#f9f9f6; }
+.site-header.over-film { background:#f9f9f6; }
+.site-header.scroll-header { position:sticky; top:0; box-shadow:0 1px 0 #1111; }
+.site-header.over-film .header-bag,.site-header.over-film .mobile-menu-button { transition:opacity 240ms,transform 280ms,visibility 240ms; }
+.site-header.over-film:not(.controls-visible) .header-bag,.site-header.over-film:not(.controls-visible) .mobile-menu-button { opacity:0; visibility:hidden; transform:translateY(4px); pointer-events:none; }
+.brand-wordmark { width:216px; }
+.brand-lockup { justify-self:center; transition:transform 250ms; }
+.brand-lockup:hover { transform:translateY(-2px); }
+.desktop-nav { gap:5px; }
+.desktop-nav a { display:flex; align-items:center; justify-content:center; min-height:44px; padding:0 13px; border:1px solid #deded6; border-radius:999px; font-size:11px; font-weight:550; letter-spacing:.02em; transition:background 220ms,color 220ms,border-color 220ms; }
+.desktop-nav a:hover,.desktop-nav a:focus-visible { background:#a32629; border-color:#a32629; color:#fff; }
+.desktop-nav a:after { display:none; }
+.desktop-nav a.current:after { display:none; }
+.header-bag,.header-program { background:#20211e; color:#fff; border:1px solid #20211e; border-radius:999px; min-height:44px; min-width:44px; justify-content:center; padding:0 8px 0 17px; gap:9px; transition:background 220ms,border-color 220ms; }
+.header-bag:hover,.header-program:hover { background:#a32629; border-color:#a32629; color:#fff; }
+.header-bag-label { font-size:11px; letter-spacing:.04em; }
+.header-bag-count { font-size:11px; width:28px; height:28px; display:grid; place-items:center; border:1px solid #ffffff45; border-radius:50%; font-variant-numeric:tabular-nums; }
+.header-program { padding:0 17px; font-size:11px; }
+.site-header a:focus-visible,.site-header button:focus-visible { outline:2px solid #a32629; outline-offset:4px; }
+.menu-strokes { width:18px; display:grid; gap:5px; }
+.menu-strokes i { display:block; height:1px; background:currentColor; transition:width 220ms; }
+.menu-strokes i:last-child { width:12px; }
+.mobile-menu-button:hover .menu-strokes i:last-child { width:18px; }
+.campaign-hero { height:calc(100svh - 84px); min-height:500px; max-height:none; }
+.campaign-shade { background:linear-gradient(180deg,#0000 52%,#0002 65%,#0009); }
+.cinematic-opening .campaign-copy { bottom:64px; left:50%; right:auto; width:90%; max-width:750px; transform:translateX(-50%); text-align:center; }
+.cinematic-opening .campaign-copy h1 { font-family:var(--font-display),sans-serif; font-size:clamp(52px,6.2vw,92px); line-height:.98; font-weight:700; letter-spacing:.005em; margin:0 0 20px; }
+.campaign-discover { display:inline-flex; align-items:center; justify-content:center; gap:23px; min-height:44px; padding:0 0 5px; border-bottom:1px solid #ffffffa0; font-size:13px; }
+.campaign-discover svg { transition:transform 240ms; }
+.campaign-discover:hover svg { transform:translate(2px,-2px); }
+.hero-preview-label { position:absolute; left:var(--gutter); bottom:20px; font-size:11px; color:#e2e2e2; letter-spacing:.04em; }
+.ambient-control { position:absolute; right:calc(var(--gutter) - 12px); bottom:7px; width:44px; height:44px; display:grid; place-items:center; border:0; color:white; background:transparent; opacity:.7; }
+.ambient-control:hover,.ambient-control:focus-visible { opacity:1; }
+.ambient-control:focus-visible,.campaign-discover:focus-visible { outline:2px solid white; outline-offset:3px; }
+.film-status { top:auto; bottom:12px; left:50%; transform:translateX(-50%); font-size:11px; width:max-content; }
+
+.object-commerce { padding:110px var(--gutter) 120px; background:#f9f9f6; }
+.object-commerce .collection-grid { grid-template-columns:minmax(0,1.35fr) minmax(300px,.82fr); gap:clamp(45px,7vw,125px); padding:0; align-items:center; max-width:1440px; margin:auto; }
+.object-commerce .collection-gallery { position:relative; }
+.product-object { --turn-x:0deg; --turn-y:0deg; position:relative; height:clamp(450px,45vw,690px); background:#e9e9e4; overflow:hidden; isolation:isolate; }
+.product-object-index { position:absolute; z-index:2; left:24px; top:23px; font-size:11px; letter-spacing:.1em; color:#686861; }
+.product-object-garment { position:absolute; inset:2% 5% 7%; transform:perspective(1100px) rotateX(var(--turn-x)) rotateY(var(--turn-y)); transition:transform 500ms cubic-bezier(.2,.7,.2,1),opacity 500ms; }
+.product-cutout { width:100%; height:100%; overflow:visible; transform-origin:63% 44%; transition:transform 850ms cubic-bezier(.22,1,.36,1); filter:drop-shadow(0 24px 15px #0002); }
+.product-object.is-detail .product-cutout { transform:scale(2.65) translate(-1%,3%); }
+.product-object.is-worn .product-object-garment { opacity:0; transform:scale(.94); }
+.product-object-model { width:100%; height:100%; object-fit:cover; object-position:center 27%; position:absolute; inset:0; opacity:0; transform:scale(1.045); transition:opacity 650ms,transform 1s cubic-bezier(.22,1,.36,1); pointer-events:none; }
+.product-object.is-worn .product-object-model { opacity:1; transform:scale(1); }
+.product-object.is-worn .product-object-index,.product-object.is-worn .product-object-bottom { color:#fff; text-shadow:0 1px 5px #000; }
+.product-detail-hotspot { position:absolute; z-index:3; top:42%; left:80%; width:44px; height:44px; border:1px solid #fff9; background:#ffffffe0; color:#161616; border-radius:50%; display:grid; place-items:center; transition:top 650ms,left 650ms,background 180ms; box-shadow:0 2px 20px #0001; }
+.product-detail-hotspot:hover { background:#fff; }
+.product-object.is-detail .product-detail-hotspot { top:20px; left:calc(100% - 64px); }
+.product-object-bottom { position:absolute; z-index:2; bottom:23px; left:24px; right:24px; display:flex; justify-content:space-between; font-size:11px; color:#686861; pointer-events:none; }
+.product-object.is-added .product-object-garment { transform:scale(.91) translateY(-10px); }
+.product-entrance { width:100%; height:100%; transform-origin:50% 60%; }
+.product-object.has-entered .product-entrance { animation:object-enter 1200ms cubic-bezier(.2,.7,.2,1) both; }
+@keyframes object-enter { from { opacity:.06; transform:translateY(64px) scale(.9) rotate(-2deg); } to { opacity:1; transform:translateY(0) scale(1) rotate(0); } }
+.product-view-switch { display:flex; justify-content:center; gap:28px; margin-top:20px; }
+.product-view-switch button { border:0; border-bottom:1px solid transparent; padding:0 0 8px; min-height:44px; color:#74746e; background:transparent; display:flex; align-items:center; gap:10px; font-size:12px; }
+.product-view-switch button[aria-selected=true] { border-color:#272724; color:#111; }
+.product-view-switch button:focus-visible { outline:2px solid #a62629; outline-offset:4px; }
+.product-view-thumb { display:block; width:36px; height:43px; background:#e9e9e4; overflow:hidden; }
+.product-view-thumb img { width:100%; height:100%; object-fit:cover; mix-blend-mode:multiply; }
+.view-detail img { transform:scale(2.6); transform-origin:63% 44%; }
+.object-commerce .collection-details { max-width:440px; padding:0 0 55px; }
+.product-kicker { font-size:11px; letter-spacing:.12em; color:#76766f; margin:0 0 23px; }
+.object-commerce .collection-name { display:block; }
+.object-commerce .collection-name h2 { font-family:var(--font-body),sans-serif; font-size:clamp(30px,3.1vw,47px); font-weight:500; letter-spacing:-.055em; line-height:1.13; }
+.object-commerce .collection-price { display:flex; align-items:baseline; gap:12px; text-align:left; font-size:20px; margin-top:16px; }
+.object-commerce .collection-price small { display:inline; font-size:10px; margin:0; letter-spacing:.06em; }
+.object-commerce .collection-description { font-size:16px; font-weight:500; margin-top:33px; }
+.object-commerce .collection-subcopy { font-size:14px; line-height:1.8; max-width:365px; margin-top:8px; }
+.object-commerce .collection-color { padding:28px 0; font-size:12px; }
+.object-commerce .charcoal-swatch { width:12px; height:12px; margin-right:7px; }
+.object-commerce .collection-size-field legend { font-size:12px; }
+.object-commerce .collection-size-field legend span { font-size:11px; }
+.object-commerce .size-options label>span { min-height:44px; font-size:12px; }
+.object-commerce .collection-buy { margin-top:15px; min-height:54px; font-size:13px; font-weight:450; }
+.collection-buy.is-added { background:#343b32; border-color:#343b32; }
+.object-commerce .collection-disclosure { font-size:11px; text-align:left; margin:12px 0 29px; color:#74746f; }
+.object-commerce .collection-accordion [data-slot=accordion-trigger] { font-size:12px; padding:17px 0; }
+.object-commerce .collection-accordion p { font-size:14px; }
+.product-story-link { display:inline-flex; gap:15px; align-items:center; margin-top:26px; min-height:44px; font-size:12px; }
+.refined-team.editorial-pair { display:block; background:#f9f9f6; padding:0 var(--gutter) 95px; }
+.refined-team .team-campaign { height:auto; min-height:490px; display:grid; grid-template-columns:1.15fr 1fr; background:#e8e8e3; color:#151515; }
+.refined-team .team-campaign>img { position:relative; width:100%; height:100%; min-height:490px; object-fit:cover; object-position:47% 50%; transform:none!important; }
+.refined-team .team-campaign-shade { display:none; }
+.refined-team .team-campaign-copy { position:relative; inset:auto; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; padding:50px clamp(30px,4vw,70px); }
+.refined-team .team-campaign-copy .eyebrow { font-size:10px; letter-spacing:.09em; }
+.refined-team .team-campaign-copy h2 { font-family:var(--font-body),sans-serif; font-size:clamp(31px,3.2vw,48px); font-weight:450; line-height:1.12; letter-spacing:-.05em; margin:27px 0 18px; }
+.refined-team .team-campaign-copy>p:not(.eyebrow) { font-size:14px; color:#686860; line-height:1.8; }
+.refined-team .editorial-link { padding:0 0 4px; border:0; border-bottom:1px solid #898981; margin-top:25px; font-size:12px; }
+.refined-team .team-campaign-copy small { color:#777770; font-size:10px; margin-top:22px; }
+.site-footer { padding-top:65px; }
+.footer-top nav a { font-size:12px; }
+.shopping-bag-panel[data-slot=sheet-content] { width:440px; max-width:100%; background:#f9f9f6; color:#151515; padding:26px; gap:0; display:flex; flex-direction:column; }
+.bag-heading { display:flex; align-items:center; justify-content:space-between; }
+.bag-heading h2 { font-family:var(--font-body),sans-serif; font-size:23px; font-weight:500; letter-spacing:-.04em; }
+.bag-heading h2 span { color:#999; font-weight:400; }
+.bag-note { font-size:12px; color:#777; margin:9px 0 35px; }
+.bag-item { display:grid; grid-template-columns:118px 1fr; gap:23px; padding:25px 0; border-top:1px solid #deded7; }
+.bag-item img { width:118px; height:149px; object-fit:cover; }
+.bag-item h3 { font-family:var(--font-body),sans-serif; font-size:15px; font-weight:500; margin:6px 0 12px; }
+.bag-item p { font-size:12px; color:#666; margin-bottom:7px; }
+.bag-item button { min-height:44px; padding:10px 0; border:0; background:transparent; color:#777; text-decoration:underline; font-size:11px; }
+.bag-checkout { margin-top:auto; border-top:1px solid #deded7; padding-top:25px; }
+.bag-checkout>div { display:flex; justify-content:space-between; font-size:14px; }
+.bag-checkout strong { font-weight:500; }
+.bag-checkout>p { font-size:11px; color:#777; margin-top:13px; }
+.bag-empty { margin:auto 0; }
+.bag-empty>p { font-size:22px; margin-bottom:25px; }
+@media(max-width:1000px) and (min-width:761px) {
+ .site-header { padding:0 22px; gap:12px; grid-template-columns:1fr 180px 1fr; }
+ .site-header .brand-wordmark { width:180px; }
+ .desktop-nav { gap:3px; }
+ .desktop-nav a { font-size:10px; padding:0 9px; white-space:nowrap; }
+ .object-commerce .collection-grid { gap:35px; grid-template-columns:1.05fr 1fr; }
+ .product-view-switch { gap:14px; }
+ .product-view-switch button { gap:7px; font-size:11px; }
+ .product-view-thumb { width:28px; height:35px; }
+}
+@media(max-width:760px) {
+ .site-header { height:74px; padding:0 16px; grid-template-columns:52px 1fr 52px; gap:0; }
+ .brand-wordmark { width:166px; }
+ .site-header .mobile-menu-button { width:44px; height:44px; display:grid; place-items:center; border:1px solid #d8d8d0; border-radius:50%; padding:0; }
+ .header-bag,.header-program { font-size:0; width:52px; padding:0 8px; gap:4px; min-height:44px; }
+ .header-bag-label { display:none; }
+ .header-bag-count { width:auto; height:auto; border:0; font-size:10px; }
+ .header-bag svg { width:16px; height:18px; }
+ .campaign-hero { height:calc(100svh - 74px); min-height:510px; max-height:none; }
+ .campaign-poster,.campaign-film { object-fit:cover; }
+ .cinematic-opening .campaign-copy { bottom:70px; width:calc(100% - 40px); }
+ .cinematic-opening .campaign-copy h1 { font-size:clamp(37px,11.2vw,72px); margin-bottom:18px; white-space:nowrap; }
+ .campaign-discover { font-size:12px; gap:18px; }
+ .hero-preview-label { bottom:21px; left:22px; font-size:10px; }
+ .ambient-control { right:9px; }
+ .object-commerce { padding:55px 20px 66px; }
+ .object-commerce .collection-grid { grid-template-columns:1fr; gap:35px; }
+ .product-object { height:clamp(365px,107vw,565px); }
+ .product-object-index { left:18px; top:19px; font-size:10px; }
+ .product-object-bottom { left:18px; right:18px; bottom:20px; font-size:10px; }
+ .product-view-switch { margin-top:15px; gap:22px; }
+ .product-view-switch button { font-size:11px; gap:8px; }
+ .product-view-thumb { width:29px; height:37px; }
+ .object-commerce .collection-details { padding:0; max-width:none; }
+ .product-kicker { font-size:10px; margin-bottom:15px; }
+ .object-commerce .collection-name { display:flex; align-items:center; gap:15px; }
+ .object-commerce .collection-name h2 { font-size:30px; letter-spacing:-.055em; }
+ .object-commerce .collection-price { display:block; font-size:18px; margin:0; text-align:right; }
+ .object-commerce .collection-price small { display:block; font-size:9px; margin-top:5px; }
+ .object-commerce .collection-description { margin-top:26px; }
+ .object-commerce .collection-subcopy { max-width:none; }
+ .refined-team.editorial-pair { padding:0 20px 60px; }
+ .refined-team .team-campaign { grid-template-columns:1fr; }
+ .refined-team .team-campaign>img { min-height:0; height:300px; object-position:50% 50%; }
+ .refined-team .team-campaign-copy { padding:34px 25px; }
+ .refined-team .team-campaign-copy h2 { font-size:36px; }
+ .refined-team .team-campaign-copy small { font-size:10px; }
+ .shopping-bag-panel[data-slot=sheet-content] { padding:22px; }
+}
+@media(max-width:370px) {
+ .site-header { padding:0 12px; }
+ .site-header .brand-wordmark { width:146px; }
+ .product-view-switch { gap:14px; }
+ .product-view-switch button { gap:5px; }
+ .product-view-thumb { width:24px; height:30px; }
+ .object-commerce .collection-name h2 { font-size:25px; }
+ .refined-team .team-campaign-copy h2 { font-size:30px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .product-cutout,.product-object-garment,.product-object-model,.product-detail-hotspot,.campaign-discover svg { transition:none; transform:none; }
+ .product-object.has-entered .product-entrance { animation:none; }
+}
+
+/* Letter spacing and supporting information remain readable at actual phone size. */
+.word-live { margin-right:.04em; }
+.object-commerce .collection-name h2,.gc-poster-intro h2,.refined-team .team-campaign-copy h2 { letter-spacing:-.035em; }
+.object-commerce .collection-subcopy,.refined-team .team-campaign-copy>p:not(.eyebrow) { font-size:16px; line-height:1.65; }
+.object-commerce .collection-disclosure,.object-commerce .collection-price small { font-size:12px; }
+.object-commerce .collection-name { gap:10px; }
+.product-object.is-detail .product-object-index,.product-object.is-detail .product-object-bottom { color:#fff; text-shadow:0 1px 6px #000; }
+.product-object-garment { mix-blend-mode:multiply; }
+.product-cutout { object-fit:contain; filter:none; }
+.collection-color .charcoal-swatch { margin-left:0; }
+@media(max-width:760px) {
+ .object-commerce .collection-price small { font-size:12px; }
+}
+/* An explicit ?motion=full preview opts into motion without changing device settings. */
+html[data-gc-motion=full] .product-cutout { transition:transform 850ms cubic-bezier(.22,1,.36,1); }
+html[data-gc-motion=full] .product-object-garment { transition:transform 500ms cubic-bezier(.2,.7,.2,1),opacity 500ms; transform:perspective(1100px) rotateX(var(--turn-x)) rotateY(var(--turn-y)); }
+html[data-gc-motion=full] .product-object-model { transition:opacity 650ms,transform 1s cubic-bezier(.22,1,.36,1); }
+html[data-gc-motion=full] .product-detail-hotspot { transition:top 650ms,left 650ms,background 180ms; }
+html[data-gc-motion=full] .product-object.has-entered .product-entrance { animation:object-enter 1200ms cubic-bezier(.2,.7,.2,1) both; }
+html[data-gc-motion=full] .product-object.is-added .product-object-garment { transform:scale(.91) translateY(-10px); }
+
+/* One arrival, illuminated on the first ceiling-light frame (35 / 24 seconds). */
+html[data-gc-scroll-start=top],html[data-gc-scroll-start=top] body { overflow-anchor:none; }
+html[data-gc-arrival=dark] { color-scheme:dark; background:#000; scrollbar-color:#000 #000; }
+html[data-gc-arrival=dark] body { background:#000; }
+.arrival-veil,.arrival-light-wash { position:fixed; inset:0; pointer-events:none; opacity:0; }
+.arrival-veil { z-index:45; background:#000; transition:opacity 550ms ease-out; }
+.arrival-light-wash { z-index:46; background:radial-gradient(ellipse at 73% 14%,#f4e5cb55,transparent 68%); mix-blend-mode:screen; }
+html[data-gc-arrival=dark] .arrival-veil { opacity:var(--arrival-veil,1); transition:none; }
+/* Hold pure black through mobile loading. Only decoded film time lifts it. */
+html[data-gc-arrival=dark]:not([data-gc-arrival-playing]) .arrival-veil { opacity:1; }
+.arrival-establishing-frame { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:58% 0%; opacity:0; pointer-events:none; }
+html[data-gc-arrival=dark] .arrival-establishing-frame { opacity:var(--arrival-still,1); }
+/* Swap the first-frame bridge only when the video itself becomes visible. */
+html[data-gc-arrival=dark] .is-sequenced .arrival-establishing-frame { opacity:0; }
+html[data-gc-arrival=dark] .campaign-copy { opacity:var(--arrival-light,0); }
+html[data-gc-arrival=dark] .arrival-light-wash { opacity:calc(var(--arrival-light,0) * (1 - var(--arrival-light,0)) * .6); }
+html[data-gc-arrival=dark] .site-header.over-film { background:rgb(calc(5 + 244 * var(--arrival-light,0)) calc(5 + 244 * var(--arrival-light,0)) calc(7 + 239 * var(--arrival-light,0))); }
+/* Navigation remains usable while the film lights up; only the campaign owns the blackout. */
+html[data-gc-arrival=dark] .site-header.over-film { z-index:47; }
+html[data-gc-arrival=dark] .site-header.over-film > * { opacity:1; }
+html[data-gc-arrival=dark] .site-header.over-film .desktop-nav a,
+html[data-gc-arrival=dark] .site-header.over-film .mobile-menu-button,
+html[data-gc-arrival=dark] .site-header.over-film .header-bag { background:#20211e; color:#f9f9f6; border-color:#74746f; }
+html[data-gc-arrival=dark] .site-header.over-film .menu-strokes i { background:currentColor; }
+html[data-gc-arrival=dark] .site-header.over-film > .brand-lockup { opacity:1; }
+html[data-gc-arrival=lit] .arrival-light-wash { transition:opacity 350ms ease-out; }
+@media(max-width:760px) {
+ .cinematic-opening .campaign-film,.cinematic-opening .campaign-poster,.arrival-establishing-frame { object-position:100% 0%; }
+}

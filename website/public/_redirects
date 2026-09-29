@@ -1,0 +1,4 @@
+# Keep the exact link already sent to Marquis working as a fresh opening.
+/ motion=full v=25 /?motion=full&intro=1&v=28#top 302!
+# Stable share address. The fragment targets the document's physical top.
+/preview /?motion=full&intro=1&v=28#top 302!

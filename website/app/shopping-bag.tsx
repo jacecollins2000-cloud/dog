@@ -1,0 +1,12 @@
+'use client';
+/* oxlint-disable next/no-img-element */
+import { ArrowRight, X } from 'lucide-react';
+import { Sheet, SheetContent, SheetDescription, SheetTitle } from '@/components/ui/sheet';
+
+export function ShoppingBagPanel({open,onOpenChange,size,onRemove,onCheckout}:{open:boolean;onOpenChange:(open:boolean)=>void;size:string;onRemove:()=>void;onCheckout:()=>void}) {
+  return <Sheet open={open} onOpenChange={onOpenChange}><SheetContent className="shopping-bag-panel" showCloseButton={false}>
+    <div className="bag-heading"><SheetTitle>Your bag <span>({size ? '1' : '0'})</span></SheetTitle><button className="icon-button" onClick={()=>onOpenChange(false)} aria-label="Close bag"><X size={22}/></button></div>
+    <SheetDescription className="bag-note">A preview of the GC shopping experience.</SheetDescription>
+    {size ? <><div className="bag-item"><img src="/assets/hoodie-clean-v2.webp" alt="Charcoal GC Hoodie" width="1122" height="1402"/><div><h3>The GC Hoodie</h3><p>Charcoal / {size}</p><p>$78 USD</p><button onClick={onRemove}>Remove</button></div></div><div className="bag-checkout"><div><span>Subtotal</span><strong>$78 USD</strong></div><button className="collection-buy" onClick={onCheckout}>Continue to checkout <ArrowRight size={18}/></button><p>Demo only. Example price. No payment collected.</p></div></> : <div className="bag-empty"><p>Your bag is waiting.</p><a className="collection-buy" href="#collection" onClick={()=>onOpenChange(false)}>Explore the hoodie <ArrowRight size={18}/></a></div>}
+  </SheetContent></Sheet>;
+}

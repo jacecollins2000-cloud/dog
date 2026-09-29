@@ -1,0 +1,746 @@
+'use client';
+/* Images are pre-optimized WebP assets; plain img keeps the static export independent of an image server. */
+/* oxlint-disable next/no-img-element */
+
+import {
+  ArrowUpRight,
+  ArrowRight,
+  X,
+  Plus,
+  Check,
+  Copy,
+  ShoppingBag,
+} from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { CampaignHero } from './campaign-hero';
+import { ProductFeature } from './product-feature';
+import { ClosingChapter, LightsOnChapter, OneCampChapter, PosterWall, TapeMarquee, V2Header, WorldChapter } from './v2/home-v2';
+import './shared-chrome.css';
+import './v2/v2.css';
+import { ShoppingBagPanel } from './shopping-bag';
+import { useEditorialMotion } from './use-editorial-motion';
+import { TeamEditorial } from './team-editorial';
+// Native anchors keep page and section navigation compatible with static hosting.
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetDescription,
+} from '@/components/ui/sheet';
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from '@/components/ui/accordion';
+
+export function SiteHeader({ teams = false, onBag, bagCount = 0 }: { teams?: boolean; onBag?: () => void; bagCount?: number }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  return (
+    <>
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
+      <header className={`site-header ${teams ? 'on-light' : 'over-film scroll-header'} controls-visible`}>
+        <a
+          href="/"
+          className="brand-lockup"
+          aria-label="Guerrilla Camp home"
+        >
+          <img
+            src="/assets/gc-mark.svg"
+            alt=""
+            className="brand-symbol"
+            width="48"
+            height="50"
+          />
+          <img src="/assets/gc-wordmark.svg" alt="" className="brand-wordmark" width="200" height="59" />
+        </a>
+        <nav className="desktop-nav" aria-label="Main navigation">
+          <a href="/#collection" className={!teams ? 'current' : ''}>
+            Collection
+          </a>
+          <a href="/#about">Behind GC</a>
+          <a className={teams ? 'current' : ''} href="/teams">
+            For teams <ArrowUpRight size={15} />
+          </a>
+        </nav>
+        {onBag ? <button className="header-cta header-bag" onClick={onBag} aria-label={`Open bag, ${bagCount} ${bagCount === 1 ? 'item' : 'items'}`}><ShoppingBag size={17}/><span className="header-bag-label">Bag</span><span className="header-bag-count">{bagCount}</span></button> : <a className="header-cta header-program" href={teams ? '#program' : '#collection'} aria-label={teams ? 'Explore the team program' : 'Shop the GC Hoodie'}>{teams ? 'The program' : 'Shop'}<ArrowUpRight size={17}/></a>}
+        <button
+          className="mobile-menu-button"
+          aria-label="Open navigation"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen(true)}
+        >
+          <span className="menu-strokes" aria-hidden="true"><i /><i /></span>
+        </button>
+      </header>
+      <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+        <SheetContent className="nav-sheet dark" showCloseButton={false}>
+          <div className="sheet-top">
+            <SheetTitle><img className="menu-wordmark" src="/assets/gc-wordmark.svg" alt="Guerrilla Camp" width="200" height="59" /></SheetTitle>
+            <button
+              className="icon-button"
+              onClick={() => setMenuOpen(false)}
+              aria-label="Close navigation"
+            >
+              <X />
+            </button>
+          </div>
+          <SheetDescription className="sr-only">
+            Explore the collection, brand and team program.
+          </SheetDescription>
+          <nav className="mobile-nav" aria-label="Mobile navigation">
+            <a href="/#collection" onClick={() => setMenuOpen(false)}>
+              <span className="menu-index" aria-hidden="true">01</span><span>Collection</span><ArrowUpRight />
+            </a>
+            <a href="/#about" onClick={() => setMenuOpen(false)}>
+              <span className="menu-index" aria-hidden="true">02</span><span>Behind GC</span><ArrowUpRight />
+            </a>
+            <a href="/teams" onClick={() => setMenuOpen(false)}>
+              <span className="menu-index" aria-hidden="true">03</span><span>For teams</span><ArrowUpRight />
+            </a>
+          </nav>
+          <div className="menu-editorial" aria-hidden="true">
+            <figure><img src="/assets/athlete-after-training-v1.webp" alt="" width="1122" height="1402" /><figcaption>THE PIECE</figcaption></figure>
+            <figure><img src="/assets/community-gc-v2.webp" alt="" width="1536" height="1024" /><figcaption>THE PEOPLE</figcaption></figure>
+          </div>
+          <div className="menu-signoff"><span>GUERRILLA CAMP</span><span>LIVE DIFFERENT!!</span></div>
+        </SheetContent>
+      </Sheet>
+    </>
+  );
+}
+
+export function FashionPage() {
+  const [productOpen, setProductOpen] = useState(false);
+  const [chosenSize, setChosenSize] = useState('');
+  const [directCheckout, setDirectCheckout] = useState(false);
+  const [bagOpen, setBagOpen] = useState(false);
+  const [bagSize, setBagSize] = useState('');
+  const mainRef = useEditorialMotion();
+  return (
+    <div className="v2">
+      <V2Header onBag={()=>setBagOpen(true)} bagCount={bagSize ? 1 : 0} />
+      <main id="main" ref={mainRef}>
+        <CampaignHero />
+        <TapeMarquee />
+        <ProductFeature bagSize={bagSize} onViewBag={() => setBagOpen(true)} onBuy={(size) => { setBagSize(size); setBagOpen(true); }} />
+        <LightsOnChapter />
+        <PosterWall />
+        <WorldChapter />
+        <OneCampChapter />
+        <ClosingChapter />
+      </main>
+      <SiteFooter v2 />
+      <div className="v2-grain" aria-hidden="true" />
+      <ShoppingBagPanel open={bagOpen} onOpenChange={setBagOpen} size={bagSize} onRemove={()=>setBagSize('')} onCheckout={()=>{setChosenSize(bagSize);setDirectCheckout(true);setBagOpen(false);setProductOpen(true);}} />
+      <ProductPreview open={productOpen} onOpenChange={setProductOpen} initialSize={chosenSize} startAtCheckout={directCheckout}
+        onChangeSize={() => requestAnimationFrame(() => {
+          const sizes = document.getElementById('collection-sizes');
+          sizes?.scrollIntoView({ block: 'center' });
+          sizes?.focus({ preventScroll: true });
+        })}
+        onComplete={() => setBagSize('')} />
+    </div>
+  );
+}
+
+function ProductPreview({
+  open,
+  onOpenChange,
+  initialSize = '',
+  startAtCheckout = false,
+  onChangeSize,
+  onComplete,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  initialSize?: string;
+  startAtCheckout?: boolean;
+  onChangeSize?: () => void;
+  onComplete?: () => void;
+}) {
+  const [view, setView] = useState<'front' | 'worn'>('front');
+  const [size, setSize] = useState('');
+  const [sizeError, setSizeError] = useState(false);
+  const [checkout, setCheckout] = useState(false);
+  const [complete, setComplete] = useState(false);
+  useEffect(() => {
+    if (open) {
+      if (initialSize) setSize(initialSize);
+      setCheckout(startAtCheckout && Boolean(initialSize));
+      setComplete(false);
+      setSizeError(false);
+    } else setCheckout(false);
+  }, [open, initialSize, startAtCheckout]);
+  function buy() {
+    if (!size) {
+      setSizeError(true);
+      return;
+    }
+    setComplete(false);
+    setCheckout(true);
+  }
+  if (!open) return null;
+  return (
+    <>
+      {!checkout && <Sheet open={open} onOpenChange={onOpenChange}>
+        <SheetContent className="product-sheet" showCloseButton={false}>
+          <div className="sheet-top product-heading">
+            <div>
+              <p className="eyebrow">GC / SAMPLE PRODUCT</p>
+              <div className="detail-title">
+                <SheetTitle>The GC Hoodie</SheetTitle>
+                <span>$78</span>
+              </div>
+              <SheetDescription>Charcoal / signature mark</SheetDescription>
+            </div>
+            <button
+              className="icon-button"
+              aria-label="Close product preview"
+              onClick={() => onOpenChange(false)}
+            >
+              <X />
+            </button>
+          </div>
+          <div className="product-detail-scroll">
+            <div className="product-gallery">
+              <div className="detail-photo" data-view={view}>
+                <img
+                  key={view}
+                  src={
+                    view === 'front'
+                      ? '/assets/hoodie-clean-v2.webp'
+                      : '/assets/athlete-after-training-v1.webp'
+                  }
+                  alt={
+                    view === 'front'
+                      ? 'Concept front view of the charcoal GC hoodie'
+                      : 'Illustrative adult athlete wearing the GC hoodie after basketball practice'
+                  }
+                />
+              </div>
+              <div className="image-switch" aria-label="Product image views">
+                <button
+                  aria-pressed={view === 'front'}
+                  onClick={() => setView('front')}
+                >
+                  Front view
+                </button>
+                <button
+                  aria-pressed={view === 'worn'}
+                  onClick={() => setView('worn')}
+                >
+                  On body
+                </button>
+                <span>ILLUSTRATIVE IMAGES</span>
+              </div>
+            </div>
+            <div className="product-detail-copy">
+              <p className="product-short-copy">
+                The gorilla at your chest. A charcoal layer for after training
+                and out with friends.
+              </p>
+              <Accordion className="site-accordion">
+                <AccordionItem value="design">
+                  <AccordionTrigger>The design direction</AccordionTrigger>
+                  <AccordionContent>
+                    <p>
+                      A charcoal body with the approved white-and-red GC
+                      identity. The understated placement lets the mark carry
+                      the message.
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="details">
+                  <AccordionTrigger>
+                    Fit, materials &amp; delivery
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p>
+                      This is an illustrated product concept. Sizes and the $78
+                      USD price demonstrate the shopping experience. The final
+                      garment, fit, materials, measurements, price, delivery and
+                      returns policy need confirmation from GC before real
+                      orders can open.
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </div>
+          <div className="product-purchase-panel">
+            {' '}
+            <fieldset className="size-field">
+              <legend>
+                Choose your size <span>Example sizing</span>
+              </legend>
+              <RadioGroup
+                className="size-options"
+                value={size}
+                onValueChange={(value) => {
+                  setSize(value as string);
+                  setSizeError(false);
+                }}
+                aria-label="Hoodie size"
+                aria-describedby={sizeError ? 'size-error' : undefined}
+              >
+                {['S', 'M', 'L', 'XL', '2XL'].map((option) => (
+                  <label key={option}>
+                    <RadioGroupItem value={option} aria-label={option} />
+                    <span aria-hidden="true">{option}</span>
+                  </label>
+                ))}
+              </RadioGroup>
+              {sizeError && (
+                <p id="size-error" className="size-error" role="alert">
+                  Choose a size to continue.
+                </p>
+              )}
+            </fieldset>
+            <button className="button button-dark buy-button" onClick={buy}>
+              Buy now — $78 <ArrowRight size={19} />
+            </button>
+            <p className="purchase-note">
+              Demo checkout · Example product and price · No payment
+            </p>
+          </div>
+        </SheetContent>
+      </Sheet>}
+      <Dialog open={open && checkout} onOpenChange={next => { if (!next) onOpenChange(false); }}>
+        <DialogContent className="checkout-dialog" showCloseButton={false}>
+          <div className="sheet-top">
+            <p className="eyebrow">GUERRILLA CAMP / DEMO CHECKOUT</p>
+            <button
+              className="icon-button"
+              aria-label="Close checkout"
+              onClick={() => onOpenChange(false)}
+            >
+              <X />
+            </button>
+          </div>
+          <DialogTitle>
+            {complete ? 'Demo complete.' : 'Your GC Hoodie'}
+          </DialogTitle>
+          <DialogDescription>
+            {complete
+              ? 'No order was placed and no payment was taken.'
+              : 'Review your example order. No payment is collected.'}
+          </DialogDescription>
+          {complete ? (
+            <div className="checkout-complete">
+              <span className="complete-icon">
+                <Check size={28} />
+              </span>
+              <p>The GC Hoodie · Charcoal · {size}</p>
+              <a className="small-link complete-follow" href="https://www.instagram.com/guerrilla_camp/" target="_blank" rel="noreferrer">Follow @guerrilla_camp <ArrowUpRight size={15} /></a>
+              <button
+                className="button button-dark"
+                onClick={() => {
+                  setCheckout(false);
+                  onOpenChange(false);
+                }}
+              >
+                Continue exploring <ArrowRight size={19} />
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className="checkout-product">
+                <img
+                  src="/assets/hoodie-clean-v2.webp"
+                  alt="Sample charcoal GC hoodie"
+                />
+                <div>
+                  <h3>The GC Hoodie</h3>
+                  <p>Charcoal / {size} / Qty 1</p>
+                  <button
+                    className="small-link"
+                    onClick={() => { onOpenChange(false); onChangeSize?.(); }}
+                  >
+                    Change size
+                  </button>
+                </div>
+                <strong>$78</strong>
+              </div>
+              <dl className="order-totals">
+                <div>
+                  <dt>Example subtotal</dt>
+                  <dd>$78.00 USD</dd>
+                </div>
+                <div>
+                  <dt>Shipping &amp; taxes</dt>
+                  <dd>Not calculated in demo</dd>
+                </div>
+              </dl>
+              <p className="checkout-note">
+                Final pricing, product details, delivery and returns will be
+                confirmed before GC accepts orders.
+              </p>
+              <button
+                className="button button-dark"
+                onClick={() => { setComplete(true); onComplete?.(); }}
+              >
+                Finish demo checkout <ArrowRight size={19} />
+              </button>
+              <span className="purchase-note">
+                Nothing will be charged or ordered.
+              </span>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
+
+const programFaqs = [
+  [
+    'Who is this program for?',
+    'GC is developing the program for teams and their supporters, with youth fundraising as part of the concept. The right starting point is a conversation about your team, your community and what you want a collection to help you do.',
+  ],
+  [
+    'How would the fundraising work?',
+    'The founder’s current youth fundraising concept returns 25% of applicable net fundraising sales to participating youth teams. This is a developing proposal, not a finalized offer. What counts as net fundraising sales, eligible purchases, deductions, payment timing and other terms must be agreed before a campaign begins.',
+  ],
+  [
+    'Can we choose the garments and design?',
+    'The aim is a collection that reflects the team. Garment choices, artwork, pricing, order quantities and approval steps would need to be worked out with GC before anything is offered for sale. The images on this page illustrate a direction; they are not an existing team collection.',
+  ],
+  [
+    'Is there a cost or minimum order?',
+    'Setup costs, minimum quantities, production times, fulfillment and returns have not been confirmed. These should be included in a written proposal so the team can evaluate the whole program before committing.',
+  ],
+];
+
+export function TeamsPage() {
+  const [briefOpen, setBriefOpen] = useState(false);
+  return (
+    <>
+      <SiteHeader teams />
+      <main id="main" className="teams-page">
+        <TeamEditorial onBrief={() => setBriefOpen(true)} />
+        <section id="program" className="program-section">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">THE PROPOSED PROGRAM</p>
+              <h2>Plan the collection.</h2>
+            </div>
+            <p>Three conversations to have before a collection goes on sale.</p>
+          </div>
+          <div className="program-steps">
+            {[
+              [
+                '01',
+                'Define the brief.',
+                'Outline the team, activity and fundraising goal. Identify who would wear the collection and who needs to approve it.',
+              ],
+              [
+                '02',
+                'Agree the collection.',
+                'Review proposed garments, artwork, pricing and quantities together before making a commitment.',
+              ],
+              [
+                '03',
+                'Set the terms.',
+                'Confirm the fundraising calculation, deductions, payment timing and fulfillment in writing before any launch.',
+              ],
+            ].map(([number, title, copy]) => (
+              <article key={number}>
+                <span className="step-number">{number}</span>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+        <section className="giveback-section">
+          <div>
+            <p className="eyebrow">YOUTH FUNDRAISING / FOUNDER’S PROPOSAL</p>
+            <div className="percentage">
+              25<span>%</span>
+            </div>
+            <p className="percentage-label">
+              of applicable <strong>net fundraising sales</strong>
+              <br /> to participating youth teams.
+            </p>
+          </div>
+          <div className="giveback-copy">
+            <h2>
+              Support the next
+              <br />
+              competition.
+            </h2>
+            <p>
+              Supporters would buy from a team collection, helping fund the
+              team’s competition goals.
+            </p>
+            <p className="terms-note">
+              This proposed contribution applies to participating youth
+              fundraising campaigns. Eligibility, the definition of net sales,
+              deductions and payment terms still need agreement. It is not a
+              donation promise on every GC purchase.
+            </p>
+            <a href="#questions" className="text-link">
+              Understand the proposal <ArrowRight size={19} />
+            </a>
+          </div>
+        </section>
+        <section id="questions" className="questions-section">
+          <div>
+            <p className="eyebrow">BEFORE YOU GET STARTED</p>
+            <h2>Team questions.</h2>
+            <p>
+              The program is taking shape. Here’s what the brief establishes,
+              and what a team would still need to confirm.
+            </p>
+          </div>
+          <Accordion className="site-accordion">
+            {programFaqs.map(([question, answer], i) => (
+              <AccordionItem value={String(i)} key={question}>
+                <AccordionTrigger>{question}</AccordionTrigger>
+                <AccordionContent>
+                  <p>{answer}</p>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </section>
+        <section className="team-close">
+          <img
+            src="/assets/gc-mark.svg"
+            alt=""
+            width="140"
+            height="160"
+            loading="lazy"
+          />
+          <div>
+            <p className="eyebrow">START WITH YOUR PEOPLE</p>
+            <h2>Start with your team.</h2>
+            <p>
+              Put the essentials in one place before a conversation with GC.
+            </p>
+            <button
+              className="button button-white"
+              onClick={() => setBriefOpen(true)}
+            >
+              Build a team brief <ArrowUpRight size={20} />
+            </button>
+            <span className="reference-note">
+              A local planning tool. Nothing is sent to GC.
+            </span>
+          </div>
+        </section>
+      </main>
+      <SiteFooter />
+      <TeamBrief open={briefOpen} onOpenChange={setBriefOpen} />
+    </>
+  );
+}
+
+function TeamBrief({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  const [team, setTeam] = useState('');
+  const [activity, setActivity] = useState('');
+  const [goal, setGoal] = useState('');
+  const [ready, setReady] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
+  const summary = `GC partnership conversation\n\nTeam: ${team}\nActivity: ${activity}\nWhat we’re working toward: ${goal}\n\nTo discuss: collection design, garments, pricing, quantities, fundraising calculation, payment timing and fulfillment.\n\nPlanning note only. No application has been submitted.`;
+  function createBrief(event: { preventDefault: () => void }) {
+    event.preventDefault();
+    setReady(true);
+    setCopied(false);
+    setCopyError(false);
+  }
+  async function copyBrief() {
+    try {
+      await navigator.clipboard.writeText(summary);
+      setCopied(true);
+      setCopyError(false);
+    } catch {
+      setCopyError(true);
+    }
+  }
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="brief-dialog" showCloseButton={false}>
+        <div className="sheet-top">
+          <p className="eyebrow">GC / TEAM PLANNING</p>
+          <button
+            className="icon-button"
+            onClick={() => onOpenChange(false)}
+            aria-label="Close team brief"
+          >
+            <X />
+          </button>
+        </div>
+        <DialogTitle>
+          {ready ? 'Your team brief' : 'Tell us about your team.'}
+        </DialogTitle>
+        <DialogDescription>
+          {ready
+            ? 'Copy this brief for your conversation with GC.'
+            : 'Draft a short brief to keep for your conversation. Nothing is submitted, sent or saved after this page is closed.'}
+        </DialogDescription>
+        {ready ? (
+          <div className="brief-result">
+            <label htmlFor="team-summary">Your team brief</label>
+            <textarea id="team-summary" readOnly value={summary} rows={11} />
+            <div className="brief-actions">
+              <button className="button button-dark" onClick={copyBrief}>
+                {copied ? 'Copied' : 'Copy your brief'}
+                {copied ? <Check size={19} /> : <Copy size={19} />}
+              </button>
+              <button className="small-link" onClick={() => setReady(false)}>
+                Edit details
+              </button>
+            </div>
+            <output className="reference-note">
+              {copyError
+                ? 'Select and copy the text above. Your browser could not access the clipboard.'
+                : copied
+                  ? 'Copied to your clipboard. Nothing has been sent to GC.'
+                  : 'Keep a copy before leaving this page.'}
+            </output>
+          </div>
+        ) : (
+          <form className="brief-form" onSubmit={createBrief}>
+            <label htmlFor="team-name">
+              Team or club name
+              <input
+                id="team-name"
+                value={team}
+                onChange={(e) => setTeam(e.target.value)}
+                required
+                maxLength={100}
+                placeholder="e.g. Desert Valley Wrestling"
+              />
+            </label>
+            <label htmlFor="team-activity">
+              Sport or activity
+              <input
+                id="team-activity"
+                value={activity}
+                onChange={(e) => setActivity(e.target.value)}
+                required
+                maxLength={100}
+                placeholder="e.g. Wrestling, dance, athletics"
+              />
+            </label>
+            <label htmlFor="team-goal">
+              What are you working toward?
+              <textarea
+                id="team-goal"
+                value={goal}
+                onChange={(e) => setGoal(e.target.value)}
+                required
+                maxLength={600}
+                rows={3}
+                placeholder="A competition, travel costs, a collection your supporters can wear…"
+              />
+            </label>
+            <button className="button button-dark" type="submit">
+              Create my brief <ArrowRight size={19} />
+            </button>
+          </form>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+export function SiteFooter({ v2 = false }: { v2?: boolean }) {
+  const [aboutOpen, setAboutOpen] = useState(false);
+  return (
+    <>
+      {v2 ? <footer className="v2-footer" data-tone="dark">
+        <a href="/" className="v2-footer-mark" aria-label="Guerrilla Camp home"><img src="/assets/gc-wordmark.svg" alt="" width="1200" height="355" loading="lazy" /></a>
+        <div className="v2-footer-row">
+          <nav aria-label="Footer navigation">
+            <a href="#collection">The hoodie</a>
+            <a href="#about">Behind GC</a>
+            <a href="/teams">GC Partnership Program</a>
+            <a href="https://www.instagram.com/guerrilla_camp/" target="_blank" rel="noreferrer">Instagram <ArrowUpRight size={14} /></a>
+          </nav>
+          <div className="v2-footer-meta">
+            <span>Live Different!!</span>
+            <span>Nevada · Est. 2023</span>
+            <button className="footer-concept" onClick={() => setAboutOpen(true)}>About this concept <Plus size={14} /></button>
+          </div>
+        </div>
+      </footer> : <footer className="site-footer">
+        <div className="footer-top">
+          <a href="/" className="footer-name" aria-label="Guerrilla Camp home">
+            <img src="/assets/gc-wordmark.svg" alt="" width="280" height="83" /><span>LIVE DIFFERENT!!</span>
+          </a>
+          <nav aria-label="Footer navigation">
+            <a href="/#collection">Collection</a>
+            <a href="/#about">Behind GC</a>
+            <a href="/teams">GC Partnership Program</a>
+            <a
+              href="https://www.instagram.com/guerrilla_camp/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagram <ArrowUpRight size={15} />
+            </a>
+          </nav>
+        </div>
+        <div className="footer-bottom">
+          <span>NEVADA · EST. 2023</span>
+          <button className="footer-concept" onClick={() => setAboutOpen(true)}>
+            About this concept <Plus size={14} />
+          </button>
+        </div>
+      </footer>}
+      <Dialog open={aboutOpen} onOpenChange={setAboutOpen}>
+        <DialogContent className="concept-dialog">
+          <DialogTitle>A first look at what GC could become.</DialogTitle>
+          <DialogDescription>
+            This website is a design and messaging proposal for
+            discussion with the founder.
+          </DialogDescription>
+          <figure className="concept-reference">
+            <img
+              src="/assets/sand-flatlay.webp"
+              alt="Founder-supplied AS Colour sand garment reference, not a finished GC product"
+              width="1200"
+              height="1799"
+              loading="lazy"
+            />
+            <figcaption>
+              Supplied studio reference. The palette starts here; this is not a
+              GC product listing.
+            </figcaption>
+          </figure>
+          <p>
+            The logos, slogan artwork and sand garment reference were supplied
+            by the brand. The people, campaign photos and charcoal hoodie are
+            AI-generated concepts, not customer testimonials, finished
+            merchandise or existing team partnerships.
+          </p>
+          <p>
+            The $78 hoodie price and sizes are illustrative examples requested
+            for this mockup. Product details, final pricing, availability and
+            program terms need confirmation before launch. Checkout is a demo;
+            no orders or applications can be placed here.
+          </p>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}

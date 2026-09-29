@@ -1,0 +1,4 @@
+/* Shared by the homepage and /teams (previously inside home-chapters.css). */
+:root { --chrome: 84px; scroll-padding-top: var(--chrome); }
+@media (max-width: 760px) { :root { --chrome: 74px; } }
+.site-footer nav a, .footer-concept { min-height: 44px; display: inline-flex; align-items: center; }
