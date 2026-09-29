@@ -33,6 +33,8 @@ export function CampaignHero() {
     stage.current?.style.setProperty('--different-reveal', String(different));
     stage.current?.toggleAttribute('data-copy-dark', different < .05);
     stage.current?.style.setProperty('--film-progress', String(Number.isFinite(duration) ? time / duration : 0));
+    // Phone framing follows the edit: weighted right for the light switch, then easing to the group across the dissolve at ~8.6s.
+    stage.current?.style.setProperty('--film-x', `${(100 - easeLight(clamp((time - 8.45) / .4)) * 65).toFixed(1)}%`);
     if (document.documentElement.dataset.gcArrival === 'dark') {
       const { light, veil } = arrivalLightAt(time);
       document.documentElement.style.setProperty('--arrival-light', String(light));
@@ -165,7 +167,7 @@ export function CampaignHero() {
     <div className="campaign-dim" aria-hidden="true" />
     <div className="campaign-copy">
       <div className="gc-hero-row">
-        <p className="gc-hero-meta"><span>(Collection concept) GC—001 · The hoodie</span></p>
+        <p className="gc-hero-meta"><span><span className="gc-nowrap">(Collection concept)</span> <span className="gc-nowrap">GC—001 · The hoodie</span></span></p>
         <a className="gc-btn is-light campaign-discover" href="#collection">Shop the hoodie <ArrowDown size={17} aria-hidden="true" /></a>
       </div>
       <h1 aria-label="Live Different!!"><span className="campaign-word word-live" aria-hidden="true">Live</span>{' '}<span className="campaign-word word-different" aria-hidden="true">Different<em>!!</em></span></h1>

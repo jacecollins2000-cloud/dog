@@ -134,6 +134,33 @@ Evidence:
 Not changed:
 - The slow-film re-dark: a film that starts more than 4s late replays the intro if the visitor hasn't interacted. This is the tested baseline arrival logic.
 
+**C3 source commit:** `76c088f`.
+
+**C3 verdicts — round 3 (three new critics):**
+- **System: PASS.**
+  - No material failures. Logo path data matches the founder PDFs; the favicon is legible on five tab colours.
+  - Minor: the hero motto is set in Anton rather than the supplied artwork; the inherited AI images contain generator-drawn marks; small red and near-black drift; the accordion focus ring; Barlow is still loaded; "Wear what you stand for."; Manhattan-style skylines.
+- **Craft: FAIL.**
+  - Material: the resting values headline crossed the model's mouth and jaw.
+  - Material: the phone film's group beat cut a face in half.
+  - Material: on phones, the hero, values and both troop halves repeated one template (dark photo with white caps lower-left), which failed bar 2.
+- **Brief:** still running when C3 failed; logged below if it lands.
+
+### C4 — frozen 2026-09-29 (static build copy `scratchpad/frozen/C4`, served on :5178)
+Changes from C3:
+- **Values (desktop):** the photograph is reframed (`center 64%`), so the face sits above the words.
+- **Values (upright screens):** the photograph fills the top 60% of the stage and the words stand on black beneath it. The tear strip follows the shorter photo; the seam was measured flush at all four widths.
+- **Troop (upright screens):** the halves are captioned photographs on paper, with type beside the pictures rather than over them.
+- **Phone film framing:** follows the edit — weighted right for the light-switch beat, then easing to 35% across the dissolve at ~8.6s, so the group beat shows both faces whole (checked at 390 and 320).
+- **320 details:** the hero label wraps as two chips; the poster chips don't break mid-label; the header wordmark is 118px; the wall disclosure uses a non-breaking hyphen.
+- **Phone sign-off:** a smaller mark, the slogan at 94vw, and the disclosure set as two lines.
+Evidence:
+- `shots/C4/` at four widths; interaction suite 54/54 on the frozen build.
+- No film: lit at 493ms / 440ms.
+- Hero action across a loop: 0 hidden, 0 focus lost.
+- Anchors and focus return as in C3; seam flush at 1440, 768, 390 and 320.
+- Build ok; `tsc` clean; arrival tests 30/30; `oxlint` 2 errors, both pre-existing.
+
 ## Imagery audit and generation briefs
 The asset library covers every chapter; no new imagery was required to ship.
 No ChatGPT or image-generation tool was callable in this environment, so nothing was generated.

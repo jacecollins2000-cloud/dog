@@ -132,7 +132,8 @@ export function ValuesChapter() {
       // The seam travels from just off the left edge (lip included) to the right edge, where the lit print sits flush.
       // It sits on whole device pixels, so its edges never render as a soft hairline.
       if (stage) {
-        const strip = stage.clientHeight * .156;
+        // The tear strip's rendered width (it follows the photograph's height, which is shorter on upright screens).
+        const strip = stage.querySelector<HTMLElement>('.gc-values-lip')?.offsetWidth || stage.clientHeight * .156;
         const x = on * (stage.clientWidth + strip) - strip;
         element.style.setProperty('--x-px', `${Math.round(x * devicePixelRatio) / devicePixelRatio}px`);
       }
@@ -198,7 +199,7 @@ export function CampaignWall() {
     <header className="gc-wall-head">
       <p className="gc-label"><span className="gc-num">04</span> The campaign</p>
       <h2 id="gc-wall-title">Three prints, pasted up.</h2>
-      <p className="gc-note">Illustrative campaign artwork, AI-generated for this concept.</p>
+      <p className="gc-note">Illustrative campaign artwork, AI‑generated for this concept.</p>
     </header>
     <div className="gc-wall-posters">
       {posters.map(([src, title, theme, alt], i) => <figure key={src} className="gc-poster" style={{ '--n': i } as React.CSSProperties}>
@@ -267,6 +268,6 @@ export function SignOff() {
       <a className="gc-btn" href="#collection">Shop the hoodie <ArrowUp size={17} aria-hidden="true" /></a>
       <a className="gc-link" href={INSTAGRAM} target="_blank" rel="noreferrer">Follow @guerrilla_camp <ArrowUpRight size={15} aria-hidden="true" /></a>
     </div>
-    <p className="gc-note">A collection concept. Orders aren’t open yet. · Slogan artwork supplied by GC</p>
+    <p className="gc-note gc-signoff-note"><span>A collection concept. Orders aren’t open yet.</span> <span>Slogan artwork supplied by GC.</span></p>
   </section>;
 }
