@@ -64,7 +64,12 @@ export function FashionPage() {
       </main>
       <SiteFooter />
       <ShoppingBagPanel open={bagOpen} onOpenChange={setBagOpen} size={bagSize} onRemove={()=>setBagSize('')} onCheckout={()=>{setChosenSize(bagSize);setDirectCheckout(true);setBagOpen(false);setProductOpen(true);}} />
-      <ProductPreview open={productOpen} onOpenChange={setProductOpen} initialSize={chosenSize} startAtCheckout={directCheckout}
+      <ProductPreview open={productOpen} initialSize={chosenSize} startAtCheckout={directCheckout}
+        onOpenChange={next => {
+          setProductOpen(next);
+          // The dialog's opener (the bag) is already closed, so return focus to the bar's bag button.
+          if (!next) requestAnimationFrame(() => document.querySelector<HTMLElement>('.gc-bar [aria-label^="Open bag"]')?.focus({ preventScroll: true }));
+        }}
         onChangeSize={() => requestAnimationFrame(() => {
           const sizes = document.getElementById('collection-sizes');
           sizes?.scrollIntoView({ block: 'center' });

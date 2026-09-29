@@ -110,7 +110,7 @@ export function CampaignHero() {
     const player = video.current;
     const last = player?.querySelector('source:last-of-type');
     if (!player || !last) return;
-    const unplayable = () => { setFailed(true); finishArrival('error'); };
+    const unplayable = () => { setFailed(true); setPlaying(false); finishArrival('error'); };
     last.addEventListener('error', unplayable);
     if (player.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) unplayable();
     return () => last.removeEventListener('error', unplayable);
@@ -170,7 +170,7 @@ export function CampaignHero() {
       </div>
       <h1 aria-label="Live Different!!"><span className="campaign-word word-live" aria-hidden="true">Live</span>{' '}<span className="campaign-word word-different" aria-hidden="true">Different<em>!!</em></span></h1>
     </div>
-    <button className="ambient-control" onClick={toggle} aria-label={playing ? 'Pause campaign film' : 'Play campaign film'} aria-pressed={playing}>{playing ? <Pause size={14} /> : <Play size={14} />}</button>
+    {!failed && <button className="ambient-control" onClick={toggle} aria-label={playing ? 'Pause campaign film' : 'Play campaign film'} aria-pressed={playing}>{playing ? <Pause size={14} /> : <Play size={14} />}</button>}
     {failed && <output className="film-status">Film unavailable. Campaign image shown.</output>}
   </section>;
 }

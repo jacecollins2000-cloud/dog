@@ -3,7 +3,7 @@
 /* The phone gallery is a horizontal scroll region; it must be focusable so keyboard users can scroll it. */
 /* oxlint-disable jsx-a11y/no-noninteractive-tabindex */
 import { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, Check, CreditCard, Info, Ruler, ShoppingBag } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, CreditCard, Image as ImageIcon, Info, Ruler, ShoppingBag } from 'lucide-react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import './product-feature.css';
@@ -137,6 +137,7 @@ export function ProductFeature({ onBuy, onViewBag, bagSize = '' }: { onBuy: (siz
             <li><Info size={17} aria-hidden="true" /><span><strong>Concept piece.</strong> Orders aren’t open yet.</span></li>
             <li><Ruler size={17} aria-hidden="true" /><span>Sizes S–2XL shown as an example.</span></li>
             <li><CreditCard size={17} aria-hidden="true" /><span>Demo checkout — no payment is taken.</span></li>
+            <li><ImageIcon size={17} aria-hidden="true" /><span>Product and on-body images are illustrative.</span></li>
           </ul>
 
           <Accordion className="site-accordion pdp-accordion">

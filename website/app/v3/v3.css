@@ -108,6 +108,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .gc-hero-meta span { justify-self: start; text-wrap: balance; padding: 3px 7px; margin-left: -7px; background: rgb(11 11 10 / .6); }
 .gc .cinematic-opening .campaign-copy h1 { display: flex; justify-content: space-between; margin: 0; font-family: var(--gc-poster); font-weight: 400; font-size: 13.4vw; line-height: .8; letter-spacing: -.004em; text-transform: uppercase; white-space: nowrap; }
 .gc .campaign-copy h1 em { font-style: normal; color: var(--gc-red); }
+/* The action sits above the headline's line boxes, which rise into its row at poster scale. */
+.gc .campaign-discover { position: relative; z-index: 1; }
 .gc .campaign-discover:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
 .gc .ambient-control { z-index: 4; bottom: auto; top: 88px; right: var(--gc-g); border: 1px solid rgb(255 255 255 / .45); background: rgb(11 11 10 / .35); opacity: .9; }
 .gc .ambient-control:hover, .gc .ambient-control:focus-visible { border-color: #fff; opacity: 1; }
@@ -160,6 +162,9 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc .pdp-facts li { padding: 10px 0; color: var(--gc-body); font-size: 14px; }
 .gc .pdp-accordion p { font-size: 14px; }
 .gc .pdp-accordion [data-slot=accordion-trigger] { font: 500 12px/1.3 var(--gc-mono); letter-spacing: .08em; text-transform: uppercase; }
+
+/* Section jumps: these chapters carry their own top padding, so they land flush and the bar sits over their own ground. */
+.gc .pdp, .gc-manifesto, .gc-wall { scroll-margin-top: calc(-1 * var(--chrome, 84px)); }
 
 /* ---------- 02 Behind GC: the quiet beat ---------- */
 .gc-manifesto { position: relative; z-index: 3; min-height: 100svh; box-sizing: border-box; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); align-content: center; column-gap: var(--gc-g); padding: clamp(112px, 15vh, 170px) var(--gc-g); background: var(--gc-black); color: var(--gc-white); }
@@ -223,7 +228,9 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-tape-bit.is-b { right: 5%; transform: rotate(6deg); }
 .gc-poster:nth-child(2) .gc-tape-bit.is-a { left: 38%; width: 26%; transform: rotate(3deg); }
 .gc-poster:nth-child(2) .gc-tape-bit.is-b { display: none; }
-.gc-poster figcaption { display: flex; justify-content: space-between; gap: 12px; margin-top: 16px; font: 500 12px/1.3 var(--gc-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--gc-on-photo); text-shadow: 0 1px 6px rgb(0 0 0 / .6); }
+.gc-poster figcaption { display: flex; justify-content: space-between; gap: 12px; margin-top: 16px; font: 500 12px/1.3 var(--gc-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--gc-on-photo); }
+/* Chips keep the small captions legible over any patch of concrete. */
+.gc-poster figcaption span { padding: 3px 7px; background: rgb(11 11 10 / .62); }
 
 /* ---------- 05 The troop: the individual beside the people in their corner ---------- */
 .gc-troop { position: relative; z-index: 3; background: var(--gc-white); color: var(--gc-ink); }
@@ -246,7 +253,7 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 /* ---------- 06 One camp ---------- */
 .gc-camp { --camp-fs: min(24vw, 34svh); --camp-top: clamp(84px, 11vh, 120px); position: relative; z-index: 3; min-height: 100svh; overflow: hidden; isolation: isolate; background: #2a241f; color: #fff; }
 .gc-camp-image { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; transform: scale(calc(1.1 - var(--enter, 1) * .1)); }
-.gc-camp::after { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgb(10 8 6 / .52), rgb(10 8 6 / .05) 55%), linear-gradient(0deg, rgb(10 8 6 / .35), rgb(10 8 6 / 0) 40%); }
+.gc-camp::after { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgb(10 8 6 / .64), rgb(10 8 6 / .05) 55%), linear-gradient(0deg, rgb(10 8 6 / .35), rgb(10 8 6 / 0) 40%); }
 .gc-camp-title { position: absolute; inset: 0; margin: 0; font-family: var(--gc-poster); font-weight: 400; font-size: var(--camp-fs); line-height: .8; text-transform: uppercase; pointer-events: none; }
 .gc-camp-title span { position: absolute; }
 .gc-camp-title span:first-child { left: var(--gc-g); top: var(--camp-top); transform: translateX(calc((1 - var(--enter, 1)) * -14vw)); }

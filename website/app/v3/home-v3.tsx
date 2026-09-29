@@ -29,6 +29,8 @@ export function SiteBar({ bagCount = 0, onBag, home = true }: { bagCount?: numbe
       const href = (event.target as Element | null)?.closest?.('a[href]')?.getAttribute('href') ?? '';
       if (href.startsWith('#') || (href.startsWith('/#') && location.pathname === '/')) holdOpen();
     };
+    // Arriving from another page on a section link (e.g. /teams → /#collection) lands with the bar showing.
+    if (location.hash && location.hash !== '#top') hold = performance.now() + 2500;
     const update = () => {
       frame = 0;
       const y = scrollY, delta = y - last;

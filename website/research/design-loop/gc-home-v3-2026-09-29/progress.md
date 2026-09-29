@@ -93,6 +93,47 @@ Evidence:
 - Hero action across a full loop (140 samples at 100ms): hidden 0, focus lost 0. Frozen C1 on the same test: 22 hidden, 50 focus lost.
 - Build ok; `tsc` clean; arrival tests 30/30; `oxlint` 2 errors, both pre-existing.
 
+**C2 source commit:** `83cae3b`.
+
+**C2 verdicts — round 2 (three new critics):**
+- **Brief: PASS.**
+  - No material failures.
+  - Minor notes: focus dropped to `<body>` after checkout Escape; the bar was hidden after a cross-page jump; a strip under the bar after an anchor jump; the play/pause label was wrong when the film failed; borderline caption contrast on concrete; no "illustrative" tag in the gallery; a slow-film re-dark carried over from the baseline.
+- **System: FAIL.**
+  - Material: the favicon was the white-only mark, which is illegible on light tabs (carried over from the baseline).
+  - Minor: menu numbering gaps, label formats, off-token colours, "GC Partnership Program" naming, the corporate tagline, and the 30% ghosted mark.
+- **Craft: FAIL.**
+  - Material: a halftone band stayed at the left edge of the lit values chapter (a C2 regression in the seam path).
+  - Material: the hero headline vanished for ~2.5s every film loop.
+  - Material: the manifesto, wall and troop heads shared one template (bar 2).
+  - Material: the tablet split sliced faces.
+  - Material: the phone manifesto was not a full-viewport beat (bar 4).
+
+### C3 — frozen 2026-09-29 (static build copy `scratchpad/frozen/C3`, served on :5177)
+Changes from C2:
+- **Seam:** the path ends flush (measured: lit layer left edge 0, lip off-screen at 1440, 768, 390 and 320; lip off-screen left at the start).
+- **Hero:** the headline, label and action rest visible through every loop once lit. The action sits above the headline's line boxes (a hit-test regression found and fixed before freezing).
+- **Chapter heads:** a centred wall caption, a full-width belonging statement, and one label on the values chapter (the lights-on/off labels were removed).
+- **Troop halves:** equal, with no hover resize. They stack on tablets and portrait screens, and the phone gradient is deeper under the captions.
+- **Phone manifesto:** 100svh. The values photograph now sits so the face clears the words.
+- **Sign-off:** paints once on arrival and rests painted. On phone the mark is 128px.
+- **System fixes:** the favicon uses the full-colour mark; the menu is an unnumbered list; one "NN / Name" label format; dialog eyebrows match; the values mark is at full opacity; tokens for text over photos; /teams is titled "For teams", without the tagline or program naming.
+- **Brief notes:**
+  - Focus returns to the bag button after checkout closes.
+  - The bar holds after cross-page and in-page jumps, and anchors land flush with no foreign strip.
+  - The film control is hidden when the film fails.
+  - Poster captions sit on chips.
+  - An illustrative-images line was added to the product facts.
+Evidence:
+- `shots/C3/` at four widths.
+- Interaction suite 54/54 on the frozen build.
+- No film: lit at 464ms / 294ms.
+- Hero action across a loop: 0 hidden, 0 focus lost, clickable at 1440, 768, 390 and 320.
+- Anchors land at top 0 with the bar visible and no foreign strip.
+- Build ok; `tsc` clean; arrival tests 30/30; `oxlint` 2 errors, both pre-existing.
+Not changed:
+- The slow-film re-dark: a film that starts more than 4s late replays the intro if the visitor hasn't interacted. This is the tested baseline arrival logic.
+
 ## Imagery audit and generation briefs
 The asset library covers every chapter; no new imagery was required to ship.
 No ChatGPT or image-generation tool was callable in this environment, so nothing was generated.
