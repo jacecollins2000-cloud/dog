@@ -1,4 +1,6 @@
 'use client';
+/* Pre-optimized WebP artwork; plain img keeps the static export independent of an image server. */
+/* oxlint-disable next/no-img-element */
 
 import { useEffect, useRef, useState } from 'react';
 import { ArrowDown, Pause, Play } from 'lucide-react';
@@ -165,14 +167,16 @@ export function CampaignHero() {
     </picture>
     <div className="campaign-shade" />
     <div className="campaign-dim" aria-hidden="true" />
+    {/* First in tab order, matching its place at the top of the film. */}
+    {!failed && <button className="ambient-control" onClick={toggle} aria-label={playing ? 'Pause campaign film' : 'Play campaign film'} aria-pressed={playing}>{playing ? <Pause size={14} /> : <Play size={14} />}</button>}
     <div className="campaign-copy">
       <div className="gc-hero-row">
-        <p className="gc-hero-meta"><span><span className="gc-nowrap">(Collection concept)</span> <span className="gc-nowrap">GC—001 · The hoodie</span></span></p>
+        <p className="gc-hero-meta"><span><span className="gc-nowrap">(Collection concept)</span> <span className="gc-nowrap">GC—001 · The hoodie</span></span><span>Illustrative AI film</span></p>
         <a className="gc-btn is-light campaign-discover" href="#collection">Shop the hoodie <ArrowDown size={17} aria-hidden="true" /></a>
       </div>
-      <h1 aria-label="Live Different!!"><span className="campaign-word word-live" aria-hidden="true">Live</span>{' '}<span className="campaign-word word-different" aria-hidden="true">Different<em>!!</em></span></h1>
+      {/* The founder's hand-painted slogan, pasted over the film on a strip of GC White paper. */}
+      <h1 className="gc-hero-slogan"><span className="sr-only">Live Different!!</span><img src="/assets/gc-slogan-red.webp" alt="" width="1800" height="336" fetchPriority="high" /></h1>
     </div>
-    {!failed && <button className="ambient-control" onClick={toggle} aria-label={playing ? 'Pause campaign film' : 'Play campaign film'} aria-pressed={playing}>{playing ? <Pause size={14} /> : <Play size={14} />}</button>}
     {failed && <output className="film-status">Film unavailable. Campaign image shown.</output>}
   </section>;
 }

@@ -76,7 +76,7 @@ export function SiteBar({ bagCount = 0, onBag, home = true }: { bagCount?: numbe
         <img src="/assets/gc-wordmark.svg" alt="" width="200" height="59" />
       </a>
       <div className="gc-bar-side is-end">
-        <span className="gc-bar-meta gc-wide">Nevada — Est. 2023</span>
+        <span className="gc-bar-meta gc-wide">Nevada · Est. 2023</span>
         {onBag
           ? <button className="gc-bar-link" onClick={onBag} aria-label={`Open bag, ${bagCount} ${bagCount === 1 ? 'item' : 'items'}`}>Bag <span className="gc-bar-count">({bagCount})</span></button>
           : <a className="gc-bar-link" href="/#collection" aria-label="Shop the hoodie">Shop <ArrowUpRight size={13} aria-hidden="true" /></a>}
@@ -159,12 +159,12 @@ export function ValuesChapter() {
   return <section ref={ref} className="gc-values" data-tone="dark" aria-labelledby="gc-values-title">
     <div className="gc-values-stage">
       <div className="gc-values-off" aria-hidden="true">
-        <img src="/assets/lookbook-hood-up-halftone-v1.webp" alt="" width="1122" height="1402" loading="lazy" decoding="async" />
+        <img src="/assets/lookbook-hood-up-halftone-v2.webp" alt="" width="1122" height="1402" loading="lazy" decoding="async" />
       </div>
       <div className="gc-values-lip" aria-hidden="true" />
       <div className="gc-values-on">
         <div className="gc-values-on-photo">
-          <img src="/assets/lookbook-hood-up-v1.webp" alt="Illustrative campaign: an adult in the charcoal GC Hoodie pulling the hood up at dusk" width="1122" height="1402" loading="lazy" decoding="async" />
+          <img src="/assets/lookbook-hood-up-v2.webp" alt="Illustrative campaign: an adult in the charcoal GC Hoodie pulling the hood up at dusk" width="1122" height="1402" loading="lazy" decoding="async" />
         </div>
       </div>
       <div className="gc-values-copy">
@@ -175,7 +175,6 @@ export function ValuesChapter() {
         <p className="gc-values-line">What the gorilla stands for.</p>
         <small className="gc-note">Illustrative campaign</small>
       </div>
-      <img className="gc-values-mark" src="/assets/gc-mark.svg" alt="" width="140" height="160" loading="lazy" />
     </div>
   </section>;
 }
@@ -197,7 +196,7 @@ export function CampaignWall() {
   }, [ref]);
   return <section ref={ref} id="campaign" className="gc-wall" data-tone="dark" aria-labelledby="gc-wall-title">
     <header className="gc-wall-head">
-      <p className="gc-label"><span className="gc-num">04</span> The campaign</p>
+      <p className="gc-label"><span className="gc-num">05</span> The campaign</p>
       <h2 id="gc-wall-title">Three prints, pasted up.</h2>
       <p className="gc-note">Illustrative campaign artwork, AI‑generated for this concept.</p>
     </header>
@@ -208,7 +207,7 @@ export function CampaignWall() {
           <i className="gc-tape-bit is-a" aria-hidden="true" />
           <i className="gc-tape-bit is-b" aria-hidden="true" />
         </div>
-        <figcaption><span>0{i + 1} / {theme}</span><span>{title}</span></figcaption>
+        <figcaption><span>0{i + 1} / {theme}</span><span className="sr-only">{title}</span></figcaption>
       </figure>)}
     </div>
   </section>;
@@ -225,7 +224,7 @@ export function TroopChapter() {
   const ref = useScrollProgress<HTMLElement>();
   return <section ref={ref} className="gc-troop" aria-labelledby="gc-troop-title">
     <header className="gc-troop-head" data-tone="light">
-      <p className="gc-label"><span className="gc-num">05</span> Belonging</p>
+      <p className="gc-label"><span className="gc-num">04</span> Belonging</p>
       <h2 id="gc-troop-title"><span>Individuality doesn’t mean isolation.</span> <span className="gc-echo">Gorillas travel in troops.</span></h2>
       <p className="gc-note">Illustrative campaign imagery</p>
     </header>
@@ -249,7 +248,7 @@ export function OneCampChapter() {
       <p className="gc-label"><span className="gc-num">06</span> For teams &amp; supporters</p>
       <p className="gc-camp-line">For the team — and everyone behind it. Explore GC’s developing youth fundraising program.</p>
       <a className="gc-btn is-light" href="/teams">Explore the program <ArrowRight size={17} aria-hidden="true" /></a>
-      <small className="gc-note">Program in development · Illustrative campaign</small>
+      <small className="gc-note"><span className="gc-nowrap">Program in development</span> · <span className="gc-nowrap">Illustrative campaign</span></small>
     </div>
   </section>;
 }
@@ -266,7 +265,6 @@ export function SignOff() {
     </h2>
     <div className="gc-signoff-actions">
       <a className="gc-btn" href="#collection">Shop the hoodie <ArrowUp size={17} aria-hidden="true" /></a>
-      <a className="gc-link" href={INSTAGRAM} target="_blank" rel="noreferrer">Follow @guerrilla_camp <ArrowUpRight size={15} aria-hidden="true" /></a>
     </div>
     <p className="gc-note gc-signoff-note"><span>A collection concept. Orders aren’t open yet.</span> <span>Slogan artwork supplied by GC.</span></p>
   </section>;

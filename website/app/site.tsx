@@ -57,8 +57,8 @@ export function FashionPage() {
         <ProductFeature bagSize={bagSize} onViewBag={() => setBagOpen(true)} onBuy={(size) => { setBagSize(size); setBagOpen(true); }} />
         <Manifesto />
         <ValuesChapter />
-        <CampaignWall />
         <TroopChapter />
+        <CampaignWall />
         <OneCampChapter />
         <SignOff />
       </main>
@@ -152,8 +152,8 @@ function ProductPreview({
                   key={view}
                   src={
                     view === 'front'
-                      ? '/assets/hoodie-clean-v2.webp'
-                      : '/assets/athlete-after-training-v1.webp'
+                      ? '/assets/hoodie-clean-v3.webp'
+                      : '/assets/athlete-after-training-v2.webp'
                   }
                   alt={
                     view === 'front'
@@ -291,7 +291,7 @@ function ProductPreview({
             <>
               <div className="checkout-product">
                 <img
-                  src="/assets/hoodie-clean-v2.webp"
+                  src="/assets/hoodie-clean-v3.webp"
                   alt="Sample charcoal GC hoodie"
                 />
                 <div>
@@ -430,8 +430,8 @@ export function TeamsPage() {
             <p className="gc-label"><span className="gc-num">03</span> Before you get started</p>
             <h2 id="gc-questions-title">Team questions.</h2>
             <p>
-              The program is taking shape. Here’s what the brief establishes,
-              and what a team would still need to confirm.
+              The program is taking shape. Here’s what is proposed, and what a
+              team would still need to confirm.
             </p>
           </header>
           <Accordion className="site-accordion gc-accordion">
@@ -637,6 +637,12 @@ export function SiteFooter() {
             by the brand. The people, campaign photos and charcoal hoodie are
             AI-generated concepts, not customer testimonials, finished
             merchandise or existing team partnerships.
+          </p>
+          <p>
+            The approved gorilla mark has been placed on the hoodie in the
+            product photographs and the lights-on portrait. In the opening film,
+            the campaign prints and the other photographs, the chest print was
+            drawn by the image generator and only approximates the approved mark.
           </p>
           <p>
             The $78 hoodie price and sizes are illustrative examples requested

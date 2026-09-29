@@ -3,7 +3,7 @@ import Script from 'next/script';
 import { arrivalBootstrap } from './arrival-bootstrap';
 import { arrivalDiagnostics } from './arrival-diagnostics';
 import { ArrivalDiagnosticPanel } from './arrival-diagnostic-panel';
-import { Anton, Barlow_Condensed, DM_Mono, Manrope } from 'next/font/google';
+import { Anton, DM_Mono, Manrope } from 'next/font/google';
 import './globals.css';
 import './redesign.css';
 import './refinement.css';
@@ -26,11 +26,6 @@ const monoFont = DM_Mono({
   weight: ['400', '500'],
 });
 
-const displayFont = Barlow_Condensed({
-  variable: '--font-display',
-  subsets: ['latin'],
-  weight: ['500', '600', '700', '800'],
-});
 
 export const metadata: Metadata = {
   title: 'Guerrilla Camp — Live Different!!',
@@ -38,7 +33,13 @@ export const metadata: Metadata = {
     'Guerrilla Camp. Athletic roots, individual expression, and the people who stand with you. A private brand and collection concept.',
   robots: { index: false, follow: false },
   // The full-colour mark carries its own black oval and white keyline, so it reads on light and dark browser tabs.
-  icons: { icon: '/assets/gc-mark-ink.svg' },
+  icons: {
+    icon: [
+      { url: '/assets/gc-mark-ink.svg', type: 'image/svg+xml' },
+      { url: '/assets/gc-favicon-32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: '/assets/gc-apple-touch-180.png',
+  },
 };
 
 export default function RootLayout({
@@ -51,7 +52,7 @@ export default function RootLayout({
 
       <body
         id="top"
-        className={`${bodyFont.variable} ${displayFont.variable} ${posterFont.variable} ${monoFont.variable} antialiased`}
+        className={`${bodyFont.variable} ${posterFont.variable} ${monoFont.variable} antialiased`}
       >
         <Script id="gc-arrival-diagnostic" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: arrivalDiagnostics }} />
         <Script id="gc-arrival-boot" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: arrivalBootstrap }} />

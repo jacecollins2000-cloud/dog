@@ -7,7 +7,7 @@ import { ArrowDown, ArrowUpRight } from 'lucide-react';
 export function TeamEditorial({ onBrief }: { onBrief: () => void }) {
   return <section className="gc-team-hero" data-tone="light" aria-labelledby="gc-teams-title">
     <div className="gc-team-hero-copy">
-      <p className="gc-label"><span className="gc-num">GC</span> For teams &amp; supporters</p>
+      <p className="gc-label"><span className="gc-num" aria-hidden="true" />For teams &amp; supporters</p>
       <h1 id="gc-teams-title" className="gc-team-title"><span>Your</span> <span>team.</span></h1>
       <p className="gc-team-statement"><span>For the team.</span> <span className="gc-echo">And everyone behind it.</span></p>
       <p className="gc-team-description">A collection for the people putting in the work—and the people cheering them on. Explore GC’s developing youth fundraising program.</p>

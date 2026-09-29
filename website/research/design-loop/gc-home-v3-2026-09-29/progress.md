@@ -161,9 +161,62 @@ Evidence:
 - Anchors and focus return as in C3; seam flush at 1440, 768, 390 and 320.
 - Build ok; `tsc` clean; arrival tests 30/30; `oxlint` 2 errors, both pre-existing.
 
+**C3, late brief verdict: FAIL.**
+- Material: after add-to-bag, the add button was `disabled` for 420ms, so keyboard focus fell to `<body>`; closing the bag then sent Tab to the skip link.
+
+**C4 source commit:** `2bc8182`.
+
+**C4 verdicts — round 4 (three new critics):**
+- **Brief: FAIL.** Material: the same add-to-bag focus loss, still present.
+- **System: FAIL.**
+  - Material: the AI imagery shows a generator-redrawn round badge, presented in the gallery as "The mark" and placed beside the real oval SVG in the values chapter.
+  - Material: the largest motto instance (the hero h1) was set in Anton rather than the heritage lettering.
+- **Craft: FAIL** (all 7 bar criteria passed).
+  - Material: the desktop values halftone and colour layers had different crops and scales, so the tear joined two different pictures.
+  - Material: the troop and One Camp chapters ran back to back with interchangeable imagery.
+
+### C5 — frozen 2026-09-29 (static build copy `scratchpad/frozen/C5`, served on :5179)
+Changes from C4:
+- **Hero motto:** now the founder-supplied hand-painted slogan (`gc-slogan-red.webp`) on a strip of GC White paper pasted over the film, with an sr-only h1. It lifts in with the lights and the paint sweeps across, then rests visible. The film gets its own "Illustrative AI film" label.
+- **Approved mark retouched into photographs:** the approved vector mark (`gc-mark-ink.svg`) was composited over the AI badge in four stills: `hoodie-clean-v3`, `athlete-after-training-v2`, `gc-hood-detail-v3` and `lookbook-hood-up-v2`.
+  - At the old circle's width the upright oval fully contains the old round badge. Stray red strokes were inpainted, with fabric shading and grain applied to the inks.
+  - The gallery's "The mark" slide is now the approved white-and-red vector on charcoal.
+  - The values overlay mark was removed; the photograph's chest carries the approved mark.
+  - The concept dialog now says which images carry the approved mark and which only approximate it (the film, the prints and the other photographs).
+- **Values halftone:** regenerated from the retouched colour photo (5px dot screen), so the layers align at every width. It is 81 KB lossless, down from 609 KB.
+  - The desktop framing moved to 80% with a left-weighted shade, so the chest mark shows whole and bright and the words sit on the hood (checked at 1024, 1280, 1440 and 1920).
+- **Chapter order:** film, hoodie, manifesto, values, troop, campaign wall, One Camp, sign-off. The wall now separates the two group chapters.
+- **Focus:** the add buttons use `aria-disabled` while confirming, so the bag returns focus to the product. Remove focuses the empty-bag action; Finish focuses "Continue exploring". The film control is first in the hero's tab order.
+- **System minors:**
+  - Accordion focus uses the system's 2px ring.
+  - Square gallery dots.
+  - Barlow is no longer loaded.
+  - PNG favicon and apple-touch fallbacks.
+  - "Nevada · Est. 2023" everywhere.
+  - The /teams hero label no longer shows "GC".
+  - The sign-off slogan is level (as supplied).
+  - Copy trims: "Wear what you stand for." removed, "Your bag is empty.", "Here's what is proposed".
+- **Craft minors:**
+  - Wall chips show the theme only.
+  - The wall foot is tighter.
+  - "ONE / CAMP." slides in 2vw, not 14vw.
+  - The One Camp note doesn't break mid-phrase.
+  - The phone menu is full width.
+  - The phone sign-off has no forced full-screen height.
+  - The sign-off has one action.
+Evidence:
+- `shots/C5/` at four widths, plus the desktop values at 1024, 1280 and 1920 and mid-seam frames.
+- Interaction suite 54/54 on the frozen build.
+- No film: lit at 350ms / 347ms.
+- Hero action across a loop: 0 hidden, 0 focus lost.
+- Anchors land flush with the bar visible; cross-page jumps work.
+- Keyboard bag path: focus returns to the add button, Remove goes to "Explore the hoodie", Finish goes to "Continue exploring".
+- Seam flush at four widths.
+- Build ok; `tsc` clean; arrival tests 30/30; `oxlint` 2 errors, both pre-existing.
+
 ## Imagery audit and generation briefs
-The asset library covers every chapter; no new imagery was required to ship.
-No ChatGPT or image-generation tool was callable in this environment, so nothing was generated.
+The asset library covers every chapter; no new imagery was generated (no ChatGPT or image-generation tool is callable here).
+Existing stills were retouched for brand accuracy (approved mark composited over the AI badge; values halftone regenerated), and are documented in C5 above.
 One gap would clearly strengthen the work; its brief is below for a future session.
 
 **G1 — Matched diptych for "The individual / The troop" (replaces the two current halves).**

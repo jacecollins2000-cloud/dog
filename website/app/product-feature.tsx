@@ -10,10 +10,10 @@ import './product-feature.css';
 import { TornEdge } from './v3/paper';
 
 const gallery = [
-  ['/assets/hoodie-clean-v2.webp', 'Charcoal GC Hoodie, front view, with the white gorilla and red GC chest mark', 'The hoodie'],
-  ['/assets/gc-mark-detail-v1.webp', 'Close-up of the gorilla and red GC chest mark on the charcoal hoodie', 'The mark'],
-  ['/assets/athlete-after-training-v1.webp', 'Illustrative adult athlete wearing the charcoal GC Hoodie after training', 'On body'],
-  ['/assets/gc-hood-detail-v2.webp', 'Close-up of the hood, drawcords and chest mark on the charcoal hoodie', 'The hood'],
+  ['/assets/hoodie-clean-v3.webp', 'Charcoal GC Hoodie, front view, with the white gorilla and red GC chest mark', 'The hoodie'],
+  ['/assets/gc-mark.svg', 'The approved Guerrilla Camp gorilla mark in white and red, on charcoal', 'The mark'],
+  ['/assets/athlete-after-training-v2.webp', 'Illustrative adult athlete wearing the charcoal GC Hoodie after training', 'On body'],
+  ['/assets/gc-hood-detail-v3.webp', 'Close-up of the hood, drawcords and chest mark on the charcoal hoodie', 'The hood'],
 ] as const;
 const sizes = ['S', 'M', 'L', 'XL', '2XL'];
 const calmMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches && document.documentElement.dataset.gcMotion !== 'full';
@@ -95,7 +95,7 @@ export function ProductFeature({ onBuy, onViewBag, bagSize = '' }: { onBuy: (siz
           if (event.key === 'ArrowRight') { event.preventDefault(); goTo(slide + 1); }
           if (event.key === 'ArrowLeft') { event.preventDefault(); goTo(slide - 1); }
         }}>
-          {gallery.map(([src, alt], index) => <figure key={src} className={`pdp-frame ${index === 0 ? 'is-product' : ''} ${index === slide ? 'is-current' : ''}`}>
+          {gallery.map(([src, alt], index) => <figure key={src} className={`pdp-frame ${index === 0 ? 'is-product' : ''} ${src.endsWith('.svg') ? 'is-mark' : ''} ${index === slide ? 'is-current' : ''}`}>
             <img src={src} alt={alt} width="1122" height="1402" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
           </figure>)}
         </div>
@@ -116,7 +116,7 @@ export function ProductFeature({ onBuy, onViewBag, bagSize = '' }: { onBuy: (siz
             <h2 id="collection-title">The GC Hoodie</h2>
             <p className="pdp-price">$78 <span>USD · example price</span></p>
           </div>
-          <p className="pdp-lede">Wear what you stand for. A charcoal layer carrying the gorilla — strength, protection and loyalty — for training days and everything after.</p>
+          <p className="pdp-lede">A charcoal layer carrying the gorilla — strength, protection and loyalty — for training days and everything after.</p>
 
           <div className="pdp-colour"><span className="pdp-swatch" aria-hidden="true" /> <span>Colour</span> <strong>Charcoal</strong></div>
 
