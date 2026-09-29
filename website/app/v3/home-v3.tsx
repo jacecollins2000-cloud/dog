@@ -127,11 +127,11 @@ export function ValuesChapter() {
     const stage = element.querySelector<HTMLElement>('.gc-values-stage');
     const place = (on: number) => {
       element.style.setProperty('--on', on.toFixed(4));
-      // The seam travels from just off the left edge (lip included) to past the right edge.
+      // The seam travels from just off the left edge (lip included) to the right edge, where the lit print sits flush.
       // It sits on whole device pixels, so its edges never render as a soft hairline.
       if (stage) {
         const strip = stage.clientHeight * .156;
-        const x = on * (stage.clientWidth * 1.05 + strip) - strip;
+        const x = on * (stage.clientWidth + strip) - strip;
         element.style.setProperty('--x-px', `${Math.round(x * devicePixelRatio) / devicePixelRatio}px`);
       }
     };
@@ -173,7 +173,6 @@ export function ValuesChapter() {
         <small className="gc-note">Illustrative campaign</small>
       </div>
       <img className="gc-values-mark" src="/assets/gc-mark.svg" alt="" width="140" height="160" loading="lazy" />
-      <p className="gc-values-state" aria-hidden="true"><span>← Lights on</span><span>Lights off</span></p>
     </div>
   </section>;
 }
@@ -223,7 +222,7 @@ export function TroopChapter() {
   const ref = useScrollProgress<HTMLElement>();
   return <section ref={ref} className="gc-troop" aria-labelledby="gc-troop-title">
     <header className="gc-troop-head" data-tone="light">
-      <p className="gc-label"><span className="gc-num">05</span> The troop</p>
+      <p className="gc-label"><span className="gc-num">05</span> Belonging</p>
       <h2 id="gc-troop-title"><span>Individuality doesn’t mean isolation.</span> <span className="gc-echo">Gorillas travel in troops.</span></h2>
       <p className="gc-note">Illustrative campaign imagery</p>
     </header>
@@ -255,17 +254,10 @@ export function OneCampChapter() {
 /* ---------- Sign-off: the founder's hand-painted slogan, brushed on as it rises; one way back to the hoodie ---------- */
 
 export function SignOff() {
-  const ref = useScrollProgress<HTMLElement>(element => {
-    const art = element.querySelector<HTMLElement>('.gc-signoff-slogan');
-    if (!art) return;
-    if (element.dataset.still) { element.style.setProperty('--paint', '1'); return; }
-    // Paints left to right while the slogan rises through the lower third of the screen.
-    const vh = stableHeight(), box = art.getBoundingClientRect(), centre = box.top + box.height / 2;
-    element.style.setProperty('--paint', ease(clamp((vh * .95 - centre) / (vh * .3))).toFixed(4));
-  });
-  return <section ref={ref} className="gc-signoff" data-tone="light" aria-labelledby="gc-signoff-title">
+  return <section className="gc-signoff" data-tone="light" aria-labelledby="gc-signoff-title">
     <img className="gc-signoff-mark" src="/assets/gc-mark-ink.svg" alt="The Guerrilla Camp gorilla mark" width="1165" height="1313" loading="lazy" decoding="async" />
-    <h2 id="gc-signoff-title" className="gc-signoff-slogan">
+    {/* Painted once, left to right, when it arrives; it rests fully painted. */}
+    <h2 id="gc-signoff-title" className="gc-signoff-slogan" data-reveal data-reveal-threshold=".5">
       <span className="sr-only">Live Different!!</span>
       <img src="/assets/gc-slogan-red.webp" alt="" width="1800" height="336" loading="eager" fetchPriority="low" decoding="async" />
     </h2>

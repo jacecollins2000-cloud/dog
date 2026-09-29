@@ -105,7 +105,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .gc .cinematic-opening .campaign-copy { z-index: 3; left: 0; right: 0; bottom: calc(clamp(56px, 8vh, 96px) + 1.2vw); width: auto; max-width: none; padding: 0 var(--gc-g); transform: translateY(calc(var(--leave, 0) * -14vh)); text-align: left; }
 .gc-hero-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: clamp(12px, 1.8vh, 20px); }
 .gc-hero-meta { display: grid; gap: 4px; margin: 0; font: 500 12px/1.3 var(--gc-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--gc-on-photo); }
-.gc-hero-meta span { justify-self: start; padding: 3px 7px; margin-left: -7px; background: rgb(11 11 10 / .6); }
+.gc-hero-meta span { justify-self: start; text-wrap: balance; padding: 3px 7px; margin-left: -7px; background: rgb(11 11 10 / .6); }
 .gc .cinematic-opening .campaign-copy h1 { display: flex; justify-content: space-between; margin: 0; font-family: var(--gc-poster); font-weight: 400; font-size: 13.4vw; line-height: .8; letter-spacing: -.004em; text-transform: uppercase; white-space: nowrap; }
 .gc .campaign-copy h1 em { font-style: normal; color: var(--gc-red); }
 .gc .campaign-discover:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
@@ -119,6 +119,7 @@ html[data-gc-arrival=dark] .gc .is-sequenced[data-copy-dark] .campaign-discover 
 html[data-gc-arrival=dark] .gc .campaign-hero:not(.is-sequenced) .campaign-discover { visibility: hidden; }
 /* Once the page is lit, the label and the action stay put through every loop of the film; only the headline replays its lights-on reveal. */
 html:not([data-gc-arrival=dark]) .gc .is-sequenced .campaign-copy { opacity: 1; }
+html:not([data-gc-arrival=dark]) .gc .is-sequenced :is(.word-live, .word-different) { opacity: 1; clip-path: none; transform: none; }
 html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-light, 0); }
 
 /* ---------- 01 The piece: product on GC White ---------- */
@@ -173,9 +174,9 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-values { position: relative; height: 200svh; background: #050505; color: #fff; }
 .gc-values-stage { position: sticky; top: 0; height: 100vh; height: 100svh; height: 100lvh; overflow: hidden; isolation: isolate; container-type: size;
   /* The tear strip keeps the photographed edge's own proportions (240 x 1536). */
-  --strip: calc(100cqh * .156); --x: var(--x-px, calc(var(--on, 1) * (105cqw + var(--strip)) - var(--strip))); }
+  --strip: calc(100cqh * .156); --x: var(--x-px, calc(var(--on, 1) * (100cqw + var(--strip)) - var(--strip))); }
 .gc-values-off, .gc-values-on-photo { position: absolute; top: 0; left: -4px; width: calc(100cqw + 8px); height: 100%; }
-.gc-values-off img, .gc-values-on img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 28%; }
+.gc-values-off img, .gc-values-on img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 44%; }
 /* Lights on: the colour print is torn along a photographed edge; transforms only, so the seam never forces layout. */
 .gc-values-on { position: absolute; top: 0; bottom: 0; left: 0; width: calc(100cqw + var(--strip)); overflow: hidden; transform: translateX(calc(var(--x) - 100cqw)); -webkit-mask: linear-gradient(#000, #000) left top / calc(100% - var(--strip) + 3px) 100% no-repeat, url(/assets/gc-seam-mask.png) right top / var(--strip) 100% no-repeat; mask: linear-gradient(#000, #000) left top / calc(100% - var(--strip) + 3px) 100% no-repeat, url(/assets/gc-seam-mask.png) right top / var(--strip) 100% no-repeat; will-change: transform; }
 .gc-values-on-photo { transform: translateX(calc(100cqw - var(--x))); will-change: transform; }
@@ -190,14 +191,11 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-values-copy .gc-label, .gc-values-copy .gc-note { text-shadow: 0 1px 8px rgb(0 0 0 / .7); }
 .gc-values-copy .gc-note { display: block; margin-top: 12px; color: var(--gc-on-photo-quiet); }
 .gc-values-mark { position: absolute; z-index: 2; right: var(--gc-g); bottom: calc(clamp(36px, 7vh, 76px) + 100lvh - 100svh); width: clamp(84px, 8vw, 132px); height: auto; }
-.gc-values-state { position: absolute; z-index: 2; top: 92px; left: var(--gc-g); right: var(--gc-g); display: flex; justify-content: space-between; margin: 0; font: 500 12px/1 var(--gc-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--gc-on-photo-quiet); }
-.gc-values-state span:first-child { opacity: calc(.45 + var(--on, 1) * .55); }
-.gc-values-state span:last-child { opacity: calc(1 - var(--on, 1) * .75); }
 @supports not (container-type: size) {
   .gc-values { height: auto; }
   .gc-values-stage { position: relative; }
   .gc-values-on, .gc-values-on-photo, .gc-values-off { width: 100%; transform: none; -webkit-mask: none; mask: none; }
-  .gc-values-lip, .gc-values-state { display: none; }
+  .gc-values-lip { display: none; }
   .gc-values-words span { opacity: 1; transform: none; }
 }
 .gc-values[data-still] { height: auto; }
@@ -207,10 +205,10 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-wall { position: relative; z-index: 2; overflow: clip visible; padding: clamp(104px, 14vh, 160px) var(--gc-g) clamp(88px, 12vh, 136px); background: #4b4c4a url(/assets/wall-concrete-v1.webp) center / cover; color: var(--gc-white); }
 .gc-wall::before { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgb(10 10 10 / .44) 0, rgb(10 10 10 / 0) 320px), linear-gradient(180deg, rgb(10 10 10 / .56), rgb(10 10 10 / .22) 32%, rgb(10 10 10 / .34)); }
 .gc-wall > * { position: relative; }
-.gc-wall-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); gap: 10px var(--gc-g); align-items: baseline; margin-bottom: clamp(48px, 8vh, 88px); }
-/* A caption, not a headline: the prints are the loud part of this chapter. */
-.gc-wall-head h2 { grid-column: 2; margin: 0; font-family: var(--font-body), sans-serif; font-weight: 600; font-size: clamp(24px, 2.2vw, 34px); line-height: 1.1; letter-spacing: -.02em; text-shadow: 0 1px 12px rgb(0 0 0 / .35); }
-.gc-wall-head .gc-note { grid-column: 2; color: var(--gc-on-photo); text-shadow: 0 1px 6px rgb(0 0 0 / .6); }
+/* A centred wall caption, not a headline: the prints are the loud part of this chapter. */
+.gc-wall-head { display: grid; justify-items: center; gap: 12px; margin: 0 auto clamp(48px, 8vh, 88px); max-width: 40ch; text-align: center; }
+.gc-wall-head h2 { margin: 0; font-family: var(--font-body), sans-serif; font-weight: 600; font-size: clamp(24px, 2.2vw, 34px); line-height: 1.1; letter-spacing: -.02em; text-shadow: 0 1px 12px rgb(0 0 0 / .35); }
+.gc-wall-head .gc-note { color: var(--gc-on-photo); text-shadow: 0 1px 6px rgb(0 0 0 / .6); }
 .gc-wall-posters { display: flex; align-items: flex-start; justify-content: space-between; gap: 2.4vw; }
 .gc-poster { flex: 1 1 0; max-width: 470px; margin: 0; transform: translateY(calc((.5 - var(--view, .5)) * var(--lift))) rotate(var(--rot)); filter: drop-shadow(0 1px 1px rgb(0 0 0 / .5)) drop-shadow(0 4px 6px rgb(0 0 0 / .28)); will-change: transform; }
 .gc-poster:nth-child(1) { --rot: -1.6deg; --lift: 60px; margin-top: 2vw; }
@@ -229,24 +227,21 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 
 /* ---------- 05 The troop: the individual beside the people in their corner ---------- */
 .gc-troop { position: relative; z-index: 3; background: var(--gc-white); color: var(--gc-ink); }
-.gc-troop-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); gap: 20px var(--gc-g); padding: clamp(104px, 15vh, 170px) var(--gc-g) clamp(44px, 7vh, 72px); }
-.gc-troop-head .gc-label { padding-top: .6em; color: var(--gc-muted); }
-.gc-troop-head h2 { margin: 0; font-family: var(--gc-poster); font-weight: 400; font-size: clamp(46px, 5.6vw, 96px); line-height: .94; text-transform: uppercase; }
+/* Full-bleed statement from the left edge: the loudest type between the film and One Camp. */
+.gc-troop-head { display: grid; gap: 22px; padding: clamp(104px, 15vh, 170px) var(--gc-g) clamp(44px, 7vh, 72px); }
+.gc-troop-head .gc-label { color: var(--gc-muted); }
+.gc-troop-head h2 { max-width: 16ch; margin: 0 0 0 -.03em; font-family: var(--gc-poster); font-weight: 400; font-size: clamp(52px, 7.6vw, 132px); line-height: .9; text-transform: uppercase; }
 .gc-troop-head h2 > span { display: block; text-wrap: pretty; }
 .gc-troop-head h2 > .gc-echo { text-wrap: balance; }
-.gc-troop-head .gc-note { grid-column: 2; color: var(--gc-muted); }
+.gc-troop-head .gc-note { color: var(--gc-muted); }
 .gc-troop-split { position: relative; display: flex; height: 100svh; min-height: 560px; max-height: 1080px; background: var(--gc-black); }
-.gc-half { position: relative; flex: 1 1 0; min-width: 0; margin: 0; overflow: hidden; color: #fff; transition: flex-grow .8s var(--gc-ease); }
+.gc-half { position: relative; flex: 1 1 0; min-width: 0; margin: 0; overflow: hidden; color: #fff; }
 .gc-half + .gc-half { box-shadow: -1px 0 0 var(--gc-black); }
 .gc-half img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos); transform: scale(calc(1.08 - var(--enter, 1) * .08)); }
 .gc-half::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgb(8 8 7 / .74) 0, rgb(8 8 7 / .28) 34%, rgb(8 8 7 / 0) 58%); pointer-events: none; }
 .gc-half figcaption { position: absolute; z-index: 1; left: var(--gc-g); right: var(--gc-g); bottom: clamp(36px, 6vh, 64px); display: grid; gap: 14px; }
 .gc-half figcaption .gc-label { color: var(--gc-on-photo); }
-.gc-half strong { display: block; font-family: var(--gc-poster); font-weight: 400; font-size: clamp(40px, 4.8vw, 86px); line-height: .92; text-transform: uppercase; text-wrap: balance; text-shadow: 0 2px 14px rgb(0 0 0 / .35); }
-@media (hover: hover) and (min-width: 900px) {
-  .gc-troop-split:hover .gc-half { flex-grow: .84; }
-  .gc-troop-split .gc-half:hover { flex-grow: 1.16; }
-}
+.gc-half strong { display: block; font-family: var(--gc-poster); font-weight: 400; font-size: clamp(38px, 4.1vw, 74px); line-height: .92; text-transform: uppercase; text-wrap: balance; text-shadow: 0 2px 14px rgb(0 0 0 / .35); }
 
 /* ---------- 06 One camp ---------- */
 .gc-camp { --camp-fs: min(24vw, 34svh); --camp-top: clamp(84px, 11vh, 120px); position: relative; z-index: 3; min-height: 100svh; overflow: hidden; isolation: isolate; background: #2a241f; color: #fff; }
@@ -264,7 +259,7 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-signoff { position: relative; z-index: 3; min-height: 100svh; box-sizing: border-box; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; justify-items: center; padding: clamp(96px, 13vh, 150px) var(--gc-g) clamp(72px, 10vh, 110px); background: var(--gc-white); color: var(--gc-ink); text-align: center; }
 .gc-signoff-mark { width: clamp(88px, 8vw, 128px); height: auto; }
 .gc-signoff-slogan { width: min(96vw, 1380px); max-width: none; margin: clamp(24px, 5vh, 56px) 0 0; transform: rotate(-3deg); }
-.gc-signoff-slogan img { display: block; width: 100%; height: auto; -webkit-mask-image: linear-gradient(100deg, #000 calc(var(--paint, 1) * 106% - 5%), transparent calc(var(--paint, 1) * 106%)); mask-image: linear-gradient(100deg, #000 calc(var(--paint, 1) * 106% - 5%), transparent calc(var(--paint, 1) * 106%)); }
+.gc-signoff-slogan img { display: block; width: 100%; height: auto; -webkit-mask: linear-gradient(100deg, #000 45%, transparent 55%) 0 0 / 230% 100% no-repeat; mask: linear-gradient(100deg, #000 45%, transparent 55%) 0 0 / 230% 100% no-repeat; transition: -webkit-mask-position 1.5s var(--gc-ease), mask-position 1.5s var(--gc-ease); }
 .gc-signoff-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 30px; margin-top: clamp(36px, 6vh, 64px); }
 .gc-signoff > .gc-note { margin-top: 24px; color: var(--gc-muted); }
 
@@ -282,6 +277,10 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-footer a:focus-visible, .gc-footer button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 
 /* ---------- Motion: one-shot entrances that rest fully visible ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-gc-motion] .gc-signoff-slogan:not(.has-entered) img { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
+}
+html[data-gc-motion=full] .gc-signoff-slogan:not(.has-entered) img { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
 .gc-reveal > * { transition: opacity .9s var(--gc-ease), transform 1.1s var(--gc-ease); transition-delay: calc(var(--i, 0) * 140ms); }
 @media (prefers-reduced-motion: no-preference) {
   html[data-gc-motion] .gc-reveal:not(.has-entered) > * { opacity: 0; transform: translateY(28px); }
@@ -423,26 +422,23 @@ html[data-gc-motion=full] .gc-reveal:not(.has-entered) > * { opacity: 0; transfo
   .gc .campaign-discover { order: 2; margin-top: 20px; }
   .gc .ambient-control { top: 72px; }
   .gc .film-status { top: 80px; }
-  .gc-manifesto { min-height: 88svh; padding-block: 104px 72px; }
+  .gc-manifesto { min-height: 100svh; padding-block: 96px 64px; }
   .gc-manifesto-statement { font-size: clamp(36px, 10.6vw, 52px); line-height: 1.04; }
   .gc-values { height: 190svh; }
   .gc-values-off img, .gc-values-on img { object-position: 70% 30%; }
   .gc-values-words { font-size: min(14vw, 64px); line-height: .92; }
   .gc-values-line { max-width: 19ch; font-size: 17px; }
-  .gc-values-mark, .gc-values-state { display: none; }
+  .gc-values-mark { display: none; }
   .gc-wall-head h2, .gc-troop-head h2, .gc-section-head h2, .gc-questions h2, .gc-giveback-copy h2, .gc-team-close h2 { font-size: clamp(40px, 12vw, 58px); }
-  /* The two halves share one phone screen, stacked. */
-  .gc-troop-split { flex-direction: column; height: auto; min-height: 0; max-height: none; }
-  .gc-half { flex: none; height: 47svh; min-height: 300px; }
-  .gc-half + .gc-half { box-shadow: 0 -1px 0 var(--gc-black); }
   .gc-half figcaption { bottom: 22px; gap: 10px; }
   .gc-half strong { font-size: clamp(38px, 11.4vw, 56px); }
+  .gc-half::after { background: linear-gradient(0deg, rgb(8 8 7 / .82) 0, rgb(8 8 7 / .4) 38%, rgb(8 8 7 / 0) 62%); }
   .gc-camp { --camp-fs: min(33vw, 28svh); }
   .gc-camp-copy { right: var(--gc-g); max-width: none; }
   .gc-camp-line { max-width: 30ch; font-size: 16px; }
   .gc-camp::after { background: linear-gradient(180deg, rgb(10 8 6 / .15) 0, rgb(10 8 6 / .5) 30%, rgb(10 8 6 / .35) 55%, rgb(10 8 6 / .1) 100%); }
   .gc-signoff-slogan { width: 90vw; }
-  .gc-signoff-mark { width: 104px; }
+  .gc-signoff-mark { width: 128px; }
   /* One Camp: the photograph sits lower so the copy reads over sky, not over heads. */
   .gc-camp-image { top: 0; bottom: auto; height: 124%; object-position: 42% 50%; }
   .gc-signoff-actions { flex-direction: column; gap: 8px; }
@@ -452,6 +448,13 @@ html[data-gc-motion=full] .gc-reveal:not(.has-entered) > * { opacity: 0; transfo
   .gc-percentage { font-size: clamp(150px, 46vw, 240px); }
   .gc-team-close { grid-template-columns: 1fr; }
   .gc-team-close > img { width: 96px; }
+}
+/* Tablets and phones held upright: the two halves share one screen, stacked, so neither photograph is sliced into a sliver. */
+@media (max-width: 899px), (max-aspect-ratio: 4/5) {
+  .gc-troop-split { flex-direction: column; height: auto; min-height: 0; max-height: none; }
+  .gc-half { flex: none; height: 47svh; min-height: 300px; }
+  .gc-half + .gc-half { box-shadow: 0 -1px 0 var(--gc-black); }
+  .gc-half:nth-child(2) img { object-position: center 38%; }
 }
 /* Portrait phones: the photograph fills the stage height, so its chest badge always starts 74.75% down.
    Keep "Protection." above the badge and the shorter lines beside it. */
@@ -467,7 +470,6 @@ html[data-gc-motion=full] .gc-reveal:not(.has-entered) > * { opacity: 0; transfo
 @media (max-height: 520px) and (orientation: landscape) {
   .gc-values-words { font-size: min(9.6vw, 13vh); margin: 8px 0 10px; }
   .gc-values-line { font-size: 16px; }
-  .gc-values-state { display: none; }
   /* Opening: one line of type, label and action side by side, all above the fold. */
   .gc .campaign-hero { height: 100svh; min-height: 0; }
   .gc .cinematic-opening .campaign-copy { display: block; bottom: 56px; }
