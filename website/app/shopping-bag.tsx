@@ -24,12 +24,17 @@ export function ShoppingBagPanel({open,onOpenChange,size,onRemove,onCheckout}:{o
     exploring.current = false;
     const sizes = document.getElementById('collection-sizes');
     if (!sizes) return true;
-    setTimeout(() => sizes.focus({ preventScroll: true }), 0);
+    // Bring the sizes to the middle of the screen first, so the focus ring is always in view (phones put them below the image).
+    setTimeout(() => {
+      const calm = matchMedia('(prefers-reduced-motion: reduce)').matches && document.documentElement.dataset.gcMotion !== 'full';
+      sizes.scrollIntoView({ block: 'center', behavior: calm ? 'auto' : 'smooth' });
+      sizes.focus({ preventScroll: true });
+    }, 0);
     return false;
   };
   return <Sheet open={open} onOpenChange={onOpenChange}><SheetContent className="shopping-bag-panel" showCloseButton={false} finalFocus={finalFocus}>
     <div className="bag-heading"><SheetTitle>Your bag <span>({size ? '1' : '0'})</span></SheetTitle><button className="icon-button" onClick={()=>onOpenChange(false)} aria-label="Close bag"><X size={22}/></button></div>
     <SheetDescription className="bag-note">A preview of the GC shopping experience.</SheetDescription>
-    {size ? <><div className="bag-item"><img src="/assets/hoodie-clean-v3.webp" alt="Charcoal GC Hoodie" width="1122" height="1402"/><div><h3>The GC Hoodie</h3><p>Charcoal / {size}</p><p>$78 USD</p><button onClick={() => { removed.current = true; onRemove(); }}>Remove</button></div></div><div className="bag-checkout"><div><span>Subtotal</span><strong>$78 USD</strong></div><button className="collection-buy" onClick={() => { toCheckout.current = true; onCheckout(); }}>Continue to checkout <ArrowRight size={18}/></button><p>Demo only. Example price. No payment collected.</p></div></> : <div className="bag-empty"><p>Your bag is empty.</p><a ref={emptyAction} className="collection-buy" href="#collection" onClick={()=>{ exploring.current = true; onOpenChange(false); }}>Explore the hoodie <ArrowRight size={18}/></a></div>}
+    {size ? <><div className="bag-item"><img src="/assets/hoodie-clean-v3.webp" alt="Charcoal GC Hoodie" width="1122" height="1402"/><div><h3>The GC Hoodie</h3><p>Charcoal / {size}</p><p>$78 USD</p><button onClick={() => { removed.current = true; onRemove(); }}>Remove</button></div></div><div className="bag-checkout"><div><span>Subtotal</span><strong>$78 USD</strong></div><button className="collection-buy" onClick={() => { toCheckout.current = true; onCheckout(); }}>Continue to checkout <ArrowRight size={18}/></button><p>Demo only. Example price. No payment collected.</p></div></> : <div className="bag-empty"><p>Your bag is empty.</p><a ref={emptyAction} className="collection-buy" href="#collection" onClick={event=>{ event.preventDefault(); exploring.current = true; onOpenChange(false); }}>Explore the hoodie <ArrowRight size={18}/></a></div>}
   </SheetContent></Sheet>;
 }

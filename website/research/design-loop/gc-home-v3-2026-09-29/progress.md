@@ -403,7 +403,7 @@ Changes from C7:
     - The values halftone GC.
     - Athletic roots are implied rather than stated.
 
-### C9 — frozen 2026-09-30 (static build copy `scratchpad/frozen/C9`, served on :5183)
+### C9 — frozen 2026-09-30 (static build copy `scratchpad/frozen/C9`, served on :5183; commit 8e84e26)
 Changes from C8:
 - **No phone purchase dock.**
   - On phones the product's name, price, sizes and Add to bag are in view as soon as the hero has scrolled away. A sticky duplicate could only sit on them or compete with the hero's action; two craft rounds found exactly that.
@@ -419,6 +419,54 @@ Changes from C8:
 - **Minors:**
   - The white crescent beside the huddle photo's left mark is inpainted.
   - The One Camp note keeps its "·" with the first phrase.
+
+**C9 verdicts — round 9 (three new critics):**
+- **System: PASS.** Minors:
+  - Troop-huddle marks sliced by the crop at 768 and 320.
+  - The halftone drops the GC.
+  - A faint wordmark on black.
+  - A faint doubled ring beside the placed mark in the phone film around 2.5–4s (a remnant of the generator's badge edge).
+  - AI labels vary by chapter.
+  - Manhattan skylines.
+  - Copy nits: "Shop" vs "The hoodie", "Colour" (UK) vs US copy, a repeated value phrase, the "Action" theme.
+  - Mono paragraphs in /teams.
+  - The motto in mono in the menu and footer.
+  - A red hover that sticks after a tap.
+  - Decorative red label squares.
+- **Craft: FAIL** (bar 6).
+  - Material: on phones the hero's action landed on the image, name and price with no purchase control in view: sizes and Add to bag were below the fold at every phone size. The stated reason for dropping the dock ("in view as soon as the hero has gone") was false for the sizes and Add to bag.
+  - Minors:
+    - The desktop hero action sits opposite the slogan.
+    - The wall heading at 1440 is smaller than on a phone.
+    - ONE / CAMP label order.
+    - The phone group shot becomes a two-person crop.
+    - The troop halves differ in tone.
+    - The 768 info column is off the grid.
+    - 320 widows.
+    - The phone sign-off is soft.
+    - Templated disclosure icons.
+- **Brief: FAIL.**
+  - Material: after the empty bag's "Explore the hoodie" (keyboard), focus went to the size group, but the link's own jump left the group off screen at 320, 390 and 768, so no focus was visible. It was fine at 1440.
+  - Minors:
+    - The same inaccurate rationale for dropping the dock.
+    - The hero action is hidden ~2.3s in the dark opening (by design).
+    - A very fast Tab briefly lands on `<body>` inside dialogs (Base UI focus guards).
+    - The bag is not kept across pages.
+    - "LOYALTY." at 0.84 over a lamp mid-seam.
+    - One 12px label at ~4.4:1 over the bleachers photo.
+
+### C10 — frozen 2026-09-30 (static build copy `scratchpad/frozen/C10`, served on :5184)
+Changes from C9:
+- **The whole purchase block in one phone screen.**
+  - On phones and tablets (≤899px), where the hero's action lands, one screen holds the image, the name (one line) with the price beneath, the sizes and Add to bag, with the disclosures directly under the action.
+  - The gallery image takes the height left once that ~414px purchase stack and the bar are placed (`min(width × 1.1, 100svh − 414px)`, at least 150px, product shot contained). The description, colour and details follow below.
+  - Tab order is unchanged: only non-focusable blocks moved.
+  - Measured after tapping the hero action, Add to bag is fully in view at 390×844, 375×667, 360×780, 412×915, 320×640, 320×568 and 768×1024 (`c10-product-after-hero-action-*`).
+  - The 768 info column now aligns with the image.
+- **"Explore the hoodie" focus in view:** the link no longer makes its own jump. Once the bag closes, the size group is scrolled to the centre and then focused. Size group fully in view with its ring at 320×568, 320×640, 390, 768, 1440 and 844×390; the critic's own scripts pass; focus suite 80/80 at four sizes.
+- **Minors:**
+  - The wall heading gains weight on desktop (clamp(30px, 3.4vw, 54px)).
+  - The concept note now says the supplied mark was "placed over" the generator's version, which is accurate given the faint film remnant.
 
 ## Imagery audit and generation briefs
 The asset library covers every chapter; no new imagery was generated (no ChatGPT or image-generation tool is callable here).
