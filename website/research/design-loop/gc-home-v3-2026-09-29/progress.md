@@ -294,7 +294,7 @@ Changes from C5:
     - "Three prints, pasted up." describes the design rather than the brand.
 - **Brief and craft: no verdict.** Both critics stopped early when the account's weekly usage limit was reached; neither returned a verdict. C6 had already failed, so they were not re-run on it.
 
-### C7 — frozen 2026-09-30 (static build copy `scratchpad/frozen/C7`, served on :5181)
+### C7 — frozen 2026-09-30 (static build copy `scratchpad/frozen/C7`, served on :5181; commit 25b2cd4)
 Changes from C6:
 - **The prints speak GC's own words.**
   - The generated lettering was removed. Only the red dots and the paper between them were erased, and the paper was refilled with its own grain; the subjects in front, including the white sneaker (cut out with GrabCut), were left untouched.
@@ -314,6 +314,60 @@ Changes from C6:
   - 45 superseded, unreferenced images and films were removed from `public/assets` (31 MB → 11 MB). Several still carried generator-drawn badges or the old slogans; git history keeps them.
   - The unused legacy `campaign-posters.tsx/.css` was deleted.
   - A request scan of `/` and `/teams` at 1440, 390 and 844×390 finds 0 failed requests in 164.
+
+**C7 verdicts — round 7 (three new critics):**
+- **System: PASS.** No material failures. Minors:
+  - The chest mark is on nearly every figure (group shots show 3–4 marks).
+  - City skylines against "Nevada".
+  - The wordmark is faint on black.
+  - The 44px menu mark blurs its GC.
+  - The lights-off halftone drops the red GC.
+  - Chapter-number squares are decorative red.
+  - The motto appears in mono in the menu and footer.
+  - The print words (Presence / Repetition / Community) don't match their captions (Individuality / Action / Loyalty).
+  - Accordion grey and an unreachable legacy product sheet.
+- **Craft: FAIL** (all 7 bar criteria pass).
+  - Material: on phones the purchase dock appeared after ~200px of scroll, while the hero's "Shop the hoodie" was still on screen. It sat over the product image; after the hero action at 320 it cut "$78" in half.
+  - Minors:
+    - The halftone start of the values chapter; the seam through a face mid-transition at 768.
+    - Tape over the third print's header labels.
+    - ONE / CAMP label order.
+    - Hero chips wrap at 320.
+    - The phone sign-off is soft.
+    - "In our own / words." wraps badly.
+    - Three numbering systems.
+    - Tablet sign-off bands.
+- **Brief: FAIL.**
+  - Material: on a slow connection (Fast 3G, or the film delayed 7s) the page lit by its loading guard, then went dark again when the film's first frame arrived late. A tap on "Shop the hoodie" during that second dark spell was swallowed.
+    - Cause: the baseline's `if (ended === 'timeout') dark()` in the arrival bootstrap; C7 had kept it.
+  - Minors:
+    - No focus ring on the size group after a missing-size error.
+    - Focus returns to the header after "Continue exploring" and after the empty bag's "Explore the hoodie".
+    - The dock beside the hero action (the same as the craft failure).
+    - The seam crossing "LOYALTY." mid-transition.
+
+### C8 — frozen 2026-09-30 (static build copy `scratchpad/frozen/C8`, served on :5182)
+Changes from C7:
+- **Once lit, the page stays lit.**
+  - A first frame that arrives after the loading guard now plays in the lit hero; it no longer darkens the page again.
+  - `arrival-bootstrap.ts` finishes fully at the timeout.
+  - The test "a late first frame can recover…" became "a late first frame never darkens a page that the loading guard has already lit" (30/30 pass).
+  - The critic's own scripts, re-run on C8:
+    - Fast 3G, slow 4G and slow 3G: lit by the guard at about 7s / 14s, with no second dark spell over 40s.
+    - Film delayed 7s: stays lit while the late film plays, and the hero action lands on #collection (1440, 390).
+    - Fast 3G: tapping the action after lighting lands on #collection.
+- **Phone dock:**
+  - It appears only once the hero has scrolled away, and hides while the in-flow Add to bag is on screen.
+  - It never sits on the product's name and price, and leaves before the section ends.
+  - At 390 and 320, scrollY 200 and 300 show no dock, and after the hero action at 320 there is no dock.
+- **Focus:**
+  - "Continue exploring" returns focus to the product's own Add to bag.
+  - The empty bag's "Explore the hoodie" focuses the size group.
+  - The size group shows the 2px ring when reached by keyboard (focus suite 42/42).
+- **Craft and system minors:**
+  - The wall heading balances its lines.
+  - The third print's tape sits between its corner labels.
+  - The menu mark is 60px, so the GC stays legible.
 
 ## Imagery audit and generation briefs
 The asset library covers every chapter; no new imagery was generated (no ChatGPT or image-generation tool is callable here).

@@ -81,9 +81,10 @@ test('a short buffering event does not cancel the opening', () => {
   const page = open(); page.play(); page.tick(500); page.buffer(); page.tick(700); page.play();
   assert.equal(page.root.dataset.gcArrival, 'dark');
 });
-test('a late first frame can recover after the loading guard', () => {
+test('a late first frame never darkens a page that the loading guard has already lit', () => {
   const page = open(); page.tick(8500); assert.equal(page.root.dataset.gcArrival, 'lit');
-  page.play(); assert.equal(page.root.dataset.gcArrival, 'dark');
+  page.play(); assert.equal(page.root.dataset.gcArrival, 'lit');
+  page.buffer(); page.tick(5000); assert.equal(page.root.dataset.gcArrival, 'lit');
 });
 test('touch or wheel input dismisses the intro permanently for this visit', () => {
   for (const action of ['touch', 'wheel']) {

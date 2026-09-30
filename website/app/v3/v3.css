@@ -97,7 +97,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* Sections that receive focus from the menu are landmarks, not controls: no ring around a whole chapter. */
 main section[tabindex="-1"]:focus { outline: none; }
 .gc-sheet-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: auto; padding-top: 28px; font: 500 12px/1.3 var(--gc-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--gc-on-photo-quiet); }
-.gc-sheet-foot img { flex: none; width: 44px; height: auto; }
+.gc-sheet-foot img { flex: none; width: 60px; height: auto; }
 .gc-sheet-foot > span { margin-left: auto; }
 .gc-sheet { --focus: #fff; --muted-foreground: var(--gc-on-photo-quiet); }
 .gc-sheet-foot a { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: var(--gc-white); text-decoration: none; }
@@ -162,6 +162,8 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc .pdp-colour span:not(.pdp-swatch), .gc .pdp-muted { color: var(--gc-muted); }
 .gc .pdp-swatch { background: #33322f; box-shadow: 0 0 0 2px var(--gc-white), 0 0 0 3px var(--gc-ink); }
 .gc .pdp-sizes { margin-top: 18px; }
+/* The size group takes focus after a missing-size error or "Change size"; keyboard users see where they landed. */
+.gc .pdp-sizes:focus-visible { outline: 2px solid var(--gc-ink); outline-offset: 6px; }
 .gc .pdp-sizes legend { font: 500 12px/1.3 var(--gc-mono); letter-spacing: .08em; text-transform: uppercase; }
 .gc .pdp-sizes legend .pdp-muted { text-transform: none; letter-spacing: .02em; }
 .gc .size-options [data-slot='radio-group-item'] { border-color: #9d9c94; }

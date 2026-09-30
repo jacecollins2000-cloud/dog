@@ -104,7 +104,6 @@ export const arrivalBootstrap = String.raw`(() => {
 
   let timer;
   let ended = '';
-  let playbackStarted = false;
   const isFilm = event => event.target instanceof HTMLVideoElement && event.target.classList.contains('campaign-film');
   const dark = () => {
     window.__gcArrivalDiagnostic?.mark('dark');
@@ -122,8 +121,8 @@ export const arrivalBootstrap = String.raw`(() => {
     root.dataset.gcArrival = 'lit';
     root.dataset.gcArrivalEnd = reason;
     clearTimeout(timer);
-    // A very late first frame may resume the intro only if the visitor has not interacted.
-    if (reason === 'timeout' && !playbackStarted) return;
+    // Once lit, the page stays lit: a first frame that arrives after the loading guard plays in the lit hero
+    // instead of darkening it again under a visitor who may already be reading or reaching for the action.
     removeEventListener('pointerdown', interact);
     removeEventListener('touchstart', interact);
     removeEventListener('wheel', interact);
@@ -164,9 +163,7 @@ export const arrivalBootstrap = String.raw`(() => {
   const navigate = () => finish('navigation');
   const done = event => finish(event.detail || 'complete');
   const playing = event => {
-    if (!isFilm(event) || (ended && ended !== 'timeout')) return;
-    if (ended === 'timeout') dark();
-    playbackStarted = true;
+    if (!isFilm(event) || ended) return;
     // This guard starts with playback, rather than expiring while the phone loads JS/media.
     arm(4000);
   };

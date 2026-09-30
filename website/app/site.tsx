@@ -51,6 +51,8 @@ export function FashionPage() {
   const [bagSize, setBagSize] = useState('');
   const mainRef = useEditorialMotion();
   useInertPage(productOpen || bagOpen);
+  // After a finished demo checkout, focus goes back to the product's own Add to bag, so the next Tab continues on the product.
+  const completed = useRef(false);
   return (
     <div className="gc gc-home">
       <SiteBar onBag={()=>setBagOpen(true)} bagCount={bagSize ? 1 : 0} />
@@ -69,15 +71,25 @@ export function FashionPage() {
       <ProductPreview open={productOpen} initialSize={chosenSize} startAtCheckout={directCheckout}
         onOpenChange={next => {
           setProductOpen(next);
-          // The dialog's opener (the bag) is already closed, so return focus to the bar's bag button.
-          if (!next) requestAnimationFrame(() => document.querySelector<HTMLElement>('.gc-bar [aria-label^="Open bag"]')?.focus({ preventScroll: true }));
+          if (!next) requestAnimationFrame(() => {
+            const buy = completed.current ? document.querySelector<HTMLElement>('#collection .pdp-buy') : null;
+            completed.current = false;
+            if (buy) {
+              buy.focus({ preventScroll: true });
+              const box = buy.getBoundingClientRect();
+              if (box.bottom < 0 || box.top > innerHeight) buy.scrollIntoView({ block: 'center' });
+              return;
+            }
+            // Otherwise the dialog's opener (the bag) is already closed, so focus returns to the bar's bag button.
+            document.querySelector<HTMLElement>('.gc-bar [aria-label^="Open bag"]')?.focus({ preventScroll: true });
+          });
         }}
         onChangeSize={() => requestAnimationFrame(() => {
           const sizes = document.getElementById('collection-sizes');
           sizes?.scrollIntoView({ block: 'center' });
           sizes?.focus({ preventScroll: true });
         })}
-        onComplete={() => setBagSize('')} />
+        onComplete={() => { completed.current = true; setBagSize(''); }} />
     </div>
   );
 }
