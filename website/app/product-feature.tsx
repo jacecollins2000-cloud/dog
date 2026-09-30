@@ -31,21 +31,26 @@ export function ProductFeature({ onBuy, onViewBag, bagSize = '' }: { onBuy: (siz
   const inBag = Boolean(bagSize) && bagSize === size;
   useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
 
-  // The phone purchase dock shows only while the product section sits behind it and the in-flow button is off screen.
+  // The phone purchase dock is a shortcut to the sizes while the product image fills the screen. It appears only once the hero has
+  // scrolled away (never beside "Shop the hoodie"), hides while the in-flow Add to bag is on screen, never sits on the product's
+  // name and price, and leaves before the section ends.
   useEffect(() => {
     const zone = zoneRef.current, button = buyRef.current, dock = dockRef.current;
-    if (!zone || !button || !dock) return;
-    const dockHeight = 72;
+    const title = zone?.querySelector('.pdp-title-row');
+    if (!zone || !button || !dock || !title) return;
+    const dockHeight = 72, barHeight = 64;
     const sync = () => {
-      const area = zone.getBoundingClientRect(), own = button.getBoundingClientRect();
-      // Leave well before either zone edge reaches the dock so it is never drawn over the hero or posters, even on a fast flick.
+      const area = zone.getBoundingClientRect(), own = button.getBoundingClientRect(), name = title.getBoundingClientRect();
+      // Leave well before the zone's end reaches the dock, so it is never drawn over the next chapter, even on a fast flick.
       const margin = 120;
-      const zoneBehindDock = area.top < innerHeight - dockHeight - margin && area.bottom > innerHeight + margin;
+      const heroGone = area.top <= barHeight;
+      const zoneBehindDock = area.bottom > innerHeight + margin;
       const buttonOnScreen = own.top < innerHeight - dockHeight && own.bottom > 0;
+      const coversName = name.bottom > innerHeight - dockHeight - 8 && name.top < innerHeight;
       // It also steps aside while keyboard focus is in the gallery, so it never covers the focused dot or arrow.
       const galleryFocused = Boolean(zone.querySelector('.pdp-gallery')?.contains(document.activeElement));
       // Toggled directly (not via React state) so it changes in the same frame as the scroll.
-      const show = zoneBehindDock && !buttonOnScreen && !galleryFocused;
+      const show = heroGone && zoneBehindDock && !buttonOnScreen && !coversName && !galleryFocused;
       dock.classList.toggle('is-visible', show);
       dock.inert = !show;
       dock.setAttribute('aria-hidden', String(!show));
