@@ -81,7 +81,7 @@ export function ProductFeature({ onBuy, onViewBag, bagSize = '' }: { onBuy: (siz
     <section id="collection" className="pdp" aria-labelledby="collection-title">
       <div className="pdp-gallery">
         <section className="pdp-rail" ref={rail} aria-roledescription="carousel" tabIndex={0} aria-label="Product images">
-          {gallery.map(([src, alt], index) => <figure key={src} className={`pdp-frame ${index === 0 ? 'is-product' : ''} ${src.endsWith('.svg') ? 'is-mark' : ''} ${index === slide ? 'is-current' : ''}`}>
+          {gallery.map(([src, alt], index) => <figure key={src} className={`pdp-frame ${index === 0 ? 'is-product' : ''} ${src.endsWith('.svg') ? 'is-mark' : ''} ${src.includes('hood-detail') ? 'is-detail' : ''} ${index === slide ? 'is-current' : ''}`}>
             <img src={src} alt={alt} width="1122" height="1402" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
           </figure>)}
         </section>

@@ -140,11 +140,18 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc .pdp-zone { position: relative; z-index: 3; background: var(--gc-white); color: var(--gc-ink); }
 .gc .pdp { min-height: 100svh; box-sizing: border-box; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); padding: 96px 0 clamp(28px, 4vh, 44px); background: transparent; gap: 0; }
 .gc .pdp-gallery { margin-left: var(--gc-g); background: var(--gc-stone); }
+/* Desktop: the image is one screen tall and holds its place while the purchase column scrolls beside it, so no slide runs under the fold. */
+@media (min-width: 900px) {
+  .gc .pdp-gallery { position: sticky; top: 96px; align-self: start; height: calc(100svh - 96px - clamp(28px, 4vh, 44px)); min-height: 420px; }
+}
 .gc .pdp-frame, .gc .pdp-frame.is-product { background: var(--gc-stone); }
 .gc .pdp-position { left: 16px; bottom: 16px; padding: 8px 11px; background: var(--gc-ink); font: 500 12px/1 var(--gc-mono); letter-spacing: .06em; text-transform: uppercase; }
 .gc .pdp-arrows { right: 16px; bottom: 16px; }
 /* The mark slide: the approved white-and-red artwork on the garment's charcoal. */
 .gc .pdp-frame.is-mark { background: #2b2a28; }
+/* Photographs in the gallery keep heads in frame; the hood close-up is anchored low, so its chest mark stays whole in every frame shape (desktop panel, short phone frames). */
+.gc .pdp .pdp-frame img { object-position: center 10%; }
+.gc .pdp .pdp-frame.is-detail img { object-position: center 96%; }
 .gc .pdp-frame.is-mark img { object-fit: contain; padding: 22% 24%; box-sizing: border-box; }
 .gc .pdp-dots button::after { border-radius: 0; }
 .gc .pdp-arrows button { border-color: var(--gc-ink); background: var(--gc-white); color: var(--gc-ink); }
@@ -425,7 +432,8 @@ html .order-totals > div:first-child :is(dt, dd) { color: var(--gc-ink); }
   .gc .pdp { grid-template-columns: 1fr; padding: 72px 0 0; }
   .gc .pdp-gallery { margin: 0 var(--gc-g); }
   .gc .pdp-dots { bottom: -44px; }
-  .gc .pdp-position { top: 12px; bottom: auto; left: 12px; }
+  /* The slide label sits at the foot of the frame on phones, clear of faces near the top of short frames. */
+  .gc .pdp-position { top: auto; bottom: 12px; left: 12px; }
   /* Phones and tablets: where the hero's action lands, one screen holds the image, name, price, sizes and Add to bag, with the
      disclosures directly under the action. The image takes whatever height is left once that purchase stack (~380px with the
      bar) is placed; the description, colour and details follow below. */
