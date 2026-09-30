@@ -346,7 +346,7 @@ Changes from C6:
     - The dock beside the hero action (the same as the craft failure).
     - The seam crossing "LOYALTY." mid-transition.
 
-### C8 — frozen 2026-09-30 (static build copy `scratchpad/frozen/C8`, served on :5182)
+### C8 — frozen 2026-09-30 (static build copy `scratchpad/frozen/C8`, served on :5182; commit a2dbdc7)
 Changes from C7:
 - **Once lit, the page stays lit.**
   - A first frame that arrives after the loading guard now plays in the lit hero; it no longer darkens the page again.
@@ -368,6 +368,57 @@ Changes from C7:
   - The wall heading balances its lines.
   - The third print's tape sits between its corner labels.
   - The menu mark is 60px, so the GC stays legible.
+
+**C8 verdicts — round 8 (three new critics):**
+- **System: PASS.** Minors:
+  - A white crescent of the old badge showed beside one pasted mark in `closing-huddle-portrait-v2`, so the About dialog's "removed" claim was slightly too strong.
+  - The marks look like flat stickers.
+  - City skylines.
+  - Two reds (the token and the artwork).
+  - Anton dominates the type.
+  - The print pairings (Presence / Individuality …).
+  - A 16px favicon blur.
+  - A thin wordmark on black.
+  - The halftone drops the GC.
+  - The hover state sticks on touch.
+- **Craft: FAIL** (all 7 bar criteria pass).
+  - Material: the phone dock still sat over the product block: it repeated the name and price, cut the size row in half and could hide the in-flow Add to bag.
+  - Material: the phone film's final group shot (8.5–11.75s) at 390×844 split the second model's face at the right edge.
+  - Minors:
+    - The phone sign-off is soft.
+    - The wall heading is timid.
+    - Too many "01"s.
+    - A "·" starts a line at 320.
+    - The hero chip sits under a jaw at desktop.
+    - The tablet wall column.
+    - Tight Values leading.
+- **Brief: FAIL.**
+  - Material: opening the bag from the header and continuing to checkout let the closing bag hand focus back to the header's Bag button, behind the open checkout. Tab then walked the footer, and Enter could navigate away. Only `main` was inert.
+  - Material: in landscape (844×390, 667×375) the bag panel could not scroll, so "Continue to checkout" was off screen.
+  - Minors:
+    - A menu focus guard.
+    - The size-group ring after a mouse click (by design: `:focus-visible`).
+    - The hero action is hidden ~2.5s in the dark intro (by design).
+    - `?motion=full` overrides a saved pause (preview only).
+    - The values halftone GC.
+    - Athletic roots are implied rather than stated.
+
+### C9 — frozen 2026-09-30 (static build copy `scratchpad/frozen/C9`, served on :5183)
+Changes from C8:
+- **No phone purchase dock.**
+  - On phones the product's name, price, sizes and Add to bag are in view as soon as the hero has scrolled away. A sticky duplicate could only sit on them or compete with the hero's action; two craft rounds found exactly that.
+  - The dock, its visibility logic and its styles are removed.
+  - Bar 6's dock clause ("appears only over the product") now holds trivially.
+  - A scroll sweep at 390, 320 and 768 finds no fixed bottom bar and no overflow.
+- **Phone film framing:** the film keeps its right edge (object-position 100%) for the whole edit. It no longer eases toward the centre during the group shot, where the camera ends on the man at the right. At 390×844, 360×780, 412×915, 375×667 and 320×568, at 9.0, 9.5, 10.5 and 11.3s, both faces are whole (`c9-phonegroup-*`).
+- **Overlays own the keyboard.**
+  - While any overlay is open, the whole page wrapper (header, main and footer) is inert, not just `main`. It is released in a layout effect, before a closing overlay returns focus.
+  - Closing the bag into checkout hands no focus back.
+  - The critic's own scripts, re-run on C9: header Bag → Continue to checkout keeps focus in the checkout at 100/400/1000ms, and Tab cycles inside it (keyboard and mouse).
+- **Bag scrolls inside itself** on short screens. At 844×390 and 667×375, "Continue to checkout" is reachable by wheel and keyboard; at 320×480 the note is no longer cut off.
+- **Minors:**
+  - The white crescent beside the huddle photo's left mark is inpainted.
+  - The One Camp note keeps its "·" with the first phrase.
 
 ## Imagery audit and generation briefs
 The asset library covers every chapter; no new imagery was generated (no ChatGPT or image-generation tool is callable here).

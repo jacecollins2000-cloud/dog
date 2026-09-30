@@ -35,8 +35,6 @@ export function CampaignHero() {
     stage.current?.style.setProperty('--different-reveal', String(different));
     stage.current?.toggleAttribute('data-copy-dark', different < .05);
     stage.current?.style.setProperty('--film-progress', String(Number.isFinite(duration) ? time / duration : 0));
-    // Phone framing follows the edit: weighted right for the light switch, then easing to the group across the dissolve at ~8.6s.
-    stage.current?.style.setProperty('--film-x', `${(100 - easeLight(clamp((time - 8.45) / .4)) * 65).toFixed(1)}%`);
     if (document.documentElement.dataset.gcArrival === 'dark') {
       const { light, veil } = arrivalLightAt(time);
       document.documentElement.style.setProperty('--arrival-light', String(light));

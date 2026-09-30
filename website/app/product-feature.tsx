@@ -25,45 +25,8 @@ export function ProductFeature({ onBuy, onViewBag, bagSize = '' }: { onBuy: (siz
   const [slide, setSlide] = useState(0);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const rail = useRef<HTMLElement>(null);
-  const buyRef = useRef<HTMLButtonElement>(null);
-  const zoneRef = useRef<HTMLDivElement>(null);
-  const dockRef = useRef<HTMLDivElement>(null);
   const inBag = Boolean(bagSize) && bagSize === size;
   useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
-
-  // The phone purchase dock is a shortcut to the sizes while the product image fills the screen. It appears only once the hero has
-  // scrolled away (never beside "Shop the hoodie"), hides while the in-flow Add to bag is on screen, never sits on the product's
-  // name and price, and leaves before the section ends.
-  useEffect(() => {
-    const zone = zoneRef.current, button = buyRef.current, dock = dockRef.current;
-    const title = zone?.querySelector('.pdp-title-row');
-    if (!zone || !button || !dock || !title) return;
-    const dockHeight = 72, barHeight = 64;
-    const sync = () => {
-      const area = zone.getBoundingClientRect(), own = button.getBoundingClientRect(), name = title.getBoundingClientRect();
-      // Leave well before the zone's end reaches the dock, so it is never drawn over the next chapter, even on a fast flick.
-      const margin = 120;
-      const heroGone = area.top <= barHeight;
-      const zoneBehindDock = area.bottom > innerHeight + margin;
-      const buttonOnScreen = own.top < innerHeight - dockHeight && own.bottom > 0;
-      const coversName = name.bottom > innerHeight - dockHeight - 8 && name.top < innerHeight;
-      // It also steps aside while keyboard focus is in the gallery, so it never covers the focused dot or arrow.
-      const galleryFocused = Boolean(zone.querySelector('.pdp-gallery')?.contains(document.activeElement));
-      // Toggled directly (not via React state) so it changes in the same frame as the scroll.
-      const show = heroGone && zoneBehindDock && !buttonOnScreen && !coversName && !galleryFocused;
-      dock.classList.toggle('is-visible', show);
-      dock.inert = !show;
-      dock.setAttribute('aria-hidden', String(!show));
-    };
-    sync();
-    addEventListener('scroll', sync, { passive: true });
-    addEventListener('resize', sync);
-    // Focus moving between two gallery controls passes through the body; decide once it has landed.
-    const afterBlur = () => setTimeout(sync, 0);
-    zone.addEventListener('focusin', sync);
-    zone.addEventListener('focusout', afterBlur);
-    return () => { removeEventListener('scroll', sync); removeEventListener('resize', sync); zone.removeEventListener('focusin', sync); zone.removeEventListener('focusout', afterBlur); };
-  }, []);
 
   // On the phone the gallery is a swipe rail, so its scroll position decides the current image.
   useEffect(() => {
@@ -113,7 +76,7 @@ export function ProductFeature({ onBuy, onViewBag, bagSize = '' }: { onBuy: (siz
     return () => track.removeEventListener('keydown', onKey);
   }, []);
 
-  return <div className="pdp-zone" ref={zoneRef} data-tone="light">
+  return <div className="pdp-zone" data-tone="light">
     <TornEdge edge="top" variant={0} />
     <section id="collection" className="pdp" aria-labelledby="collection-title">
       <div className="pdp-gallery">
@@ -151,7 +114,7 @@ export function ProductFeature({ onBuy, onViewBag, bagSize = '' }: { onBuy: (siz
             {error && <p className="size-error" id="collection-size-error" role="alert">Choose a size to add the hoodie.</p>}
           </fieldset>
 
-          <button ref={buyRef} className={`pdp-buy ${added ? 'is-added' : ''}`} onClick={inBag && !added ? onViewBag : buy} aria-disabled={added || undefined}>
+          <button className={`pdp-buy ${added ? 'is-added' : ''}`} onClick={inBag && !added ? onViewBag : buy} aria-disabled={added || undefined}>
             <span aria-live="polite">{added ? 'Added to your bag' : inBag ? `In your bag — ${size} · view` : size && bagSize ? `Switch bag to ${size}` : size ? `Add to bag — ${size}` : 'Add to bag'}</span>
             <span className="pdp-buy-end">{added ? <Check size={19} /> : <>$78 <ShoppingBag size={18} /></>}</span>
           </button>
@@ -169,14 +132,5 @@ export function ProductFeature({ onBuy, onViewBag, bagSize = '' }: { onBuy: (siz
         </div>
       </div>
     </section>
-
-    <div ref={dockRef} className="pdp-dock" inert aria-hidden="true">
-      <div className="pdp-dock-name"><strong>The GC Hoodie</strong><span>{size ? `${size} · $78 example price · concept` : '$78 example price · concept'}</span></div>
-      {inBag && !added
-        ? <button className="pdp-dock-buy is-secondary" onClick={onViewBag}>View bag (1)</button>
-        : <button className={`pdp-dock-buy ${added ? 'is-added' : ''}`} onClick={() => size ? buy() : showSizes(false)} aria-disabled={added || undefined}>
-          {added ? <>Added <Check size={17} /></> : size && bagSize && size !== bagSize ? <>Switch to {size}</> : size ? <>Add · $78</> : <>Choose size</>}
-        </button>}
-    </div>
   </div>;
 }

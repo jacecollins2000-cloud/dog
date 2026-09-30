@@ -262,7 +262,7 @@ export function OneCampChapter() {
       <p className="gc-label"><span className="gc-num">06</span> For teams &amp; supporters</p>
       <p className="gc-camp-line">For the team — and everyone behind it. Explore GC’s developing youth fundraising program.</p>
       <a className="gc-btn is-light" href="/teams">Explore the program <ArrowRight size={17} aria-hidden="true" /></a>
-      <small className="gc-note"><span className="gc-nowrap">Program in development</span> · <span className="gc-nowrap">Illustrative campaign</span></small>
+      <small className="gc-note"><span className="gc-nowrap">Program in development&nbsp;·</span> <span className="gc-nowrap">Illustrative campaign</span></small>
     </div>
   </section>;
 }

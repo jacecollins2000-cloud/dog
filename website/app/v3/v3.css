@@ -375,6 +375,8 @@ html[data-gc-motion=full] .gc-reveal:not(.has-entered) > * { opacity: 0; transfo
 
 /* ---------- Bag, checkout, brief and concept dialogs (portals) ---------- */
 :is(.shopping-bag-panel, .product-sheet)[data-slot=sheet-content], :is(.checkout-dialog, .brief-dialog, .concept-dialog)[data-slot=dialog-content] { border-radius: 0; background: var(--gc-white); color: var(--gc-ink); }
+/* The bag scrolls inside itself when the screen is short (a phone held sideways), so checkout is always reachable. */
+:is(.shopping-bag-panel, .product-sheet)[data-slot=sheet-content] { overflow-y: auto; overscroll-behavior: contain; }
 .shopping-bag-panel [data-slot=sheet-title], :is(.checkout-dialog, .brief-dialog, .concept-dialog) [data-slot=dialog-title], .product-sheet [data-slot=sheet-title] { font-family: var(--gc-poster); font-weight: 400; letter-spacing: .005em; line-height: .95; text-transform: uppercase; }
 :is(.checkout-dialog, .brief-dialog, .product-sheet) .eyebrow { font: 500 12px/1.3 var(--gc-mono); letter-spacing: .08em; color: var(--gc-muted); }
 :is(.shopping-bag-panel, .checkout-dialog, .brief-dialog, .product-sheet) :is(.collection-buy, .button) { display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 56px; padding: 0 20px; border: 1px solid var(--gc-ink); border-radius: 0; background: var(--gc-ink); color: #fff; font: 500 13px/1 var(--gc-mono); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; box-shadow: none; }
@@ -426,12 +428,6 @@ html .order-totals > div:first-child :is(dt, dd) { color: var(--gc-ink); }
   .gc .pdp-position { top: 12px; bottom: auto; left: 12px; }
   .gc .pdp-info-inner { padding: 60px var(--gc-g) 64px; }
   .gc .pdp-title-row h2 { font-size: clamp(50px, 14vw, 72px); }
-  .gc .pdp-dock { background: rgb(244 245 240 / .96); border-top-color: var(--gc-rule); }
-  .gc .pdp-dock-name strong { font-family: var(--gc-poster); font-weight: 400; font-size: 20px; letter-spacing: .01em; text-transform: uppercase; }
-  .gc .pdp-dock-name span { font: 400 12px/1.3 var(--gc-mono); color: var(--gc-muted); }
-  .gc .pdp-dock-buy { border-radius: 0; background: var(--gc-ink); font: 500 13px/1 var(--gc-mono); letter-spacing: .06em; text-transform: uppercase; }
-  .gc .pdp-dock-buy.is-added { background: var(--gc-red); }
-  .gc .pdp-dock-buy.is-secondary { background: var(--gc-white); color: var(--gc-ink); border: 1px solid var(--gc-ink); }
   .gc-manifesto, .gc-wall-head, .gc-troop-head, .gc-section-head { grid-template-columns: 1fr; }
   .gc-manifesto { row-gap: 32px; }
   .gc-manifesto-rail { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; padding-top: 0; }
@@ -460,7 +456,8 @@ html .order-totals > div:first-child :is(dt, dd) { color: var(--gc-ink); }
   .gc .campaign-shade { background: linear-gradient(180deg, rgb(0 0 0 / .3) 0, rgb(0 0 0 / 0) 12%, rgb(0 0 0 / 0) 44%, rgb(0 0 0 / .66) 100%); }
   .gc .campaign-hero { --film-top: 64px; --copy-bottom: 32px; min-height: 520px; }
   .gc .cinematic-opening .campaign-copy h1.gc-hero-slogan { width: 100%; }
-  .gc .cinematic-opening .campaign-film { object-position: var(--film-x, 100%) 0%; }
+  /* Phone framing keeps the film's right edge: the light switch, and the group shot where the camera ends on the man at the right. */
+  .gc .cinematic-opening .campaign-film { object-position: 100% 0%; }
   .gc-manifesto { min-height: 100svh; padding-block: 96px 64px; }
   .gc-manifesto-statement { font-size: clamp(36px, 10.6vw, 52px); line-height: 1.04; }
   .gc-values { height: 190svh; }
