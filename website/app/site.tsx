@@ -677,8 +677,8 @@ export function SiteFooter() {
           <p>
             Wherever the gorilla mark appears on a garment, in the
             photographs, the campaign prints and the opening film, it is the
-            supplied artwork placed onto the AI-generated image; the image
-            generator’s own version of the mark has been removed.
+            supplied artwork, placed over the image generator’s own version
+            of the mark.
           </p>
           <p>
             The $78 hoodie price and sizes are illustrative examples requested

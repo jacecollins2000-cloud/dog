@@ -229,7 +229,7 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-wall > * { position: relative; }
 /* A centred wall caption, not a headline: the prints are the loud part of this chapter. */
 .gc-wall-head { display: grid; justify-items: center; gap: 12px; margin: 0 auto clamp(48px, 8vh, 88px); max-width: 40ch; text-align: center; }
-.gc-wall-head h2 { margin: 0; text-wrap: balance; font-family: var(--font-body), sans-serif; font-weight: 600; font-size: clamp(24px, 2.2vw, 34px); line-height: 1.1; letter-spacing: -.02em; text-shadow: 0 1px 12px rgb(0 0 0 / .35); }
+.gc-wall-head h2 { margin: 0; text-wrap: balance; font-family: var(--font-body), sans-serif; font-weight: 600; font-size: clamp(30px, 3.4vw, 54px); line-height: 1.1; letter-spacing: -.02em; text-shadow: 0 1px 12px rgb(0 0 0 / .35); }
 .gc-wall-head .gc-note { color: var(--gc-on-photo); text-shadow: 0 1px 6px rgb(0 0 0 / .6); }
 .gc-wall-posters { display: flex; align-items: flex-start; justify-content: space-between; gap: 2.4vw; }
 .gc-poster { flex: 1 1 0; max-width: 470px; margin: 0; transform: translateY(calc((.5 - var(--view, .5)) * var(--lift))) rotate(var(--rot)); filter: drop-shadow(0 1px 1px rgb(0 0 0 / .5)) drop-shadow(0 4px 6px rgb(0 0 0 / .28)); will-change: transform; }
@@ -426,8 +426,24 @@ html .order-totals > div:first-child :is(dt, dd) { color: var(--gc-ink); }
   .gc .pdp-gallery { margin: 0 var(--gc-g); }
   .gc .pdp-dots { bottom: -44px; }
   .gc .pdp-position { top: 12px; bottom: auto; left: 12px; }
-  .gc .pdp-info-inner { padding: 60px var(--gc-g) 64px; }
-  .gc .pdp-title-row h2 { font-size: clamp(50px, 14vw, 72px); }
+  /* Phones and tablets: where the hero's action lands, one screen holds the image, name, price, sizes and Add to bag, with the
+     disclosures directly under the action. The image takes whatever height is left once that purchase stack (~380px with the
+     bar) is placed; the description, colour and details follow below. */
+  .gc .pdp { --buy-stack: 414px; }
+  .gc .pdp-frame { aspect-ratio: auto; height: min(calc((100vw - 2 * var(--gc-g)) * 1.1), calc(100svh - var(--buy-stack))); min-height: 150px; }
+  .gc .pdp-frame.is-product img { object-fit: contain; }
+  .gc .pdp-info-inner { display: flex; flex-direction: column; max-width: none; padding: 48px var(--gc-g) 64px; }
+  .gc .pdp-kicker { order: 0; }
+  .gc .pdp-title-row { order: 1; flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 12px; }
+  .gc .pdp-title-row h2 { font-size: clamp(34px, 10.5vw, 56px); white-space: nowrap; }
+  .gc .pdp-price { display: flex; align-items: baseline; gap: 10px; text-align: left; }
+  .gc .pdp-price span { display: inline; }
+  .gc .pdp-sizes { order: 2; margin-top: 16px; }
+  .gc .pdp-buy { order: 3; }
+  .gc .pdp-facts { order: 4; }
+  .gc .pdp-lede { order: 5; margin-top: 22px; }
+  .gc .pdp-colour { order: 6; }
+  .gc .pdp-accordion { order: 7; }
   .gc-manifesto, .gc-wall-head, .gc-troop-head, .gc-section-head { grid-template-columns: 1fr; }
   .gc-manifesto { row-gap: 32px; }
   .gc-manifesto-rail { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; padding-top: 0; }
