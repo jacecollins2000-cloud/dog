@@ -92,7 +92,7 @@ export function SiteBar({ bagCount = 0, onBag, home = true }: { bagCount?: numbe
         <span className="gc-bar-meta gc-wide">Nevada · Est. 2023</span>
         {onBag
           ? <button className="gc-bar-link" onClick={onBag} aria-label={`Open bag, ${bagCount} ${bagCount === 1 ? 'item' : 'items'}`}>Bag <span className="gc-bar-count">({bagCount})</span></button>
-          : <a className="gc-bar-link" href="/#collection" aria-label="Shop the hoodie">Shop <ArrowUpRight size={13} aria-hidden="true" /></a>}
+          : <a className="gc-bar-link" href="/#collection" aria-label="Shop the hoodie">Shop <ArrowRight size={13} aria-hidden="true" /></a>}
       </div>
     </header>
     <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
@@ -192,12 +192,13 @@ export function ValuesChapter() {
   </section>;
 }
 
-/* ---------- 04 The campaign: three prints wheat-pasted on a concrete wall ---------- */
+/* ---------- 05 The campaign: three prints wheat-pasted on a concrete wall ---------- */
+/* Each print carries one of GC's own words from the brand brief, set in the site's display face in GC Red. */
 
 const posters = [
-  ['/assets/gc-print-own-v3.webp', 'Own it.', 'Individuality', 'Illustrative campaign artwork: a seated adult in the GC Hoodie framed by an oversized hood, with red halftone Own it typography'],
-  ['/assets/gc-print-move-v4.webp', 'Move.', 'Action', 'Illustrative campaign artwork: an adult dancer in the GC Hoodie with vertical red Move typography'],
-  ['/assets/gc-print-together-v4.webp', 'Together.', 'Loyalty', 'Illustrative campaign artwork: three adult friends in GC clothing with red Together typography'],
+  ['/assets/gc-print-presence-v1.webp', 'Presence.', 'Individuality', 'Illustrative campaign print: a seated adult in the GC Hoodie inside an oversized hood drawcord, under red “Presence.” lettering'],
+  ['/assets/gc-print-repetition-v1.webp', 'Repetition.', 'Action', 'Illustrative campaign print: an adult dancer in the GC Hoodie mid-movement beside vertical red “Repetition.” lettering'],
+  ['/assets/gc-print-community-v1.webp', 'Community.', 'Loyalty', 'Illustrative campaign print: three adult friends in GC clothing sitting together above red “Community.” lettering'],
 ] as const;
 
 export function CampaignWall() {
@@ -210,7 +211,7 @@ export function CampaignWall() {
   return <section ref={ref} id="campaign" className="gc-wall" data-tone="dark" aria-labelledby="gc-wall-title">
     <header className="gc-wall-head">
       <p className="gc-label"><span className="gc-num">05</span> The campaign</p>
-      <h2 id="gc-wall-title">Three prints, pasted up.</h2>
+      <h2 id="gc-wall-title">In our own words.</h2>
       <p className="gc-note">Illustrative campaign artwork, AI‑generated for this concept.</p>
     </header>
     <div className="gc-wall-posters">

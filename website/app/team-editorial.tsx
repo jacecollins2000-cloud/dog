@@ -1,7 +1,7 @@
 'use client';
 /* oxlint-disable next/no-img-element */
 
-import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { ArrowDown, ArrowRight } from 'lucide-react';
 
 /* Poster type over open paper; the cutout of the group stands on the page's own surface. */
 export function TeamEditorial({ onBrief }: { onBrief: () => void }) {
@@ -12,7 +12,7 @@ export function TeamEditorial({ onBrief }: { onBrief: () => void }) {
       <p className="gc-team-statement"><span>For the team.</span> <span className="gc-echo">And everyone behind it.</span></p>
       <p className="gc-team-description">A collection for the people putting in the work—and the people cheering them on. Explore GC’s developing youth fundraising program.</p>
       <div className="gc-team-actions">
-        <button className="gc-btn" onClick={onBrief}>Build a team brief <ArrowUpRight size={18} aria-hidden="true" /></button>
+        <button className="gc-btn" onClick={onBrief}>Build a team brief <ArrowRight size={18} aria-hidden="true" /></button>
         <a className="gc-link" href="#program">How it would work <ArrowDown size={15} aria-hidden="true" /></a>
       </div>
       <small className="gc-note">Local planning tool. Nothing is sent to GC.</small>

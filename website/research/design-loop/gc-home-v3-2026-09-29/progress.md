@@ -241,7 +241,7 @@ Evidence:
     - The 1920 values crop runs through the nose.
     - The phone sign-off reads quieter than "CAMP.".
 
-### C6 — frozen 2026-09-29 (static build copy `scratchpad/frozen/C6`, served on :5180)
+### C6 — frozen 2026-09-29 (static build copy `scratchpad/frozen/C6`, served on :5180; commit 4117ce1)
 Changes from C5:
 - **The approved mark everywhere, generator marks gone.** The supplied vector mark (`gc-mark-ink.svg`) was composited over every remaining AI badge:
   - the troop halves (`lookbook-court-dawn-v2`, `closing-huddle-portrait-v2`) and the /teams cutout (`gc-team-cutout-v2`);
@@ -272,6 +272,48 @@ Changes from C5:
   - Tab icons from the founder's no-GC mark (16/32 PNG + `favicon.ico`; apple-touch on GC White).
   - The mark slide in the gallery loses its grain.
   - "Finish demo checkout" stays on one line at 320.
+
+**C6 verdicts — round 6:**
+- **System: FAIL.**
+  - Material: the campaign wall's prints carried "Own it.", "Move." and "Together.":
+    - generic motivational sportswear lines the brand brief rules out;
+    - set in a heavy grotesque that is neither the site's display face nor the heritage lettering;
+    - printed in an orange-red (#B70504) that is not GC Red.
+    - C6 had re-edited these prints, so they count against it.
+  - Everything else checked held:
+    - the marks match the founder PDFs, including the favicons on four tab colours;
+    - "!!" is kept everywhere;
+    - the palette tokens match the Pantone values;
+    - only three typefaces load;
+    - every dialog is on one system.
+  - Minors:
+    - Manhattan skylines against "Nevada".
+    - Several near-black values.
+    - The ↗ arrow used for three different jobs.
+    - The /teams label "Start with your people" echoes its heading.
+    - "Three prints, pasted up." describes the design rather than the brand.
+- **Brief and craft: no verdict.** Both critics stopped early when the account's weekly usage limit was reached; neither returned a verdict. C6 had already failed, so they were not re-run on it.
+
+### C7 — frozen 2026-09-30 (static build copy `scratchpad/frozen/C7`, served on :5181)
+Changes from C6:
+- **The prints speak GC's own words.**
+  - The generated lettering was removed. Only the red dots and the paper between them were erased, and the paper was refilled with its own grain; the subjects in front, including the white sneaker (cut out with GrabCut), were left untouched.
+  - The three prints now carry three of the brand brief's own words:
+    - "Presence." (the gorilla's associations);
+    - "Repetition." (what training teaches);
+    - "Community." (the gorilla's associations).
+  - The words are set in Anton, the site's display face, and printed in GC Red #bf1932; the solid ink measures rgb(192, 32, 56).
+  - They sit behind the subjects the way the original lettering did.
+  - New assets: `gc-print-presence-v1`, `gc-print-repetition-v1`, `gc-print-community-v1` (each about 300 KB, down from 380–440 KB). Alt text names the words.
+  - The wall's heading is now "In our own words."
+- **System minors:**
+  - ↗ now marks external links only; "Build a team brief" and the /teams "Shop" link use →.
+  - The /teams closing label reads "04 Next step".
+  - The masthead band, the scroll dim and the values stage use the black token.
+- **Hygiene:**
+  - 45 superseded, unreferenced images and films were removed from `public/assets` (31 MB → 11 MB). Several still carried generator-drawn badges or the old slogans; git history keeps them.
+  - The unused legacy `campaign-posters.tsx/.css` was deleted.
+  - A request scan of `/` and `/teams` at 1440, 390 and 844×390 finds 0 failed requests in 164.
 
 ## Imagery audit and generation briefs
 The asset library covers every chapter; no new imagery was generated (no ChatGPT or image-generation tool is callable here).

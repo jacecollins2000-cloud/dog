@@ -453,13 +453,13 @@ export function TeamsPage() {
             loading="lazy"
           />
           <div>
-            <p className="gc-label"><span className="gc-num">04</span> Start with your people</p>
+            <p className="gc-label"><span className="gc-num">04</span> Next step</p>
             <h2 id="gc-team-close-title">Start with your team.</h2>
             <p>
               Put the essentials in one place before a conversation with GC.
             </p>
             <button className="gc-btn" onClick={() => setBriefOpen(true)}>
-              Build a team brief <ArrowUpRight size={18} aria-hidden="true" />
+              Build a team brief <ArrowRight size={18} aria-hidden="true" />
             </button>
             <span className="gc-note">
               A local planning tool. Nothing is sent to GC.

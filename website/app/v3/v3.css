@@ -105,11 +105,11 @@ main section[tabindex="-1"]:focus { outline: none; }
 
 /* ---------- Opening: the film under a black masthead band, the founder's slogan pasted at its foot ---------- */
 /* The film starts below the bar, so no head in the edit ever passes under the wordmark or the menu. */
-.gc .campaign-hero { --film-top: 76px; --copy-bottom: clamp(44px, 6.5vh, 72px); --copy-lift: translateY(calc(var(--leave, 0) * -14vh)); height: 100svh; min-height: 560px; max-height: none; border-top: var(--film-top) solid #000; }
+.gc .campaign-hero { --film-top: 76px; --copy-bottom: clamp(44px, 6.5vh, 72px); --copy-lift: translateY(calc(var(--leave, 0) * -14vh)); height: 100svh; min-height: 560px; max-height: none; border-top: var(--film-top) solid var(--gc-black); }
 /* The film drifts at half speed as the paper slides over it. */
 .gc .campaign-poster, .gc .campaign-film, .gc .arrival-establishing-frame { transform: translate3d(0, calc(var(--leave, 0) * 32%), 0); }
 .gc .campaign-shade { background: linear-gradient(180deg, rgb(0 0 0 / .3) 0, rgb(0 0 0 / 0) 12%, rgb(0 0 0 / 0) 48%, rgb(0 0 0 / .58) 100%); }
-.gc .campaign-dim { position: absolute; inset: 0; z-index: 2; background: #000; opacity: calc(var(--leave, 0) * .8); pointer-events: none; }
+.gc .campaign-dim { position: absolute; inset: 0; z-index: 2; background: var(--gc-black); opacity: calc(var(--leave, 0) * .8); pointer-events: none; }
 /* Label over the strip; the strip low on the left, below the faces; the action and the film control share its foot line on the right. */
 .gc .cinematic-opening .campaign-copy { z-index: 3; left: 0; right: 0; bottom: var(--copy-bottom); width: auto; max-width: none; padding: 0 calc(var(--gc-g) + 56px) 0 var(--gc-g); display: grid; grid-template-columns: minmax(0, auto) 1fr auto; grid-template-areas: "meta . ." "slogan . action"; align-items: end; row-gap: 14px; transform: var(--copy-lift); text-align: left; }
 .gc-hero-meta { grid-area: meta; display: grid; gap: 4px; margin: 0; font: 500 12px/1.3 var(--gc-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--gc-on-photo); }
@@ -192,7 +192,7 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-manifesto-mark { grid-column: 1; grid-row: 1; align-self: end; width: clamp(64px, 5.6vw, 92px); height: auto; margin-bottom: .2em; }
 
 /* ---------- 03 The mark: lights off → on ---------- */
-.gc-values { position: relative; height: 200svh; background: #050505; color: #fff; }
+.gc-values { position: relative; height: 200svh; background: var(--gc-black); color: #fff; }
 .gc-values-stage { position: sticky; top: 0; height: 100vh; height: 100svh; height: 100lvh; overflow: hidden; isolation: isolate; container-type: size;
   /* The tear strip keeps the photographed edge's own proportions (240 x 1536). */
   --strip: calc(100cqh * .156); --x: var(--x-px, calc(var(--on, 1) * (100cqw + var(--strip)) - var(--strip))); }
@@ -505,7 +505,7 @@ html .order-totals > div:first-child :is(dt, dd) { color: var(--gc-ink); }
   .gc-values-off { top: var(--photo-top); height: calc(100% - var(--photo-top)); }
   .gc-values-on, .gc-values-lip { top: var(--photo-top); bottom: 0; }
   .gc-values-off img, .gc-values-on img { object-position: 67% 58%; }
-  .gc-values-stage::after { background: linear-gradient(180deg, #050505 0, #050505 var(--photo-top), rgb(5 5 5 / .55) calc(var(--photo-top) + 7cqh), rgb(5 5 5 / 0) calc(var(--photo-top) + 16cqh)), linear-gradient(0deg, rgb(0 0 0 / .6) 0, rgb(0 0 0 / 0) 26%); }
+  .gc-values-stage::after { background: linear-gradient(180deg, var(--gc-black) 0, var(--gc-black) var(--photo-top), rgb(11 11 10 / .55) calc(var(--photo-top) + 7cqh), rgb(11 11 10 / 0) calc(var(--photo-top) + 16cqh)), linear-gradient(0deg, rgb(0 0 0 / .6) 0, rgb(0 0 0 / 0) 26%); }
   .gc-values-copy { top: var(--copy-top); bottom: calc(clamp(28px, 5vh, 56px) + 100lvh - 100svh); display: flex; flex-direction: column; align-items: flex-start; }
   .gc-values-words { font-size: var(--words); line-height: .88; margin: 14px 0 0; }
   .gc-values-line { margin-top: auto; max-width: 15ch; }
