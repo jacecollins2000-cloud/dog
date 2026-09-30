@@ -455,7 +455,7 @@ Changes from C8:
     - "LOYALTY." at 0.84 over a lamp mid-seam.
     - One 12px label at ~4.4:1 over the bleachers photo.
 
-### C10 — frozen 2026-09-30 (static build copy `scratchpad/frozen/C10`, served on :5184)
+### C10 — frozen 2026-09-30 (static build copy `scratchpad/frozen/C10`, served on :5184; commit c332f2a)
 Changes from C9:
 - **The whole purchase block in one phone screen.**
   - On phones and tablets (≤899px), where the hero's action lands, one screen holds the image, the name (one line) with the price beneath, the sizes and Add to bag, with the disclosures directly under the action.
@@ -467,6 +467,47 @@ Changes from C9:
 - **Minors:**
   - The wall heading gains weight on desktop (clamp(30px, 3.4vw, 54px)).
   - The concept note now says the supplied mark was "placed over" the generator's version, which is accurate given the faint film remnant.
+
+**C10 verdicts — round 10 (three new critics):**
+- **Brief: PASS.** Minors:
+  - Landscape phones show a 150px product thumbnail, with Add to bag below the fold.
+  - The first tap in the dark opening only lights the page (by design).
+  - Small text over photos dips to ~4.1–4.3:1 at some edges.
+  - Phones have no header Shop link.
+- **System: PASS.** Minors:
+  - The chest mark on nearly every figure.
+  - The halftone opens "03 The mark" without the GC.
+  - A mark that floats ~3 frames in one film dissolve.
+  - The token red beside the artwork reds.
+  - Tiger Rag appears only through the artwork.
+  - The hero strip is rotated while the sign-off is level.
+  - Legacy accordion greys and a round swatch.
+  - Primary control heights vary (54 / 56 / 60px).
+  - Small baked print type.
+  - A red hover that sticks after a tap.
+- **Craft: FAIL** (all 7 bar criteria pass).
+  - Material: on desktop, gallery slide 4 ("The hood") cropped the chest mark's lower edge and half the red GC, and the arrows sat on the mark.
+  - Minors:
+    - The values crop and its source resolution.
+    - The sign-off artwork is soft on 2× screens.
+    - The film's loop flash.
+    - A transitional phone frame.
+    - The troop head's empty quadrants.
+    - A sliver of a fifth person in the troop half.
+    - The wall heading.
+    - The belonging idea repeated four times.
+    - The PDP right margin.
+    - The manifesto mark.
+
+### C11 — frozen 2026-09-30 (static build copy `scratchpad/frozen/C11`, served on :5185; commit d64c575)
+Changes from C10:
+- **Every gallery slide whole on every screen.**
+  - The hood close-up is anchored low (96%), so its chest mark is never cropped.
+  - Gallery photographs are anchored near the top (10%), so heads stay in short phone frames.
+  - The phone slide label sits at the foot of the frame, clear of faces.
+  - Desktop gallery: one screen tall and sticky beside the scrolling purchase column (it previously ran up to 215px under the fold at 1280×720, 1366×657 and 1024×768).
+  - All four slides were checked at 1440×900, 1280×720, 390×844, 375×667, 320×640 and 768×1024 (`c11-gallery-slides.png`).
+- **Sideways phones** (≤899px wide, ≤520px tall): two-column product, with the photograph on the left at full height and the purchase column on the right. Add to bag is in view after the hero action at 844×390, 667×375, 740×360 and 896×414; the portrait sizes are unchanged and still pass.
 
 ## Imagery audit and generation briefs
 The asset library covers every chapter; no new imagery was generated (no ChatGPT or image-generation tool is callable here).
