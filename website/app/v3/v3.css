@@ -582,6 +582,10 @@ html .order-totals > div:first-child :is(dt, dd) { color: var(--gc-ink); }
   .gc .pdp-position { top: 12px; bottom: auto; }
 }
 @media (max-height: 520px) and (orientation: landscape) {
+  /* The demo confirmation fits one short screen: its heading and the focused next step show together. */
+  .checkout-dialog .checkout-complete { padding-top: 4px; }
+  .checkout-dialog .complete-icon { display: none; }
+  .checkout-dialog .checkout-complete .button { margin-top: 12px; }
   .gc-values-words { font-size: min(9.6vw, 13vh); margin: 8px 0 10px; }
   .gc-values-line { font-size: 16px; }
   /* Opening: one line of type, label and action side by side, all above the fold. */
