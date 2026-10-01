@@ -207,6 +207,7 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
   --strip: calc(100cqh * .156); --x: var(--x-px, calc(var(--on, 1) * (100cqw + var(--strip)) - var(--strip))); }
 .gc-values-off, .gc-values-on-photo { position: absolute; top: 0; left: -4px; width: calc(100cqw + 8px); height: 100%; }
 .gc-values-off img, .gc-values-on img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 87%; }
+.gc-values-off picture, .gc-values-on picture { display: contents; }
 /* Lights on: the colour print is torn along a photographed edge; transforms only, so the seam never forces layout. */
 .gc-values-on { position: absolute; top: 0; bottom: 0; left: 0; width: calc(100cqw + var(--strip)); overflow: hidden; transform: translateX(calc(var(--x) - 100cqw)); -webkit-mask: linear-gradient(#000, #000) left top / calc(100% - var(--strip) + 3px) 100% no-repeat, url(/assets/gc-seam-mask.png) right top / var(--strip) 100% no-repeat; mask: linear-gradient(#000, #000) left top / calc(100% - var(--strip) + 3px) 100% no-repeat, url(/assets/gc-seam-mask.png) right top / var(--strip) 100% no-repeat; will-change: transform; }
 .gc-values-on-photo { transform: translateX(calc(100cqw - var(--x))); will-change: transform; }
@@ -436,15 +437,14 @@ html .order-totals > div:first-child :is(dt, dd) { color: var(--gc-ink); }
   .gc-camp::after { background: linear-gradient(180deg, rgb(10 8 6 / .15) 0, rgb(10 8 6 / .62) 24%, rgb(10 8 6 / .62) 50%, rgb(10 8 6 / .3) 64%, rgb(10 8 6 / .1) 100%); }
 }
 @media (max-width: 1099px) { .gc-wide { display: none; } }
-/* Landscape screens: the portrait stands whole and sharp as a full-height panel on the right, never stretched across the width;
-   the words stand on black and cross onto it. The tear still sweeps the whole stage, so the lights come on across the panel. */
+/* Landscape screens: a wide version of the photograph (the room extended to the left, out of focus) fills the stage edge to edge.
+   Anchored right, the figure stays whole and at native sharpness; the words stand in the dark of the room and cross onto him. */
 @media (min-aspect-ratio: 4/5) {
-  .gc .gc-values-off img, .gc .gc-values-on img { position: absolute; top: 0; right: 4px; width: 52cqw; height: 100%; object-fit: cover; object-position: center 30%; }
-  .gc .gc-values-off, .gc .gc-values-on-photo { background: var(--gc-black); }
+  .gc .gc-values-off img, .gc .gc-values-on img { object-position: right 30%; }
 }
 /* In portrait framings the photograph shows the chest mark itself. */
-/* Near-square screens: a wider panel anchored right, so the face and the chest mark both stay in frame. */
-@media (min-aspect-ratio: 4/5) and (max-aspect-ratio: 5/4) { .gc .gc-values-off img, .gc .gc-values-on img { width: 60cqw; object-position: 100% 30%; } }
+/* Near-square screens: anchored right, so the face and the chest mark both stay in frame. */
+@media (min-aspect-ratio: 4/5) and (max-aspect-ratio: 5/4) { .gc .gc-values-off img, .gc .gc-values-on img { object-position: 100% 30%; } }
 @media (max-width: 899px) {
   /* Tablets and phones: a sharp, seamless concrete tile instead of one stretched photograph. */
   .gc-wall { background: #4b4c4a url(/assets/wall-concrete-tile-v1.webp) 0 0 / 520px auto repeat; }
@@ -578,6 +578,8 @@ html .order-totals > div:first-child :is(dt, dd) { color: var(--gc-ink); }
   .gc .pdp-info-inner { padding: 0 var(--gc-g) 32px; }
   .gc .pdp-title-row { margin-top: 8px; }
   .gc .pdp-title-row h2 { font-size: clamp(30px, 5.2vw, 44px); }
+  /* The slide label sits at the top of the frame here, clear of the dots at its foot. */
+  .gc .pdp-position { top: 12px; bottom: auto; }
 }
 @media (max-height: 520px) and (orientation: landscape) {
   .gc-values-words { font-size: min(9.6vw, 13vh); margin: 8px 0 10px; }

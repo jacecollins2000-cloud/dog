@@ -172,12 +172,19 @@ export function ValuesChapter() {
   return <section ref={ref} className="gc-values" data-tone="dark" aria-labelledby="gc-values-title">
     <div className="gc-values-stage">
       <div className="gc-values-off" aria-hidden="true">
-        <img src="/assets/lookbook-hood-up-halftone-v2.webp" alt="" width="1122" height="1402" loading="lazy" decoding="async" />
+        {/* Landscape screens get the same photograph with the room extended to the left, so the chapter is full-bleed at native sharpness. */}
+        <picture>
+          <source media="(min-aspect-ratio: 4/5)" srcSet="/assets/lookbook-hood-up-halftone-wide-v1.webp" width={2602} height={1402} />
+          <img src="/assets/lookbook-hood-up-halftone-v2.webp" alt="" width="1122" height="1402" loading="lazy" decoding="async" />
+        </picture>
       </div>
       <div className="gc-values-lip" aria-hidden="true" />
       <div className="gc-values-on">
         <div className="gc-values-on-photo">
-          <img src="/assets/lookbook-hood-up-v2.webp" alt="Illustrative campaign: an adult in the charcoal GC Hoodie pulling the hood up at dusk" width="1122" height="1402" loading="lazy" decoding="async" />
+          <picture>
+            <source media="(min-aspect-ratio: 4/5)" srcSet="/assets/lookbook-hood-up-wide-v1.webp" width={2602} height={1402} />
+            <img src="/assets/lookbook-hood-up-v2.webp" alt="Illustrative campaign: an adult in the charcoal GC Hoodie pulling the hood up at dusk" width="1122" height="1402" loading="lazy" decoding="async" />
+          </picture>
         </div>
       </div>
       <div className="gc-values-copy">
