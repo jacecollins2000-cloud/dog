@@ -421,6 +421,16 @@ html .order-totals > div:first-child :is(dt, dd) { color: var(--gc-ink); }
 }
 
 /* ---------- Tablet / phone ---------- */
+/* Wide, short screens (laptops at 16:10 and 16:9): the film shows its whole frame, so the faces in the group shot sit lower.
+   The strip also sizes by height and the concept tag drops into the foot row between the strip and the action, where the
+   frame holds only legs and the bench, so the copy starts below every face. */
+@media (min-width: 900px) and (min-aspect-ratio: 8/5) {
+  .gc .cinematic-opening .campaign-copy { grid-template-areas: "slogan meta action"; column-gap: clamp(20px, 2.4vw, 36px); }
+  .gc .cinematic-opening .campaign-copy h1.gc-hero-slogan { width: min(56vw, 860px, 78svh); }
+  .gc .cinematic-opening .gc-hero-meta { align-self: end; justify-self: start; }
+  .gc .cinematic-opening .gc-hero-meta > span { margin-left: 0; }
+  .gc .cinematic-opening .gc-hero-meta .gc-nowrap { display: block; }
+}
 @media (max-width: 1099px) { .gc-wide { display: none; } }
 /* Landscape screens: the portrait stands whole and sharp as a full-height panel on the right, never stretched across the width;
    the words stand on black and cross onto it. The tear still sweeps the whole stage, so the lights come on across the panel. */
