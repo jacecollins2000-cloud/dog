@@ -213,7 +213,7 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-values-on img { filter: saturate(1.1) brightness(1.05); }
 /* The paper rim that shows where the print tore away. */
 .gc-values-lip { position: absolute; top: 0; bottom: 0; left: 0; width: var(--strip); background: url(/assets/gc-seam-lip.png) left top / 100% 100% no-repeat; transform: translateX(var(--x)); filter: drop-shadow(5px 0 6px rgb(0 0 0 / .55)); will-change: transform; }
-.gc-values-stage::after { content: ''; position: absolute; z-index: 1; inset: 0; background: linear-gradient(90deg, rgb(0 0 0 / .66) 0, rgb(0 0 0 / .4) 36%, rgb(0 0 0 / 0) 60%), linear-gradient(0deg, rgb(0 0 0 / .45) 0, rgb(0 0 0 / 0) 30%), linear-gradient(180deg, rgb(0 0 0 / .4) 0, rgb(0 0 0 / 0) 18%); pointer-events: none; }
+.gc-values-stage::after { content: ''; position: absolute; z-index: 1; inset: 0; background: linear-gradient(90deg, rgb(11 11 10 / .66) 0, rgb(11 11 10 / .4) 36%, rgb(11 11 10 / 0) 60%), linear-gradient(0deg, rgb(11 11 10 / .45) 0, rgb(11 11 10 / 0) 30%), linear-gradient(180deg, rgb(11 11 10 / .4) 0, rgb(11 11 10 / 0) 18%); pointer-events: none; }
 .gc-values-copy { position: absolute; z-index: 2; left: var(--gc-g); right: var(--gc-g); bottom: calc(clamp(36px, 7vh, 76px) + 100lvh - 100svh); }
 .gc-values-words { display: grid; margin: 14px 0 16px; font-family: var(--gc-poster); font-weight: 400; font-size: clamp(72px, 11.6vw, 224px); line-height: .9; letter-spacing: .002em; text-transform: uppercase; }
 .gc-values-words span { opacity: clamp(.84, calc((var(--on, 1) - var(--i) * .3) * 4.5 + .84), 1); text-shadow: 0 2px 10px rgb(0 0 0 / .7); }
@@ -236,7 +236,7 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-wall > * { position: relative; }
 /* A centred wall caption, not a headline: the prints are the loud part of this chapter. */
 .gc-wall-head { display: grid; justify-items: center; gap: 12px; margin: 0 auto clamp(48px, 8vh, 88px); max-width: 40ch; text-align: center; }
-.gc-wall-head h2 { margin: 0; text-wrap: balance; font-family: var(--font-body), sans-serif; font-weight: 600; font-size: clamp(30px, 3.4vw, 54px); line-height: 1.1; letter-spacing: -.02em; text-shadow: 0 1px 12px rgb(0 0 0 / .35); }
+.gc-wall-head h2 { margin: 0; text-wrap: balance; font-family: var(--font-body), sans-serif; font-weight: 600; font-size: clamp(40px, 3.4vw, 54px); line-height: 1.1; letter-spacing: -.02em; text-shadow: 0 1px 12px rgb(0 0 0 / .35); }
 .gc-wall-head .gc-note { color: var(--gc-on-photo); text-shadow: 0 1px 6px rgb(0 0 0 / .6); }
 .gc-wall-posters { display: flex; align-items: flex-start; justify-content: space-between; gap: 2.4vw; }
 .gc-poster { flex: 1 1 0; max-width: 470px; margin: 0; transform: translateY(calc((.5 - var(--view, .5)) * var(--lift))) rotate(var(--rot)); filter: drop-shadow(0 1px 1px rgb(0 0 0 / .5)) drop-shadow(0 4px 6px rgb(0 0 0 / .28)); will-change: transform; }
@@ -343,6 +343,8 @@ html[data-gc-motion=full] .gc-reveal:not(.has-entered) > * { opacity: 0; transfo
 /* No stacking context here: the cutout's white ground multiplies straight into the page's GC White. */
 .gc-team-people { margin: 0 calc(var(--gc-g) * -1) 0 0; }
 .gc-team-people img { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
+/* The group stands on a stone panel, so the photograph's own edges (the bench, a sleeve) read as a deliberate crop, not a cut-out slip. */
+.gc-team-photo { background: var(--gc-stone); isolation: isolate; }
 .gc-team-people figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; margin: 14px var(--gc-g) 0 0; color: var(--gc-muted); }
 
 .gc-program, .gc-questions { padding: clamp(96px, 13vh, 150px) var(--gc-g); border-top: 1px solid var(--gc-rule); background: var(--gc-white); color: var(--gc-ink); }
