@@ -1,4 +1,3 @@
-# Keep the exact link already sent to Marquis working as a fresh opening.
-/ motion=full v=25 /?motion=full&intro=1&v=28#top 302!
-# Stable share address. The fragment targets the document's physical top.
-/preview /?motion=full&intro=1&v=28#top 302!
+# Cloudflare Pages. Stable share address that always plays the full opening;
+# the fragment targets the document's physical top.
+/preview /?motion=full&intro=1&v=gc-v3#top 302

@@ -24,7 +24,16 @@ Latest published polish: reveal headlines have stronger minimum contrast; poster
 
 This includes source, configuration, original lockfile, tests and required assets. Generated builds, installed dependencies, Git history, review screenshots, logs and authentication state are omitted. `.openai/hosting.json` is nonsecret build configuration required by the existing Vite scaffold; it is not Cloudflare authentication.
 
-The source `public/_redirects` contains legacy Netlify rules. For Cloudflare Pages publication the current release uses this replacement instead:
-`/preview /?motion=full&intro=1&v=gc-mobile-polish-1#top 302`
+## Homepage v3 (2026-10-01)
+The homepage is now `app/v3/home-v3.tsx` and `app/v3/v3.css`; the design loop, critic verdicts and final report are in `research/design-loop/gc-home-v3-2026-09-29/` (not served).
 
-For further deployment use the user's existing Cloudflare Pages project `guerrillacamp`; ask for the user's deployment direction in the new session. Do not create a duplicate hosting project automatically.
+## Deploy (Cloudflare Pages)
+Use the user's existing Pages project `guerrillacamp` (https://guerrillacamp.pages.dev). Do not create a duplicate project.
+`public/_redirects` is in Cloudflare format (`/preview` → full opening, 302).
+Needs `CLOUDFLARE_API_TOKEN` (Account › Cloudflare Pages › Edit) and `CLOUDFLARE_ACCOUNT_ID` in the environment, then:
+```
+npm run build
+npx wrangler pages project list                      # confirm guerrillacamp and its production branch
+npx wrangler pages deploy dist/client --project-name guerrillacamp --branch <production branch>
+```
+The previous deployment stays in the project's history and can be restored from the Cloudflare dashboard (Deployments › Rollback).
