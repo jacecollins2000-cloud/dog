@@ -501,7 +501,7 @@ html .order-totals > div:first-child :is(dt, dd) { color: var(--gc-ink); }
   .gc-camp { --camp-fs: min(33vw, 28svh); }
   .gc-camp-copy { right: var(--gc-g); max-width: none; }
   .gc-camp-line { max-width: 30ch; font-size: 16px; }
-  .gc-camp::after { background: linear-gradient(180deg, rgb(10 8 6 / .15) 0, rgb(10 8 6 / .5) 30%, rgb(10 8 6 / .35) 55%, rgb(10 8 6 / .1) 100%); }
+  .gc-camp::after { background: linear-gradient(180deg, rgb(10 8 6 / .15) 0, rgb(10 8 6 / .6) 26%, rgb(10 8 6 / .6) 46%, rgb(10 8 6 / .3) 62%, rgb(10 8 6 / .1) 100%); }
   .gc-signoff-slogan { width: 90vw; }
   .gc-signoff { min-height: 0; padding-block: 104px 88px; }
   .gc-signoff-mark { width: 92px; }
