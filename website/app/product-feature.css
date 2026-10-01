@@ -53,7 +53,8 @@
 @media (prefers-reduced-motion: no-preference) {
   .pdp-frame.is-current img { animation:pdp-settle 900ms cubic-bezier(.2,.7,.2,1) both; }
 }
-@media (prefers-reduced-motion: reduce) { .pdp-frame { transition:none; } }
+html[data-gc-motion=full] .pdp-frame.is-current img { animation:pdp-settle 900ms cubic-bezier(.2,.7,.2,1) both; }
+@media (prefers-reduced-motion: reduce) { html:not([data-gc-motion=full]) .pdp-frame { transition:none; } }
 @keyframes pdp-settle { from { transform:scale(1.035); } to { transform:none; } }
 
 @media (max-width: 899px) {

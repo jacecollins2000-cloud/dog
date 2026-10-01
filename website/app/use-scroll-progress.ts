@@ -23,7 +23,39 @@ export const stableHeight = () => {
   return probe.offsetHeight || innerHeight;
 };
 
-export type ScrollFrame = { pin: number; view: number; enter: number; top: number; height: number; chrome: number };
+export type ScrollFrame = { pin: number; view: number; enter: number; top: number; height: number; chrome: number; vh: number };
+
+/**
+ * One animation frame drives every scroll-linked chapter in two passes: every measurement first, then every style write.
+ * Reading a box right after another chapter wrote its custom properties would force a fresh style and layout pass per
+ * chapter; batching keeps it to one per frame, which is what keeps the scroll smooth on phones.
+ */
+type Entry = { read: () => void; write: () => void };
+const entries = new Set<Entry>();
+let frame = 0;
+let shared = { chrome: 0, vh: 0, calm: false };
+const measureShared = () => { shared = { chrome: chromeHeight(), vh: stableHeight(), calm: calmMotion() }; };
+const run = () => {
+  frame = 0;
+  measureShared();
+  for (const entry of entries) entry.read();
+  for (const entry of entries) entry.write();
+};
+export const requestScrollFrame = () => { if (!frame) frame = requestAnimationFrame(run); };
+let motionQuery: MediaQueryList | null = null;
+const listen = (on: boolean) => {
+  const method = on ? 'addEventListener' : 'removeEventListener';
+  window[method]('scroll', requestScrollFrame, { passive: true });
+  window[method]('resize', requestScrollFrame);
+  motionQuery ??= matchMedia('(prefers-reduced-motion: reduce)');
+  motionQuery[method]('change', requestScrollFrame);
+};
+/** Joins the shared frame: `read` may only measure, `write` may only write. Returns the unsubscribe. */
+export function onScrollFrame(entry: Entry) {
+  if (!entries.size) listen(true);
+  entries.add(entry);
+  return () => { entries.delete(entry); if (!entries.size) { listen(false); cancelAnimationFrame(frame); frame = 0; } };
+}
 
 /**
  * Writes scroll progress onto an element as CSS custom properties, once per frame:
@@ -31,54 +63,49 @@ export type ScrollFrame = { pin: number; view: number; enter: number; top: numbe
  * --view  0→1 from the moment the element enters at the bottom until it leaves at the top.
  * --enter 0→1 while the element scrolls in, reaching 1 once it fills the space under the header.
  * With reduced motion the element gets data-still and every value rests at 1, so the final state shows.
+ * `measure` runs in the shared read pass; its result is handed to `onFrame`, which runs in the write pass.
  */
-export function useScrollProgress<T extends HTMLElement>(onFrame?: (element: T, frame: ScrollFrame) => void) {
+export function useScrollProgress<T extends HTMLElement, M = undefined>(onFrame?: (element: T, frame: ScrollFrame, measured: M) => void, measure?: (element: T) => M) {
   const ref = useRef<T>(null);
   const callback = useRef(onFrame);
-  useEffect(() => { callback.current = onFrame; });
+  const reader = useRef(measure);
+  useEffect(() => { callback.current = onFrame; reader.current = measure; });
 
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
-    let frame = 0;
     const clamp = (value: number) => Math.min(1, Math.max(0, value));
-    const measure = () => {
-      frame = 0;
-      const box = element.getBoundingClientRect();
-      const chrome = chromeHeight();
-      if (calmMotion()) {
-        element.dataset.still = 'true';
-        for (const name of ['--pin', '--view', '--enter']) element.style.setProperty(name, '1');
-        callback.current?.(element, { pin: 1, view: 1, enter: 1, top: box.top, height: box.height, chrome });
-        return;
-      }
-      delete element.dataset.still;
-      const vh = stableHeight();
-      const stage = vh - chrome;
-      const pin = clamp((chrome - box.top) / Math.max(1, box.height - stage));
-      const view = clamp((vh - box.top) / (vh + box.height));
-      const enter = clamp((vh - box.top) / Math.max(1, Math.min(box.height, stage)));
-      element.style.setProperty('--pin', pin.toFixed(4));
-      element.style.setProperty('--view', view.toFixed(4));
-      element.style.setProperty('--enter', enter.toFixed(4));
-      callback.current?.(element, { pin, view, enter, top: box.top, height: box.height, chrome });
+    let box: DOMRect | null = null;
+    let measured = undefined as M;
+    const entry: Entry = {
+      read() { box = element.getBoundingClientRect(); measured = reader.current?.(element) as M; },
+      write() {
+        if (!box) return;
+        const { chrome, vh, calm } = shared;
+        if (calm) {
+          element.dataset.still = 'true';
+          for (const name of ['--pin', '--view', '--enter']) element.style.setProperty(name, '1');
+          callback.current?.(element, { pin: 1, view: 1, enter: 1, top: box.top, height: box.height, chrome, vh }, measured);
+          return;
+        }
+        delete element.dataset.still;
+        const stage = vh - chrome;
+        const pin = clamp((chrome - box.top) / Math.max(1, box.height - stage));
+        const view = clamp((vh - box.top) / (vh + box.height));
+        const enter = clamp((vh - box.top) / Math.max(1, Math.min(box.height, stage)));
+        element.style.setProperty('--pin', pin.toFixed(4));
+        element.style.setProperty('--view', view.toFixed(4));
+        element.style.setProperty('--enter', enter.toFixed(4));
+        callback.current?.(element, { pin, view, enter, top: box.top, height: box.height, chrome, vh }, measured);
+      },
     };
-    const request = () => { if (!frame) frame = requestAnimationFrame(measure); };
-    const motion = matchMedia('(prefers-reduced-motion: reduce)');
-    measure();
+    // First paint is placed straight away; later frames join the shared pass.
+    measureShared(); entry.read(); entry.write();
+    const leave = onScrollFrame(entry);
     // Layout changes (images loading, fonts) re-measure without faking a scroll event.
-    const resize = new ResizeObserver(request);
+    const resize = new ResizeObserver(requestScrollFrame);
     resize.observe(element);
-    addEventListener('scroll', request, { passive: true });
-    addEventListener('resize', request);
-    motion.addEventListener('change', request);
-    return () => {
-      cancelAnimationFrame(frame);
-      resize.disconnect();
-      removeEventListener('scroll', request);
-      removeEventListener('resize', request);
-      motion.removeEventListener('change', request);
-    };
+    return () => { leave(); resize.disconnect(); };
   }, []);
 
   return ref;

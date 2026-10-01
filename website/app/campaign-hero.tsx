@@ -55,12 +55,13 @@ export function CampaignHero() {
   useEffect(() => {
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
     const motionParam = new URLSearchParams(location.search).get('motion');
-    let previewMotion = motionParam === 'full';
+    // Full motion for every visitor; ?motion=system (kept for the session) tests the device-preference path.
+    let previewMotion = motionParam !== 'system';
     try {
-      if (motionParam === 'full') sessionStorage.setItem('gc-preview-motion','full');
-      if (motionParam === 'system') sessionStorage.removeItem('gc-preview-motion');
-      previewMotion = sessionStorage.getItem('gc-preview-motion') === 'full';
-    } catch { /* Query opt-in works without storage. */ }
+      if (motionParam === 'system') sessionStorage.setItem('gc-preview-motion','system');
+      if (motionParam === 'full') sessionStorage.removeItem('gc-preview-motion');
+      previewMotion = sessionStorage.getItem('gc-preview-motion') !== 'system';
+    } catch { /* The query works without storage. */ }
     document.documentElement.dataset.gcMotion = previewMotion ? 'full' : 'system';
     const portrait = matchMedia('(max-width:760px)');
     const player = video.current;

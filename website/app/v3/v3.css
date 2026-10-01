@@ -240,14 +240,15 @@ html[data-gc-arrival=dark] .gc .pdp-zone > .torn-top { opacity: var(--arrival-li
 .gc-wall-head h2 { margin: 0; text-wrap: balance; font-family: var(--font-body), sans-serif; font-weight: 600; font-size: clamp(40px, 3.4vw, 54px); line-height: 1.1; letter-spacing: -.02em; text-shadow: 0 1px 12px rgb(0 0 0 / .35); }
 .gc-wall-head .gc-note { color: var(--gc-on-photo); text-shadow: 0 1px 6px rgb(0 0 0 / .6); }
 .gc-wall-posters { display: flex; align-items: flex-start; justify-content: space-between; gap: 2.4vw; }
-.gc-poster { flex: 1 1 0; max-width: 470px; margin: 0; transform: translateY(calc((.5 - var(--view, .5)) * var(--lift))) rotate(var(--rot)); filter: drop-shadow(0 1px 1px rgb(0 0 0 / .5)) drop-shadow(0 4px 6px rgb(0 0 0 / .28)); will-change: transform; }
+/* The prints drift with the scroll on the compositor: the shadow is painted once inside each print's layer (no filter on the moving layer), so the drift never re-blurs. */
+.gc-poster { flex: 1 1 0; max-width: 470px; margin: 0; transform: translateY(calc((.5 - var(--view, .5)) * var(--lift))) rotate(var(--rot)); will-change: transform; }
 .gc-poster:nth-child(1) { --rot: -1.6deg; --lift: 60px; margin-top: 2vw; }
 .gc-poster:nth-child(2) { --rot: 1.1deg; --lift: 140px; margin-top: 7vw; }
 .gc-poster:nth-child(3) { --rot: -.8deg; --lift: 90px; }
 /* Blank paper holds each print's place while it loads. */
-.gc-poster-sheet { position: relative; background: #d9d5ca; }
+.gc-poster-sheet { position: relative; background: #d9d5ca; filter: drop-shadow(0 1px 1px rgb(0 0 0 / .5)) drop-shadow(0 4px 6px rgb(0 0 0 / .28)); }
 .gc-poster-sheet img { display: block; width: 100%; height: auto; }
-.gc-poster-sheet::after { content: ''; position: absolute; inset: 0; background: linear-gradient(103deg, rgb(255 255 255 / 0) 38%, rgb(255 255 255 / .16) 47%, rgb(0 0 0 / .1) 52%, rgb(255 255 255 / 0) 60%), url(/assets/gc-grain.png); opacity: .5; mix-blend-mode: multiply; pointer-events: none; }
+/* The paper sheen and grain are baked into the print files (gc-print-*-v2), so nothing blends over the prints while they drift. */
 .gc-tape-bit { position: absolute; z-index: 1; top: -13px; width: 30%; height: 28px; background: rgb(232 226 210 / .82); box-shadow: 0 1px 2px rgb(0 0 0 / .25); clip-path: polygon(0 8%, 4% 0, 9% 12%, 13% 2%, 100% 0, 97% 30%, 100% 55%, 96% 78%, 100% 100%, 6% 100%, 2% 86%, 5% 62%, 0 40%); }
 .gc-tape-bit.is-a { left: 6%; transform: rotate(-7deg); }
 .gc-tape-bit.is-b { right: 5%; transform: rotate(6deg); }
@@ -606,5 +607,5 @@ html .order-totals > div:first-child :is(dt, dd) { color: var(--gc-ink); }
   .gc-camp-copy { position: relative; left: auto; right: auto; top: auto; max-width: 420px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .gc-btn, .gc-btn svg, .gc-bar-link::after, .gc-bar, .gc-half, .gc-reveal > * { transition: none; }
+  html:not([data-gc-motion=full]) :is(.gc-btn, .gc-btn svg, .gc-bar-link::after, .gc-bar, .gc-half, .gc-reveal > *) { transition: none; }
 }

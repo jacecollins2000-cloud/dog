@@ -112,7 +112,7 @@ test('opening tap protection preserves visible header navigation and subsequent 
 test('shop protection expires and never applies to reduced-motion visits', () => {
   const page = open(); page.touch(); page.tick(1501);
   assert.equal(page.click(), false);
-  const still = open({ search: '', reduced: true }); still.touch();
+  const still = open({ search: '?motion=system', reduced: true }); still.touch();
   assert.equal(still.click(), false);
 });
 
@@ -156,9 +156,16 @@ test('the page does not black out again when the video loops', () => {
 test('blocked storage does not prevent the explicit motion preview', () => {
   assert.equal(open({ blockedStorage: true, reduced: true }).root.dataset.gcArrival, 'dark');
 });
-test('normal reduced motion, pause and deep links skip the intro', () => {
-  for (const options of [{ search: '', reduced: true }, { search: '', choice: 'pause' }, { hash: '#collection' }])
+test('the device-preference path (?motion=system) skips the intro for reduced motion and pause; deep links always skip', () => {
+  for (const options of [{ search: '?motion=system', reduced: true }, { search: '?motion=system', choice: 'pause' }, { hash: '#collection' }])
     assert.equal(open(options).root.dataset.gcArrival, undefined);
+});
+test('every ordinary visit plays the full opening, even with reduced motion or a saved pause', () => {
+  for (const options of [{ search: '' }, { search: '', reduced: true }, { search: '', choice: 'pause' }]) {
+    const page = open(options);
+    assert.equal(page.root.dataset.gcArrival, 'dark');
+    assert.equal(page.root.dataset.gcMotion, 'full');
+  }
 });
 test('a stalled film cannot leave the visitor under the dark overlay', () => {
   const page = open(); page.play(); page.tick(4100);

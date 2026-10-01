@@ -27,13 +27,18 @@ This includes source, configuration, original lockfile, tests and required asset
 ## Homepage v3 (2026-10-01)
 The homepage is now `app/v3/home-v3.tsx` and `app/v3/v3.css`; the design loop, critic verdicts and final report are in `research/design-loop/gc-home-v3-2026-09-29/` (not served).
 
+## Motion
+Every visit runs the full film and all animation, whatever the device's reduced-motion setting (the user's direction, 2026-10-01).
+`?motion=system` (kept for the browser session) restores the device-preference path for testing; `?motion=full` clears it.
+Scroll-linked chapters and the header share one animation frame (`onScrollFrame` in `app/use-scroll-progress.ts`): all reads, then all writes.
+
 ## Deploy (Cloudflare Pages)
-Use the user's existing Pages project `guerrillacamp` (https://guerrillacamp.pages.dev). Do not create a duplicate project.
+The user asked (2026-10-01) for a new free Pages project for v3 rather than replacing `guerrillacamp` (https://guerrillacamp.pages.dev, the previous build).
 `public/_redirects` is in Cloudflare format (`/preview` → full opening, 302).
 Needs `CLOUDFLARE_API_TOKEN` (Account › Cloudflare Pages › Edit) and `CLOUDFLARE_ACCOUNT_ID` in the environment, then:
 ```
 npm run build
-npx wrangler pages project list                      # confirm guerrillacamp and its production branch
-npx wrangler pages deploy dist/client --project-name guerrillacamp --branch <production branch>
+npx wrangler pages project create guerrilla-camp --production-branch main   # once
+npx wrangler pages deploy dist/client --project-name guerrilla-camp --branch main
 ```
-The previous deployment stays in the project's history and can be restored from the Cloudflare dashboard (Deployments › Rollback).
+Every deployment stays in the project's history and can be restored from the Cloudflare dashboard (Deployments › Rollback).

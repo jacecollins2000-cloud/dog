@@ -33,6 +33,33 @@
 - each critic's material failures and minor notes;
 - the split between approved brand rules and the conventions inferred for this build.
 
+## After the review (2026-10-01, at the user's direction)
+Changes made after C16 passed, each re-checked with the same automated suites. They were not re-reviewed by the critics.
+- **Full motion for every visitor.** The film, the dark-to-lit opening, the values tear and every scroll animation now run even when a device asks for reduced motion. `?motion=system` keeps the old device-preference path for testing.
+  - Trade-off: visitors who set reduce-motion for comfort will see the animation. The film keeps its pause control.
+- **Smoother scrolling:**
+  - All scroll-linked chapters and the header now measure in one read pass and write in one write pass per frame, instead of forcing a style and layout pass for each chapter.
+  - The campaign prints' grain-and-sheen overlay is baked into the print files (`gc-print-*-v2.webp`, visually identical), so nothing blends over the prints while they drift.
+- **Frame timing, full-page scroll sweep in headless Chromium (frames over 33ms):**
+
+  | Run | C16 | Now |
+  |---|---|---|
+  | Desktop 1440 | 21 | 2 |
+  | Phone 390 at 4× CPU slowdown | 20 | 4 |
+
+  - On that phone run the values chapter median went from 33ms to 16.7ms, and the campaign wall's median on desktop from 50ms to 16.7ms.
+  - Real-device timing is still unverified.
+- **Checks on the new build:**
+  - Interactions: 54/54.
+  - Focus and inert: 80/80.
+  - Device set to reduced motion, plus a keyboard sweep: 16/16 (the film plays and nothing is hidden).
+  - About dialog: 18/18.
+  - Checkout confirmation: 8/8.
+  - Product on phones: 11/11.
+  - Network: 0 failed requests.
+  - Values seam positions are identical to C16.
+- **Hosting:** `public/_redirects` is now in Cloudflare format. HANDOFF.md has the deploy steps for a new free Pages project.
+
 ## What the visitor gets
 **Homepage `/`**, one chapter at a time:
 1. **Opening film:** the supplied "Live Different!!" slogan artwork and one action, "Shop the hoodie".

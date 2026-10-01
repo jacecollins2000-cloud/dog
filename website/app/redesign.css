@@ -56,7 +56,7 @@
   .campaign-shop { min-height:49px; width:100%; }
   .campaign-rail { padding:9px 20px; }
 }
-@media(prefers-reduced-motion:reduce) { .campaign-film,.campaign-shop { transition:none; } }
+@media(prefers-reduced-motion:reduce) { html:not([data-gc-motion=full]) :is(.campaign-film,.campaign-shop) { transition:none; } }
 
 .collection-feature { background:#fafafa; padding:0 var(--gutter) 75px; scroll-margin-top:12px; }
 .collection-heading { display:flex; justify-content:space-between; gap:16px; padding:31px 0; border-bottom:1px solid var(--border); font-size:12px; font-weight:600; letter-spacing:.08em; }
@@ -243,8 +243,8 @@
   .team-campaign-copy h2 { font-size:36px; }
 }
 @media(prefers-reduced-motion:reduce) {
-  .collection-image img,.collection-buy,.nav-sheet[data-slot=sheet-content],.product-sheet[data-slot=sheet-content] { transition:none; }
-  .collection-image:hover img,.collection-buy:active,.campaign-shop:active { transform:none; }
+  html:not([data-gc-motion=full]) :is(.collection-image img,.collection-buy,.nav-sheet[data-slot=sheet-content],.product-sheet[data-slot=sheet-content]) { transition:none; }
+  html:not([data-gc-motion=full]) :is(.collection-image:hover img,.collection-buy:active,.campaign-shop:active) { transform:none; }
 }
 
 /* GC lights-on opening. Film time drives the reveal, including pause/replay. */

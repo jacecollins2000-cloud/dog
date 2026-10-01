@@ -169,7 +169,7 @@
  .refined-team .team-campaign-copy h2 { font-size:30px; }
 }
 @media(prefers-reduced-motion:reduce) {
- .product-cutout,.product-object-garment,.product-object-model,.product-detail-hotspot,.campaign-discover svg { transition:none; transform:none; }
+ html:not([data-gc-motion=full]) :is(.product-cutout,.product-object-garment,.product-object-model,.product-detail-hotspot,.campaign-discover svg) { transition:none; transform:none; }
  .product-object.has-entered .product-entrance { animation:none; }
 }
 

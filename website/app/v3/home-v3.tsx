@@ -5,7 +5,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, ArrowUp, ArrowUpRight, Plus, X } from 'lucide-react';
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from '@/components/ui/sheet';
-import { stableHeight, useScrollProgress } from '../use-scroll-progress';
+import { onScrollFrame, useScrollProgress } from '../use-scroll-progress';
 import { useInertPage } from '../use-inert-page';
 
 const clamp = (value: number) => Math.min(1, Math.max(0, value));
@@ -24,7 +24,7 @@ export function SiteBar({ bagCount = 0, onBag, home = true }: { bagCount?: numbe
   useEffect(() => {
     const header = ref.current;
     if (!header) return;
-    let last = scrollY, frame = 0, hold = 0;
+    let last = scrollY, hold = 0;
     // After a jump to a section the bar stays put, so it covers the scroll padding instead of leaving a strip of the previous section.
     const holdOpen = () => { hold = performance.now() + 1600; header.classList.remove('is-hidden'); };
     const onClick = (event: MouseEvent) => {
@@ -33,31 +33,32 @@ export function SiteBar({ bagCount = 0, onBag, home = true }: { bagCount?: numbe
     };
     // Arriving from another page on a section link (e.g. /teams → /#collection) lands with the bar showing.
     if (location.hash && location.hash !== '#top') hold = performance.now() + 2500;
-    const update = () => {
-      frame = 0;
-      const y = scrollY, delta = y - last;
-      last = y;
+    // Measured in the shared scroll frame's read pass and applied in its write pass, alongside the chapters.
+    let y = scrollY, delta = 0, tone = 'dark', focused = false;
+    const read = () => {
+      y = scrollY; delta = y - last; last = y;
       // The tone follows whichever section sits under the labels; nested regions override their section.
-      let tone = header.dataset.base ?? 'dark';
+      tone = header.dataset.base ?? 'dark';
       for (const section of document.querySelectorAll<HTMLElement>('main [data-tone], footer[data-tone]')) {
         const box = section.getBoundingClientRect();
         if (box.top <= 34 && box.bottom > 34) tone = section.dataset.tone ?? tone;
       }
+      focused = Boolean(header.querySelector(':focus-visible'));
+    };
+    const write = () => {
       header.dataset.tone = tone;
       header.classList.toggle('is-scrolled', y > 40);
       if (y < 90 || delta < -3) header.classList.remove('is-hidden');
       // Keyboard focus inside the header keeps it on screen.
-      else if (delta > 5 && performance.now() > hold && !header.querySelector(':focus-visible')) header.classList.add('is-hidden');
+      else if (delta > 5 && performance.now() > hold && !focused) header.classList.add('is-hidden');
     };
-    const request = () => { if (!frame) frame = requestAnimationFrame(update); };
-    update();
-    addEventListener('scroll', request, { passive: true });
-    addEventListener('resize', request);
+    read(); write();
+    const leave = onScrollFrame({ read, write });
     addEventListener('hashchange', holdOpen);
     document.addEventListener('click', onClick);
     const reveal = () => header.classList.remove('is-hidden');
     header.addEventListener('focusin', reveal);
-    return () => { cancelAnimationFrame(frame); removeEventListener('scroll', request); removeEventListener('resize', request); removeEventListener('hashchange', holdOpen); document.removeEventListener('click', onClick); header.removeEventListener('focusin', reveal); };
+    return () => { leave(); removeEventListener('hashchange', holdOpen); document.removeEventListener('click', onClick); header.removeEventListener('focusin', reveal); };
   }, []);
 
   // Adding to the bag always brings the bag back into view.
@@ -138,24 +139,25 @@ export function Manifesto() {
 const values = ['Strength.', 'Protection.', 'Loyalty.'];
 
 export function ValuesChapter() {
-  const ref = useScrollProgress<HTMLElement>((element, { top, height }) => {
-    const stage = element.querySelector<HTMLElement>('.gc-values-stage');
+  const ref = useScrollProgress<HTMLElement, { width: number; strip: number } | null>((element, { top, height, vh }, size) => {
     const place = (on: number) => {
       element.style.setProperty('--on', on.toFixed(4));
       // The seam travels from just off the left edge (lip included) to the right edge, where the lit print sits flush.
       // It sits on whole device pixels, so its edges never render as a soft hairline.
-      if (stage) {
-        // The tear strip's rendered width (it follows the photograph's height, which is shorter on upright screens).
-        const strip = stage.querySelector<HTMLElement>('.gc-values-lip')?.offsetWidth || stage.clientHeight * .156;
-        const x = on * (stage.clientWidth + strip) - strip;
+      if (size) {
+        const x = on * (size.width + size.strip) - size.strip;
         element.style.setProperty('--x-px', `${Math.round(x * devicePixelRatio) / devicePixelRatio}px`);
       }
     };
     if (element.dataset.still) { place(1); return; }
     // Starts as the stage settles at the top, finishes 75% through the pin, then holds fully lit.
-    const vh = stableHeight();
     const travelled = -top / Math.max(1, height - vh);
     place(ease(clamp((travelled - .02) / .73)));
+  }, element => {
+    // Measured in the shared read pass. The tear strip's rendered width follows the photograph's height (shorter on upright screens).
+    const stage = element.querySelector<HTMLElement>('.gc-values-stage');
+    if (!stage) return null;
+    return { width: stage.clientWidth, strip: stage.querySelector<HTMLElement>('.gc-values-lip')?.offsetWidth || stage.clientHeight * .156 };
   });
   // Decode both large photographs well before the chapter arrives, so the first seam frame never waits on the image.
   useEffect(() => {
@@ -203,9 +205,9 @@ export function ValuesChapter() {
 /* Each print carries one of GC's own words from the brand brief, set in the site's display face in GC Red. */
 
 const posters = [
-  ['/assets/gc-print-presence-v1.webp', 'Presence.', 'Individuality', 'Illustrative campaign print: a seated adult in the GC Hoodie inside an oversized hood drawcord, under red “Presence.” lettering'],
-  ['/assets/gc-print-repetition-v1.webp', 'Repetition.', 'Action', 'Illustrative campaign print: an adult dancer in the GC Hoodie mid-movement beside vertical red “Repetition.” lettering'],
-  ['/assets/gc-print-community-v1.webp', 'Community.', 'Loyalty', 'Illustrative campaign print: three adult friends in GC clothing sitting together above red “Community.” lettering'],
+  ['/assets/gc-print-presence-v2.webp', 'Presence.', 'Individuality', 'Illustrative campaign print: a seated adult in the GC Hoodie inside an oversized hood drawcord, under red “Presence.” lettering'],
+  ['/assets/gc-print-repetition-v2.webp', 'Repetition.', 'Action', 'Illustrative campaign print: an adult dancer in the GC Hoodie mid-movement beside vertical red “Repetition.” lettering'],
+  ['/assets/gc-print-community-v2.webp', 'Community.', 'Loyalty', 'Illustrative campaign print: three adult friends in GC clothing sitting together above red “Community.” lettering'],
 ] as const;
 
 export function CampaignWall() {

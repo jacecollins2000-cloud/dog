@@ -91,8 +91,9 @@ export const arrivalBootstrap = String.raw`(() => {
   }
   const saved = (store, key) => { try { return window[store].getItem(key); } catch { return null; } };
   const choice = saved('localStorage', 'gc-film-playback');
+  // Every visit gets the full film and animation; ?motion=system (kept for the session) tests the device-preference path.
   const full = query.get('motion') === 'full' ||
-    (query.get('motion') !== 'system' && saved('sessionStorage', 'gc-preview-motion') === 'full');
+    (query.get('motion') !== 'system' && saved('sessionStorage', 'gc-preview-motion') !== 'system');
   const motion = full || choice === 'play' ||
     (choice !== 'pause' && !matchMedia('(prefers-reduced-motion: reduce)').matches);
   // The explicit preview also applies before React arrives on a slow phone.
