@@ -689,6 +689,47 @@ Changes from C14:
   - Checked at 1440×900, 1280×800, 1280×720, 1920×1080, 1024×768, 900×1000 and 2560×1080, mid-tear and at rest.
 - **On sideways phones** the gallery's slide label sits at the top of the frame, clear of the dots.
 
+**C15 verdicts — round 15 (three new critics; the first launch was cut off by a usage limit, then re-run on the unchanged candidate):**
+- **Brief: FAIL.**
+  - Material: on phones held sideways and on short desktop windows, the "About this concept" dialog (which carries the AI-imagery, mark, price and demo disclosures) was taller than the screen and did not scroll. Its title and Close sat above the top edge and the last paragraph below the fold (844×390, 896×414, 740×360, 1280×600, 1366×657).
+  - Minors:
+    - The hero action is hidden for the first ~2.2s by design.
+    - The sign-off asks for a .5 reveal threshold the observer did not offer.
+    - Athletic roots shown mainly through imagery.
+    - A 154px product image at 320×568.
+    - A scrolled checkout opened its confirmation scrolled.
+- **System: PASS.** Minors:
+  - The left of the wide values photograph reads as a stretched extension.
+  - A skyline in the film.
+  - Carried minors from C14.
+- **Craft: FAIL** (all seven bar criteria pass).
+  - Material: at 1280×720, 1366×768 and 1920×1080 a dead-straight vertical line ran the full height of the values photograph where the extension met the photo. It sliced the raised sleeve (sharp to the right, a flat streaky smear to the left), and the whole left half was a horizontally streaked stretch.
+  - Minors:
+    - STRENGTH.'s full stop over the O of PROTECTION.
+    - One Camp muddy on phones.
+    - Troop halves that do not match.
+    - The tear splitting the face mid-scroll.
+    - Three numbering systems.
+    - A soft 720p film.
+    - The hero's foot row reads like a toolbar.
+    - A soft phone sign-off.
+    - /teams rim light and template-like sections.
+    - Wraps at 320.
+    - The phone product order.
+
+### C16 — frozen 2026-10-01 (static build copy `scratchpad/frozen/C16`, served on :5190; commit 63628d2)
+Changes from C15:
+- **Values photograph without a join** (`lookbook-hood-up-wide-v1.webp`, `lookbook-hood-up-halftone-wide-v1.webp` rebuilt).
+  - The extension no longer copies the photo's edge column, which made the streaks.
+  - The photo's own left edge is progressively defocused (sigma 0 → 12 over its first 150px) and darkened (to 34% over 380px), as if keyed from the right. The raised hand and sleeve fall into shadow.
+  - The room carries on at the same blur, growing to sigma 34, and darkness, falling to 14%. It has low-frequency unevenness instead of row-by-row colour.
+  - Across the former join the column-to-column step is now at most 2 grey levels.
+  - The halftone is regenerated with sub-pixel dot radii, so the dark gradients do not band.
+- **Values words:** leading .9 → .97, so STRENGTH.'s full stop clears PROTECTION. Size capped at 21vh for short desktop windows.
+- **About this concept** scrolls inside itself at every size (max 90svh). Title, Close and every disclosure are reachable at 844×390, 896×414, 740×360, 1280×600 and 1366×657 on both pages.
+- **Demo checkout confirmation** starts at its heading. On phones held sideways it fits one screen (the decorative check tile is dropped there), so the heading and the focused "Continue exploring" show together.
+- **Reveal observer** thresholds include the .2 and .5 that the manifesto and sign-off request.
+
 ## Imagery audit and generation briefs
 The asset library covers every chapter; no new imagery was generated (no ChatGPT or image-generation tool is callable here).
 Existing stills and the film were retouched for brand accuracy: the approved mark was composited over every AI badge and the values halftone was regenerated. The C5 and C6 entries above document this.
