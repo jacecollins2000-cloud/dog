@@ -559,6 +559,48 @@ Changes from C11:
   - Phones and tablets (≤ 4/5) are unchanged.
 - **One Camp copy contrast on phones:** a deeper scrim behind the copy band. Against the brightest 5% of the background the label now measures ≥ 5.8:1 and the line ≥ 6.5:1 (at 360, 390 and 412).
 
+**C12 verdicts — round 12 (three new critics):**
+- **Brief: PASS.** Minors:
+  - Athletic roots are shown in the imagery, not stated in copy.
+  - The dark opening hides the hero action for ~2.5s (by design).
+  - No hoodie link mid-page.
+  - At 320×568 the disclosures start at the bottom edge.
+  - A "1px" accordion ring (measured on C13 as the 2px solid outline).
+  - The unreachable legacy sheet.
+  - Focus guards on 0ms Tab presses.
+- **System: PASS.** Minors:
+  - Faint generator remnants beside the placed marks in the film, the court half and the Community print.
+  - The halftone drops the GC.
+  - The wordmark on black.
+  - A 60px menu mark.
+  - Brand name and motto set in mono.
+  - The About close button uses the kit's ring.
+  - A hover that sticks after a tap.
+  - Two reds.
+  - Mixed sense of place (the film and values skylines).
+  - Voice nits, including "Slogan artwork supplied by GC.".
+  - Inconsistent disclosure wording.
+- **Craft: FAIL** (all 7 bar criteria pass; "the homepage itself has no material craft defect").
+  - Material: in the /teams hero the cut-out photograph's background matched the page (243,244,239 vs 244,245,240). Its own left edge sliced the seated man's sleeve and thigh, and the bench, along an invisible straight line at 1280, 1440 and 1920.
+  - Minors:
+    - Troop halves from two shoots.
+    - Halftone dots in the words mid-wipe.
+    - The manifesto→values black step.
+    - The wall heading smaller on tablet than on phone.
+    - Poster captions vs words.
+    - Sun and reflection in One Camp.
+    - One Camp label order.
+    - The hero action far from the slogan.
+    - A film skyline artefact.
+    - Repeated disclaimers.
+    - A 320 manifesto rag.
+
+### C13 — frozen 2026-10-01 (static build copy `scratchpad/frozen/C13`, served on :5187; commit d1763a9)
+Changes from C12:
+- **/teams group framed:** the cut-out photograph now stands on a GC stone panel, so its own edges (the cropped sleeve and bench) read as a deliberate photo crop. Checked at 1440, 1280, 1920, 768 and 390 (`c13-teams-hero-*`).
+- **Values scrims** use the page black (rgb 11 11 10) instead of pure black, so there is no step from the manifesto's black.
+- **The wall heading** no longer drops below the phone size on tablets (clamp min 40px).
+
 ## Imagery audit and generation briefs
 The asset library covers every chapter; no new imagery was generated (no ChatGPT or image-generation tool is callable here).
 Existing stills and the film were retouched for brand accuracy: the approved mark was composited over every AI badge and the values halftone was regenerated. The C5 and C6 entries above document this.
