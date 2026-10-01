@@ -524,3 +524,22 @@ One gap would clearly strengthen the work; its brief is below for a future sessi
   The chest mark must be visible and unaltered: composite the supplied mark rather than letting a generator redraw it.
 - **Crops:** desktop half-screen 720×900 (centre 50%); phone 390×400 (lower 55%, faces clear of the bottom 120px caption zone).
 - **Deliverables:** WebP at 1122×1402 and 2244×2804, each under 180 KB at 1122w. Label them "Illustrative campaign" on the page.
+
+**Generation tools (2026-10-01).** The founder offered a Kling CLI and a GPT image tool, but neither is reachable from this cloud session. There is no CLI on the machine, no API key in the environment, and no such connector. The only connected generator is Atria's ad-creative tool, which turns a brief into branded ad concepts and spends workspace credits, so it was not used. The briefs below are ready for either tool once it is connected.
+
+**G2 — One Camp in Nevada (replaces `team-bleachers-v1`, which shows the Manhattan skyline and One World Trade Center).**
+- **Why:** every critic since C7 has flagged that the One Camp chapter's skyline contradicts "Nevada · Est. 2023" and leans toward the "forced urban" imagery the brief warns against.
+- **Subject:** five adult teammates seen from behind on the top row of concrete bleachers at an outdoor high-school field in the Nevada high desert at golden hour, arms around each other's shoulders.
+  - Behind them: open desert, low sagebrush, and a ridge of bare mountains (e.g. the Spring Mountains or the Ruby Mountains). No city skyline and no recognisable landmark.
+- **Wardrobe:** charcoal, black and sand GC pieces. Backs to camera, so no chest marks are visible; this also answers the critics' "too many marks" note.
+- **Light:** low warm sun from the left and a long shadow across the bleachers. Natural grain, no HDR.
+- **Composition:** 3:2 landscape at 2400×1600. The group sits in the lower 45% with clear sky in the upper half, where "ONE" sits; "CAMP." crosses the lower right. Leave the left 40% of the lower half quiet for the copy block.
+- **Phone crop:** 390×844 (centre 40%); the heads must stay clear of the bottom 30%.
+- **Deliverable:** WebP under 220 KB at 1536w. Alt text: "Illustrative GC campaign: five adult teammates on desert bleachers at sunset, arms around each other, seen from behind".
+
+**G3 — Hero studio without a skyline (Kling, image-to-video from the current first frame).**
+- **Why:** the dance studio's windows show a Manhattan-style skyline.
+- **Approach:** keep the existing edit and its timing (the lights-on beat at 2.2s), and regenerate only the 0–5.4s studio shot. Use the same framing and dancer, with the windows looking out on a desert dusk: low mountains and a few distant lights.
+- **Mark:** keep the garment plain; the supplied mark is composited afterwards with the existing tracking pipeline (`scratchpad/filmtrack2.py`, `filmcomp.py`).
+- **Deliverables:** 1280×720 and 540×960 at 24fps, 5.4s, to replace frames 1–130 of `gc-campaign-film-v9` / `gc-campaign-mobile-v9`.
+
