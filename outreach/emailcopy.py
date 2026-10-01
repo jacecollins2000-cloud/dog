@@ -23,6 +23,9 @@ NAME_HINTS = [(r"plumb|drain|rooter", "plumbers"), (r"carpet|steam|upholster", "
               (r"remodel|construct|builder|renovat", "contractors"), (r"auto|car |cars|collision|mechanic", "auto shops"),
               (r"cabinet", "cabinet makers"), (r"appliance", "appliance repair shops"), (r"pressure|power wash", "pressure washing companies"),
               (r"clean|maid|janitor", "cleaning companies")]
+FOOTER_B = ("Jace\nStand Out Studios\njace.standoutstudios@gmail.com\n"
+            "1000 North Green Valley Parkway, Henderson, NV 89074\n"
+            'Not interested? Reply "no" and I won\'t email again.')
 FOOTER = ("Jace\nStand Out Studios, Henderson NV\n\n"
           "1000 North Green Valley Parkway, Henderson, NV 89074. "
           'Not interested? Reply "no" and I won\'t email again.')
@@ -33,7 +36,7 @@ def short_name(name):
     return re.sub(r"\s+", " ", s).strip(" ,.-&")
 
 
-def compose(lead, first_name="", variant="A"):
+def compose(lead, first_name="", variant="B"):
     """lead needs: name, domain, reasons, city, trade (theme key). Returns (subject, body)."""
     biz = short_name(lead["name"])
     domain, r = lead["domain"], lead["reasons"].lower()
@@ -67,9 +70,33 @@ def compose(lead, first_name="", variant="A"):
         problem = ("Your website is built on an older layout that's hard to use on a phone, and most people look you up on "
                    "their phone first.")
         fix = "So I made you a new homepage that works on phones, with your number one tap away."
-    proof, ask = "", "Want me to send you the link?"  # no links: the Gmail connector mangles them
-    body = f"{hi}\n\n{intro} {problem}\n\n{fix} No charge.{proof}\n\n{ask}\n\n{FOOTER}"
-    subject = f"I made {biz} a new homepage"
-    if len(subject) > 60:
-        subject = "I made you a new homepage"
-    return subject, body
+    if variant == "A":
+        proof, ask = "", "Want me to send you the link?"  # no links: the Gmail connector mangles them
+        body = f"{hi}\n\n{intro} {problem}\n\n{fix} No charge.{proof}\n\n{ask}\n\n{FOOTER}"
+        subject = f"I made {biz} a new homepage"
+        if len(subject) > 60:
+            subject = "I made you a new homepage"
+        return subject, body
+    # Variant B: modeled on the first real reply (Patton Contractors). Names one problem they can check,
+    # says who's writing, makes it free to look, and says plainly nothing is owed.
+    if "not mobile-friendly" in r:
+        seen, subj = ("On my phone it loads the full desktop page, so I had to pinch and zoom to find your number. "
+                      "Most people won't do that. They call the next company."), f"{biz}'s site on phones"
+    elif free:
+        seen, subj = (f"It's on a free {builder} address, which can make a solid company look temporary next to "
+                      "competitors with their own."), f"{biz}'s web address"
+    elif "placeholder" in r:
+        seen, subj = ("It shows an \"under construction\" page, so anyone who looks you up can't see your work."), \
+            f"{biz}'s site says under construction"
+    elif year:
+        seen, subj = (f"The footer still says \u00a9 {year.group(1)}, so it looks like nobody's minding the site, "
+                      "even if business is great."), f"{biz}'s site still says {year.group(1)}"
+    else:
+        seen, subj = ("It's hard to use on a phone, and that's where most people look you up first."), f"{biz}'s site on phones"
+    if len(subj) > 60:
+        subj = "Your website on phones"
+    body = (f"{hi}\n\nI was looking at {who} in {lead['city']} and pulled up your site. {seen}\n\n"
+            f"I'm Jace, a web designer in Henderson, NV. I'll mock up a new homepage for {biz} first, free. "
+            "If you like it, we agree on a price. If not, you owe nothing.\n\n"
+            "Want me to make one for you?\n\n" + FOOTER_B)
+    return subj, body
