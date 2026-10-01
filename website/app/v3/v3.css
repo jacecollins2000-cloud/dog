@@ -420,8 +420,15 @@ html .order-totals > div:first-child :is(dt, dd) { color: var(--gc-ink); }
 
 /* ---------- Tablet / phone ---------- */
 @media (max-width: 1099px) { .gc-wide { display: none; } }
+/* Landscape screens: the portrait stands whole and sharp as a full-height panel on the right, never stretched across the width;
+   the words stand on black and cross onto it. The tear still sweeps the whole stage, so the lights come on across the panel. */
+@media (min-aspect-ratio: 4/5) {
+  .gc .gc-values-off img, .gc .gc-values-on img { position: absolute; top: 0; right: 4px; width: 52cqw; height: 100%; object-fit: cover; object-position: center 30%; }
+  .gc .gc-values-off, .gc .gc-values-on-photo { background: var(--gc-black); }
+}
 /* In portrait framings the photograph shows the chest mark itself. */
-@media (min-aspect-ratio: 4/5) and (max-aspect-ratio: 5/4) { .gc-values-off img, .gc-values-on img { object-position: center 62%; } }
+/* Near-square screens: a wider panel anchored right, so the face and the chest mark both stay in frame. */
+@media (min-aspect-ratio: 4/5) and (max-aspect-ratio: 5/4) { .gc .gc-values-off img, .gc .gc-values-on img { width: 60cqw; object-position: 100% 30%; } }
 @media (max-width: 899px) {
   /* Tablets and phones: a sharp, seamless concrete tile instead of one stretched photograph. */
   .gc-wall { background: #4b4c4a url(/assets/wall-concrete-tile-v1.webp) 0 0 / 520px auto repeat; }

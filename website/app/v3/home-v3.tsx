@@ -256,7 +256,7 @@ export function TroopChapter() {
 export function OneCampChapter() {
   const ref = useScrollProgress<HTMLElement>();
   return <section ref={ref} className="gc-camp" data-tone="dark" aria-labelledby="gc-camp-title">
-    <img className="gc-camp-image" src="/assets/team-bleachers-v1.webp" alt="Illustrative GC campaign: five adult teammates on concrete bleachers at sunset, arms around each other, seen from behind" width="1536" height="1024" loading="lazy" decoding="async" />
+    <img className="gc-camp-image" src="/assets/team-bleachers-nv-v1.webp" alt="Illustrative GC campaign: five adult teammates on concrete bleachers at sunset, arms around each other, seen from behind, with desert mountains beyond" width="1536" height="1024" loading="lazy" decoding="async" />
     <h2 id="gc-camp-title" className="gc-camp-title"><span>One</span> <span>Camp.</span></h2>
     <div className="gc-camp-copy">
       <p className="gc-label"><span className="gc-num">06</span> For teams &amp; supporters</p>
