@@ -46,7 +46,7 @@ export function useEditorialMotion() {
           }
         }
       },
-      { threshold: [0, 0.3, 0.6] },
+      { threshold: [0, 0.2, 0.3, 0.5, 0.6] },
     );
     root
       .querySelectorAll('[data-reveal]')

@@ -1091,6 +1091,9 @@ p {
   max-width: 560px !important;
   padding: 35px !important;
   border-radius: 0 !important;
+  max-height: 90svh;
+  overflow: auto;
+  overscroll-behavior: contain;
 }
 .concept-dialog h2 {
   font-size: 34px;
@@ -1655,8 +1658,6 @@ p {
   }
   .concept-dialog {
     padding: 29px !important;
-    max-height: 90svh;
-    overflow: auto;
   }
 }
 

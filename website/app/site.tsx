@@ -124,6 +124,10 @@ function ProductPreview({
   }, [open, initialSize, startAtCheckout]);
   // The finish button is replaced by the confirmation; keep keyboard focus on its next action.
   const continueRef = useRef<HTMLButtonElement>(null);
+  // Start the confirmation from its heading; focusing the button below then scrolls only as far as it needs.
+  useLayoutEffect(() => {
+    if (complete) continueRef.current?.closest('[role="dialog"]')?.scrollTo({ top: 0 });
+  }, [complete]);
   useFocusOnSwap(continueRef, complete, complete);
   function buy() {
     if (!size) {
