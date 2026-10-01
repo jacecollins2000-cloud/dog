@@ -640,6 +640,55 @@ Changes from C13:
   - Checked at 3.5, 8.8, 9.6, 10.2 and 10.8s at 1280×720, 1366×768, 1536×864, 1440×900, 1920×1080, 1280×800 and 1024×640 (`c14-herogroup-*`): no face under the strip, the tag or the action.
 - **One Camp on portrait tablets:** the phone's deeper band behind the copy. At 768, 820, 834 and 1024-portrait every line is ≥ 5.9:1 against the brightest 5% of the background.
 
+**C14 verdicts — round 14 (three new critics):**
+- **Brief: PASS.** Minors:
+  - The gallery label covers dots on sideways phones.
+  - A long dark opening on a very slow network (~12s at 400 kbps; any input lights the page).
+  - No visible ring on a section focused from the menu.
+  - At 768 the first disclosure line falls just below the fold.
+  - /teams labels its imagery "Illustrative" only.
+  - No ring after a mouse-triggered no-size error (keyboard shows it).
+- **System: PASS.** Minors:
+  - Marks on every garment, with generator remnants.
+  - The halftone mark without the GC.
+  - City skylines in the film's opening frame.
+  - Two reds.
+  - Hover that sticks after a tap.
+  - Near-black drift, and #fff in the brief inputs.
+  - Wordmark on black.
+  - Mono motto.
+  - Caption pairings.
+  - Leftover legacy code.
+- **Craft: FAIL** (bar 4).
+  - Material: on desktop the values photograph was a 52% panel, so the quiet manifesto never cut to a full-bleed image; its black ran on into the left half of the chapter (1280, 1440, 1920).
+  - Minors:
+    - "STRENGTH." near-tangent to the panel edge.
+    - One Camp copy over heads at 320×640 and 320×568.
+    - The belonging idea three times in a row.
+    - A tiny product image at 320×568.
+    - The logo-only gallery slide.
+    - Navy space above the troop heads.
+    - A One Camp line break.
+    - 10px sign-off gutters at 320.
+    - /teams photo alignment.
+    - A modest hero type scale.
+    - Flat mountains at 2×.
+
+### C15 — frozen 2026-10-01 (static build copy `scratchpad/frozen/C15`, served on :5189; commit 499b7c4)
+Changes from C14:
+- **Values full-bleed on landscape screens, at native sharpness.**
+  - A wide version of the hood-up photograph (`lookbook-hood-up-wide-v1.webp`, 2602×1402) extends the room 1480px to the left.
+  - The extension is an out-of-focus window wall built from the photograph's own clean background:
+    - per-row colour from the ceiling and glass at its right;
+    - soft mullions every ~170px;
+    - defocus and darkness increasing with distance.
+  - His raised sleeve falls off into shadow instead of being cut, and the photo's own background left of the hood gets a depth-of-field ramp.
+  - The lights-off layer (`lookbook-hood-up-halftone-wide-v1.webp`) is regenerated from it with the same 5px dot screen, so the two layers align.
+  - On landscape screens (≥ 4/5) the pair fills the stage, anchored right: the figure is whole at ≤ 0.77× (DPR1) and the words stand in the dark of the room.
+  - Phones and portrait tablets keep the portrait.
+  - Checked at 1440×900, 1280×800, 1280×720, 1920×1080, 1024×768, 900×1000 and 2560×1080, mid-tear and at rest.
+- **On sideways phones** the gallery's slide label sits at the top of the frame, clear of the dots.
+
 ## Imagery audit and generation briefs
 The asset library covers every chapter; no new imagery was generated (no ChatGPT or image-generation tool is callable here).
 Existing stills and the film were retouched for brand accuracy: the approved mark was composited over every AI badge and the values halftone was regenerated. The C5 and C6 entries above document this.
