@@ -431,6 +431,10 @@ html .order-totals > div:first-child :is(dt, dd) { color: var(--gc-ink); }
   .gc .cinematic-opening .gc-hero-meta > span { margin-left: 0; }
   .gc .cinematic-opening .gc-hero-meta .gc-nowrap { display: block; }
 }
+/* Portrait tablets: the copy sits over the brightest sky, so it gets the phone's deeper band. */
+@media (min-width: 761px) and (max-aspect-ratio: 1/1) {
+  .gc-camp::after { background: linear-gradient(180deg, rgb(10 8 6 / .15) 0, rgb(10 8 6 / .62) 24%, rgb(10 8 6 / .62) 50%, rgb(10 8 6 / .3) 64%, rgb(10 8 6 / .1) 100%); }
+}
 @media (max-width: 1099px) { .gc-wide { display: none; } }
 /* Landscape screens: the portrait stands whole and sharp as a full-height panel on the right, never stretched across the width;
    the words stand on black and cross onto it. The tear still sweeps the whole stage, so the lights come on across the panel. */
