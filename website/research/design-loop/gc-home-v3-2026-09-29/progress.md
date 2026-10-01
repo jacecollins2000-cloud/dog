@@ -3,7 +3,8 @@
 ## Setup and limitations
 - `/design-loop` is not installed in this environment (the Windows path in the brief doesn't exist here, and no skill of that name is registered).
   This run follows the workflow the brief describes: interview/preflight from the brief, reference teardown, `bar.md`, one builder, and three fresh critics (brief, system, craft) that must all pass the same frozen candidate.
-- No ChatGPT or image-generation tool is callable. No imagery was generated; gaps are documented as generation briefs below.
+- No generative image or video tool is callable in this session. The Kling CLI and the image-generation connection were offered later, but neither is reachable here: no CLI on the machine, no key in the environment, no connector.
+  New imagery was made only by retouching and recomposing the existing images locally (Python/OpenCV and canvas lettering), as listed in the change entries. Remaining gaps are documented as generation briefs below.
 - The Playwright Chromium here cannot decode H.264 MP4, so the film fails over to its fallback path in automated tests.
   Real Chrome, Safari and Firefox play MP4. Phone smoothness is not verified on physical devices.
 
@@ -729,6 +730,39 @@ Changes from C15:
 - **About this concept** scrolls inside itself at every size (max 90svh). Title, Close and every disclosure are reachable at 844×390, 896×414, 740×360, 1280×600 and 1366×657 on both pages.
 - **Demo checkout confirmation** starts at its heading. On phones held sideways it fits one screen (the decorative check tile is dropped there), so the heading and the focused "Continue exploring" show together.
 - **Reveal observer** thresholds include the .2 and .5 that the manifesto and sign-off request.
+
+**C16 verdicts — round 16 (three new critics): ALL PASS on the same unchanged frozen candidate. The loop ends here.**
+- **Brief: PASS** (zero material failures). Minors:
+  - The hero action is hidden for ~2.4s of the dark opening on a session's first load (header Menu, Bag and Shop stay usable; any scroll lights the page).
+  - Values headline: against the brightest 5% of the halftone under a word, contrast dips to ~2.6–2.8:1 at some scroll positions (median ≥ 10:1; 64–224px type with a shadow).
+  - Athletic roots shown, not said.
+  - At 768×1024 the disclosures sit just below the fold after the hero action.
+  - Tab pressed every ~100ms can land on body after the menu's last link (250ms cycles correctly).
+  - The play/pause label reads "Pause" while a slow film is still on its poster.
+- **System: PASS** (zero material failures). Minors:
+  - The lights-off halftone greys the mark's red GC.
+  - Composited marks look flat; some leave residue.
+  - Every figure wears the marked garment.
+  - City skylines vs "Nevada".
+  - Two reds.
+  - Anton dominance and the prints' generic microtype.
+  - Repeated disclaimers.
+  - Inconsistent labels (Shop / The hoodie), accordion styles and ring offsets.
+  - #000/#111 leftovers and the legacy `refinement.css`.
+  - Wordmark ~2.9:1 on black.
+- **Craft: PASS** (all seven bar criteria pass, zero material failures; the values extension "reads as natural falloff"). Minors:
+  - The hero foot row floats as three objects.
+  - The film's held group shot shows crewnecks.
+  - The lights-off dip on every loop.
+  - The phone film's last frame clips a chest mark.
+  - Manifesto label alignment.
+  - A stray caption strip above the troop split.
+  - The phone ending is quieter than "CAMP.".
+  - Empty space under the 768 sign-off.
+  - A /teams widow.
+  - The backboard through "ONE".
+
+Final validation of C16 (builder, after the verdicts): reduced motion (no motion query, fresh session) and a keyboard sweep of / and /teams at 320×640, 390×844, 768×1024 and 1440×900: 16/16 pass. Results are in the final report.
 
 ## Imagery audit and generation briefs
 The asset library covers every chapter; no new imagery was generated (no ChatGPT or image-generation tool is callable here).
