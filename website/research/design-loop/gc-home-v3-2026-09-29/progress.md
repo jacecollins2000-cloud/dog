@@ -601,6 +601,45 @@ Changes from C12:
 - **Values scrims** use the page black (rgb 11 11 10) instead of pure black, so there is no step from the manifesto's black.
 - **The wall heading** no longer drops below the phone size on tablets (clamp min 40px).
 
+**C13 verdicts — round 13 (three new critics):**
+- **Brief: PASS.** Minors:
+  - The One Camp line on portrait tablets (820×1180, 1024×1366) dipped to ~3.7:1 over the brightest sky (median 5.0–5.2:1).
+  - The hero action is hidden ~2.3–3s in the dark opening (by design).
+  - Athletic roots are shown in the imagery rather than stated.
+- **System: PASS.** Minors:
+  - Two reds (the token is inferred from the Pantone code; the artwork reds are supplied).
+  - Generator haze beside the GC on the /teams sand sweatshirt and the huddle's white sweatshirt.
+  - The halftone mark without the GC.
+  - A drop-shadow on the wordmark, which is thin on black.
+  - Anton dominance.
+  - Accordion style drift.
+  - A hover that sticks after a tap.
+  - Backdrop blur on the scrolled bar.
+  - City skylines in the studio and court.
+  - Five unreferenced legacy assets.
+- **Craft: FAIL** (all 7 bar criteria pass).
+  - Material: on 16:9 laptops (1280×720, 1366×768) the hero concept tag ran across the seated man's mouth in the film's group shot, and the slogan strip cut him at the chin (~3.5s of every loop).
+  - Minors:
+    - The tear seam smudges the empty text column, then crosses the face.
+    - The phone finale's first frames cut the woman's face.
+    - The loop returns to the dark room.
+    - The phone One Camp grade.
+    - Manifesto alignment.
+    - The phone troop head.
+    - The wall opener.
+    - The 320 hero tag wrap.
+    - Short-phone disclosures below the fold.
+    - The sign-off artwork's outline at size.
+
+### C14 — frozen 2026-10-01 (static build copy `scratchpad/frozen/C14`, served on :5188; commit f75b3bf)
+Changes from C13:
+- **Hero copy below every face on wide, short screens.**
+  - On ≥ 16:10 screens (≥ 900px wide) the film shows its whole frame, so the faces in the group shot sit lower.
+  - The slogan strip also sizes by height (`min(56vw, 860px, 78svh)`).
+  - The concept tag drops into the foot row between the strip and the action, set on two fixed lines; there the frame holds only legs and the bench.
+  - Checked at 3.5, 8.8, 9.6, 10.2 and 10.8s at 1280×720, 1366×768, 1536×864, 1440×900, 1920×1080, 1280×800 and 1024×640 (`c14-herogroup-*`): no face under the strip, the tag or the action.
+- **One Camp on portrait tablets:** the phone's deeper band behind the copy. At 768, 820, 834 and 1024-portrait every line is ≥ 5.9:1 against the brightest 5% of the background.
+
 ## Imagery audit and generation briefs
 The asset library covers every chapter; no new imagery was generated (no ChatGPT or image-generation tool is callable here).
 Existing stills and the film were retouched for brand accuracy: the approved mark was composited over every AI badge and the values halftone was regenerated. The C5 and C6 entries above document this.
