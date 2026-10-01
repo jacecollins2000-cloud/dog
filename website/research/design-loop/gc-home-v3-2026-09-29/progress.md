@@ -509,6 +509,56 @@ Changes from C10:
   - All four slides were checked at 1440×900, 1280×720, 390×844, 375×667, 320×640 and 768×1024 (`c11-gallery-slides.png`).
 - **Sideways phones** (≤899px wide, ≤520px tall): two-column product, with the photograph on the left at full height and the purchase column on the right. Add to bag is in view after the hero action at 844×390, 667×375, 740×360 and 896×414; the portrait sizes are unchanged and still pass.
 
+**C11 verdicts — round 11.** The first brief and craft critics stopped on the account's session limit and were re-run on the unchanged C11.
+- **System: PASS.** Minors:
+  - The New York skyline in One Camp, the hero studio and the courtside half.
+  - A red smudge beside the mark in the /teams cutout.
+  - The halftone mark loses the GC.
+  - Wordmark contrast on black.
+  - Two reds.
+  - Near-black variants.
+  - Decorative label squares.
+  - Type and copy nits.
+  - Flat marks.
+- **Brief: PASS.** Minors:
+  - The dark opening hides the hero action for ~2.6s (by design).
+  - The One Camp 12px label reaches ~4.1:1 against the brightest 5% of the photo on phones.
+  - The Manhattan skyline.
+  - Athletic roots shown rather than stated.
+  - The preview flag overrides a saved pause.
+  - The film preloads under reduced motion.
+  - Focus guards on 0ms Tab presses.
+- **Craft: FAIL** (all 7 bar criteria pass).
+  - Material: One Camp's full-bleed backdrop is the Manhattan skyline (One World Trade Center) under "Nevada · Est. 2023".
+  - Material: the desktop values photo is a 1122px portrait cover-scaled across the width (1.3×, ~2.6× on retina, 1.7× at 1920), so it is soft and cut at the nose at every desktop size.
+  - Minors:
+    - The "A" of CAMP over the cream sweatshirt.
+    - A swatch hairline.
+    - The phone sign-off barely outgrows the hero.
+    - The film resolution on retina.
+    - The hero chips near a chin.
+    - The wall is taller than one screen.
+    - Background rhythm.
+    - The 320×568 image strip.
+    - The tablet stretch.
+    - A /teams widow.
+    - The tear crossing the mark mid-scroll.
+
+### C12 — frozen 2026-10-01 (static build copy `scratchpad/frozen/C12`, served on :5186; commit 1db82c7)
+Changes from C11:
+- **One Camp is in the desert.**
+  - In `team-bleachers-nv-v1.webp` the Manhattan skyline is replaced with a desert mountain range at sunset: a hazy far range and a darker near ridge, with a low saddle under the sun.
+  - The sky is rebuilt row by row from the true sky pixels. The sun disc, its reflection, the clouds, trees, fence, backboard and the five people are the original pixels.
+  - The backboard is masked so the range does not show through its glass.
+  - The alt text names the mountains.
+- **Values on landscape screens: the portrait whole and sharp.**
+  - The photograph is no longer cover-scaled across the width. It stands as a full-height panel on the right (52cqw; 60cqw anchored right on near-square screens).
+  - The face and the chest mark are in frame at 1440×900, 1280×800, 1920×1080, 1024×768, 1000×900 and 900×1000.
+  - Scale is ≤ 0.9× at DPR1 and ≤ 1.8× at DPR2.
+  - The words stand on black and cross onto the panel; the tear still sweeps the whole stage.
+  - Phones and tablets (≤ 4/5) are unchanged.
+- **One Camp copy contrast on phones:** a deeper scrim behind the copy band. Against the brightest 5% of the background the label now measures ≥ 5.8:1 and the line ≥ 6.5:1 (at 360, 390 and 412).
+
 ## Imagery audit and generation briefs
 The asset library covers every chapter; no new imagery was generated (no ChatGPT or image-generation tool is callable here).
 Existing stills and the film were retouched for brand accuracy: the approved mark was composited over every AI badge and the values halftone was regenerated. The C5 and C6 entries above document this.
@@ -527,7 +577,7 @@ One gap would clearly strengthen the work; its brief is below for a future sessi
 
 **Generation tools (2026-10-01).** The founder offered a Kling CLI and a GPT image tool, but neither is reachable from this cloud session. There is no CLI on the machine, no API key in the environment, and no such connector. The only connected generator is Atria's ad-creative tool, which turns a brief into branded ad concepts and spends workspace credits, so it was not used. The briefs below are ready for either tool once it is connected.
 
-**G2 — One Camp in Nevada (replaces `team-bleachers-v1`, which shows the Manhattan skyline and One World Trade Center).**
+**G2 — One Camp in Nevada (replaces `team-bleachers-v1`, which shows the Manhattan skyline and One World Trade Center).** *Interim, C12: the skyline was retouched into a desert range (`team-bleachers-nv-v1`); a generated photograph to this brief would still be stronger.*
 - **Why:** every critic since C7 has flagged that the One Camp chapter's skyline contradicts "Nevada · Est. 2023" and leans toward the "forced urban" imagery the brief warns against.
 - **Subject:** five adult teammates seen from behind on the top row of concrete bleachers at an outdoor high-school field in the Nevada high desert at golden hour, arms around each other's shoulders.
   - Behind them: open desert, low sagebrush, and a ridge of bare mountains (e.g. the Spring Mountains or the Ruby Mountains). No city skyline and no recognisable landmark.
